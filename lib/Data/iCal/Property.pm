@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 
-package Data::iCal::Property;
+package Data::ICal::Property;
 
 use base qw/Class::Accessor/;
 

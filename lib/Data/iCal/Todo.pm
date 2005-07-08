@@ -1,9 +1,9 @@
 use warnings;
 use strict;
 
-package Data::iCal::Todo;
+package Data::ICal::Todo;
 
-use base qw/Data::iCal::Entry/;
+use base qw/Data::ICal::Entry/;
 
 sub ical_entry_type { 'VTODO' }
 sub optional_unique_properties {

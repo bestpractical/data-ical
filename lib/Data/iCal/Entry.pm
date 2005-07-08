@@ -1,8 +1,8 @@
 use warnings;
 use strict;
 
-package Data::iCal::Entry;
-use Data::iCal::Property;
+package Data::ICal::Entry;
+use Data::ICal::Property;
 
 
 sub new {
@@ -33,7 +33,7 @@ sub add_property {
     my $self = shift;
     my $prop = shift;
     my $val = shift;
-    push @{$self->{'properties'}}, Data::iCal::Property->new($prop => $val);
+    push @{$self->{'properties'}}, Data::ICal::Property->new($prop => $val);
 }
 
 sub add_properties {

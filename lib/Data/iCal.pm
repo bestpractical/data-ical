@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 
-package Data::iCal;
+package Data::ICal;
 
 our $VERSION = '0.001';
 
@@ -31,7 +31,7 @@ sub add_entry {
 
 =head2 entries
 
-Returns a ref to the array of entries in this Data::iCal object
+Returns a ref to the array of entries in this Data::ICal object
 
 =cut
 
@@ -76,7 +76,7 @@ sub footer {
 
 sub product_id {
     my $self = shift;
-    return "Data::iCal $VERSION";
+    return "Data::ICal $VERSION";
 }
 
 
@@ -86,12 +86,12 @@ __END__
 
 =head1 NAME
 
-Data::iCal - [One line description of module's purpose here]
+Data::ICal - [One line description of module's purpose here]
 
 
 =head1 SYNOPSIS
 
-    use Data::iCal;
+    use Data::ICal;
 
 =for author to fill in:
     Brief code example(s) here showing commonest usage(s).
@@ -147,7 +147,7 @@ Data::iCal - [One line description of module's purpose here]
     that can be set. These descriptions must also include details of any
     configuration language used.
   
-Data::iCal requires no configuration files or environment variables.
+Data::ICal requires no configuration files or environment variables.
 
 
 =head1 DEPENDENCIES

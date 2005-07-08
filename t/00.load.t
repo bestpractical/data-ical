@@ -1,7 +1,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-use_ok( 'Data::iCal' );
+use_ok( 'Data::ICal' );
 }
 
-diag( "Testing Data::iCal $Data::iCal::Generator::VERSION" );
+diag( "Testing Data::ICal $Data::ICal::Generator::VERSION" );

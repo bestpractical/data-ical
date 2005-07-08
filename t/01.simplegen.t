@@ -5,21 +5,21 @@ use strict;
 
 use Test::More tests => 15;
 
-use_ok('Data::iCal');
+use_ok('Data::ICal');
 
-my $s = Data::iCal->new();
+my $s = Data::ICal->new();
 
-isa_ok($s, 'Data::iCal');
+isa_ok($s, 'Data::ICal');
 
 can_ok($s, 'as_string');
 
 can_ok($s, 'add_entry');
 
 
-use_ok('Data::iCal::Todo');
+use_ok('Data::ICal::Todo');
 
-my $todo = Data::iCal::Todo->new();
-isa_ok($todo, 'Data::iCal::Entry');
+my $todo = Data::ICal::Todo->new();
+isa_ok($todo, 'Data::ICal::Entry');
 
 
 can_ok($todo, 'add_property');
