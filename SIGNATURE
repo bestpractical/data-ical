@@ -1,0 +1,58 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.41.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It would check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 6ff06ae5e04b95ae4039e618dd2f36928aa6e81e Changes
+SHA1 e997a8672ab91103ff098b3d8c51d77eea2e0cb2 MANIFEST
+SHA1 b22e0ef5155ccf2e4db96b583817792f04a066f4 META.yml
+SHA1 eb6cdc4501134c5f78c7ac8245a1545bcbcaf988 Makefile.PL
+SHA1 f3a566f78efd8630655a8f736325f80d4d8e2426 README
+SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
+SHA1 05d89e1fe6d49cd518b5a3e6694cc313e655fb02 inc/Module/Install.pm
+SHA1 2e300b145ee61eea9dfd71624b17b0bc9218aa4f inc/Module/Install/Base.pm
+SHA1 29ce36027266c1839b496bf660396e0a91ab53cf inc/Module/Install/Can.pm
+SHA1 c0f347c388074beb42aad080661c7e3552110c71 inc/Module/Install/Fetch.pm
+SHA1 e094fe96aef06c68d7a424818c12e52b11f1ccdd inc/Module/Install/Makefile.pm
+SHA1 e448c6dc5351ef425e3f8bdbeb642409120bc3ca inc/Module/Install/Metadata.pm
+SHA1 134de6ff2f762873b6a1af950dd53f8e0a801d73 inc/Module/Install/Win32.pm
+SHA1 1ec06df292af7f652d33db6129e9e4c7cc8b5095 inc/Module/Install/WriteAll.pm
+SHA1 3c488e2ba828b742aa82e0d2b7e353ffae05c9a6 lib/Data/ICal.pm
+SHA1 5570cf1b64a786a218647594d3514745b5da3ca5 lib/Data/ICal/Entry.pm
+SHA1 d06cf91cae8036fef7511a69ac32a5ef03007c33 lib/Data/ICal/Entry/Alarm/Audio.pm
+SHA1 3f5ecf6a06c16c42b971c43771acf8e97033d541 lib/Data/ICal/Entry/Alarm/Display.pm
+SHA1 5dbec4e44ae37dae567fab30064f6a5238089e55 lib/Data/ICal/Entry/Alarm/Email.pm
+SHA1 67beef4e2a534eb63efb5477345fd33423d9e253 lib/Data/ICal/Entry/Alarm/Procedure.pm
+SHA1 975a6b269dc2b39ee9e915b1cc39351817f7c635 lib/Data/ICal/Entry/Event.pm
+SHA1 5783f7ff5d4d03d50c177280b02cddda82eaee48 lib/Data/ICal/Entry/FreeBusy.pm
+SHA1 f4613c523455024b138ffea371c3290bb59f3dff lib/Data/ICal/Entry/Journal.pm
+SHA1 db2a022eda29f4406de4bfa75727ecba9dc69a24 lib/Data/ICal/Entry/TimeZone.pm
+SHA1 9436e2fefa3ad8387c8504aebd73a88e20e819e2 lib/Data/ICal/Entry/Todo.pm
+SHA1 780ed3d0d11cfa2d7a8af961ada993904fc5dbf5 lib/Data/ICal/Property.pm
+SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
+SHA1 e3996b0dcef037cfa8680e1a06001264cf079584 t/01.simplegen.t
+SHA1 9e038fd9a6877a5050074994eef2c4a8cd40412a t/02.linewrap.t
+SHA1 c8f6131fc1aec7936d975ab637f2aa23249a5f7c t/03.unknown-props.t
+SHA1 399e1db517f9bdce14a3980f51299536f6ab7975 t/04.mandatory-props.t
+SHA1 8390a95bb4dae06bf01153f7ecd9f95537538737 t/05.prop-params.t
+SHA1 a30f42bcd7f659ecbd1c8b2b69ca9c51a4568625 t/06.prop-bad-quote.t
+SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
+SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.1 (GNU/Linux)
+
+iD8DBQFC563PEi9d9xCOQEYRAh3RAKCI/83TvTGI5Vt8N5NRKNU1G+SvmwCgh2AS
+Ea+K9GUgWoQeHRCJy6f9wJ4=
+=JT3P
+-----END PGP SIGNATURE-----

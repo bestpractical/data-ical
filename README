@@ -17,7 +17,7 @@ To install this module, run the following commands:
 
 DEPENDENCIES
 
-None.
+Class::Accessor
 
 
 COPYRIGHT AND LICENCE
