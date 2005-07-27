@@ -3,28 +3,26 @@
 use warnings;
 use strict;
 
-use Test::More tests => 15;
+use Test::More tests => 20;
+use Test::LongString;
+use Test::NoWarnings; # this catches our warnings like setting unknown properties
 
-use_ok('Data::ICal');
+BEGIN { use_ok('Data::ICal') }
 
 my $s = Data::ICal->new();
 
 isa_ok($s, 'Data::ICal');
 
-can_ok($s, 'as_string');
+can_ok($s, qw/as_string add_entry entries/);
 
-can_ok($s, 'add_entry');
+BEGIN { use_ok('Data::ICal::Entry::Todo') }
 
-
-use_ok('Data::ICal::Todo');
-
-my $todo = Data::ICal::Todo->new();
+my $todo = Data::ICal::Entry::Todo->new();
+isa_ok($todo, 'Data::ICal::Entry::Todo');
 isa_ok($todo, 'Data::ICal::Entry');
 
 
-can_ok($todo, 'add_property');
-can_ok($todo, 'add_properties');
-can_ok($todo, 'properties');
+can_ok($todo, qw/add_property add_properties properties/);
 
 
 $todo->add_properties( url => 'http://example.com/todo1',
@@ -41,9 +39,66 @@ ok($s->add_entry($todo));
 is(scalar @{ $s->entries},1);
 
 
-my $output = $s->as_string;
 
-like( $output, qr/^BEGIN:VCALENDAR/, "Starts ok");
-like( $output, qr/END:VCALENDAR/, "Ends ok");
-like($output, qr/BEGIN:VTODO/, "has a single vtodo");
+is_string($s->as_string, <<END_VCAL, "Got the right output");
+BEGIN:VCALENDAR
+PRODID:Data::ICal $Data::ICal::VERSION
+VERSION:2.0
+BEGIN:VTODO
+COMMENT:a first comment
+COMMENT:a second comment
+SUMMARY:This summary trumps the first summary
+URL:http://example.com/todo1
+END:VTODO
+END:VCALENDAR
+END_VCAL
 
+$todo->add_property( suMMaRy => "This one trumps number two, even though weird capitalization!");
+
+is_string($s->as_string, <<END_VCAL, "add_property is case insensitive");
+BEGIN:VCALENDAR
+PRODID:Data::ICal $Data::ICal::VERSION
+VERSION:2.0
+BEGIN:VTODO
+COMMENT:a first comment
+COMMENT:a second comment
+SUMMARY:This one trumps number two, even though weird capitalization!
+URL:http://example.com/todo1
+END:VTODO
+END:VCALENDAR
+END_VCAL
+
+BEGIN { use_ok('Data::ICal::Entry::Event') }
+
+my $event = Data::ICal::Entry::Event->new();
+isa_ok($event, 'Data::ICal::Entry::Event');
+isa_ok($event, 'Data::ICal::Entry');
+
+
+can_ok($event, qw/add_property add_properties properties/);
+
+
+$event->add_properties( 
+                        summary => 'Awesome party',
+                        description => 'at my place!',
+                    );
+
+ok($s->add_entry($event));
+is(scalar @{ $s->entries},2);
+
+is_string($s->as_string, <<END_VCAL, "got the right output");
+BEGIN:VCALENDAR
+PRODID:Data::ICal $Data::ICal::VERSION
+VERSION:2.0
+BEGIN:VTODO
+COMMENT:a first comment
+COMMENT:a second comment
+SUMMARY:This one trumps number two, even though weird capitalization!
+URL:http://example.com/todo1
+END:VTODO
+BEGIN:VEVENT
+DESCRIPTION:at my place!
+SUMMARY:Awesome party
+END:VEVENT
+END:VCALENDAR
+END_VCAL

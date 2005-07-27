@@ -2,187 +2,153 @@ use warnings;
 use strict;
 
 package Data::ICal;
-
-our $VERSION = '0.001';
+use base qw/Data::ICal::Entry/;
+our $VERSION = '0.01';
 
 use Carp;
 
-# Module implementation here
-
-
-sub new {
-    my $class = shift;
-    my $self = {};
-    bless $self, $class;
-    return $self;
-}
-
-
-
-=head2 add_entry
-
-=cut
-
-sub add_entry {
-    my $self = shift;
-    my $entry = shift;
-    push @{$self->{entries}}, $entry;
-}
-
-=head2 entries
-
-Returns a ref to the array of entries in this Data::ICal object
-
-=cut
-
-sub entries {
-    my $self = shift;
-    return $self->{'entries'} || [];
-}
-
-
-=head2 as_string
-
-
-=cut
-
-
-sub as_string {
-    my $self = shift;
-  
-    my $content;
-    $content = $self->header();
-
-
-    foreach my $entry (@{$self->entries}) { 
-        $content .= $entry->as_string();
-    }
-
-    $content .= $self->footer() ."\n";
-    return($content);
-}
-
-
-sub header {
-    my $self = shift;
-    return join("\n", "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:".$self->product_id) ."\n";
-
-}
-
-sub footer {
-    my $self = shift;
-    return "END:VCALENDAR";
-}
-
-sub product_id {
-    my $self = shift;
-    return "Data::ICal $VERSION";
-}
-
-
-
-1; # Magic true value required at end of module
-__END__
-
 =head1 NAME
 
-Data::ICal - [One line description of module's purpose here]
+Data::ICal - Generates iCalendar (RFC 2445) calendar files
 
 
 =head1 SYNOPSIS
 
     use Data::ICal;
 
-=for author to fill in:
-    Brief code example(s) here showing commonest usage(s).
-    This section will be as far as many users bother reading
-    so make it as educational and exeplary as possible.
-  
+    my $calendar = Data::ICal->new();
+
+    my $vtodo = Data::ICal::Entry::Todo->new();
+    $vtodo->add_properties(
+	# ... see Data::ICal::Entry::Todo documentation
+    );
+
+    $calendar->add_entry($vtodo);
+
+    print $calendar->as_string;
   
 =head1 DESCRIPTION
 
-=for author to fill in:
-    Write a full description of the module and its features here.
-    Use subsections (=head2, =head3) as appropriate.
+A L<Data::ICal> object represents a C<VCALENDAR> object as defined in the
+iCalendar protocol (RFC 2445, MIME type "text/calendar"), as implemented in many
+popular calendaring programs such as Apple's iCal.  L<Data::ICal> only provides
+the ability to generate ICal files, not to parse them.
 
+Each L<Data::ICal> object is a collection of "entries", which are objects of a
+subclass of L<Data::ICal::Entry>.  The types of entries defined by iCalendar
+(which refers to them as "components") include events, to-do items, journal
+entries, free/busy time indicators, and time zone descriptors; in addition,
+events and to-do items can contain alarm entries.  (Currently, L<Data::ICal>
+only implements to-do items and events.)
 
-=head1 INTERFACE 
+L<Data::ICal> is a subclass of L<Data::ICal::Entry>; see its manpage for more
+methods applicable to L<Data::ICal>.
 
-=for author to fill in:
-    Write a separate section listing the public components of the modules
-    interface. These normally consist of either subroutines that may be
-    exported, or methods that may be called on objects belonging to the
-    classes provided by the module.
+=head1 METHODS
 
+=cut
 
-=head1 DIAGNOSTICS
+=head2 new
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
+Creates a new L<Data::ICal> object; sets its C<VERSION> and C<PRODID> properties
+to "2.0" and the value of the C<product_id> method respectively.
 
-=over
+=cut
 
-=item C<< Error message here, perhaps with %s placeholders >>
+sub new {
+    my $class = shift;
+    my $self  = $class->SUPER::new(@_);
+    $self->add_properties(
+        version => '2.0',
+        prodid  => $self->product_id,
+    );
+    return $self;
+}
 
-[Description of error here]
+=head2 ical_entry_type
 
-=item C<< Another error message here >>
+Returns C<VCALENDAR>, its iCalendar entry name.
 
-[Description of error here]
+=cut
 
-[Et cetera, et cetera]
+sub ical_entry_type {'VCALENDAR'}
 
-=back
+=head2 product_id
 
+Returns the product ID used in the calendar's C<PRODID> property; you may
+wish to override this in a subclass for your own application.
+
+=cut
+
+sub product_id {
+    my $self = shift;
+    return "Data::ICal $VERSION";
+}
+
+=head2 mandatory_unique_properties
+
+According to the iCalendar standard, the following properties must be specified
+exactly one time for a calendar:
+
+      prodid version
+
+=cut
+
+sub mandatory_unique_properties {
+    qw(
+        prodid version
+    );
+}
+
+=head2 optional_unique_properties
+
+According to the iCalendar standard, the following properties may be specified
+at most one time for a calendar:
+
+      calscale method
+
+=cut
+
+sub optional_unique_properties {
+    qw(
+        calscale method
+    );
+}
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-=for author to fill in:
-    A full explanation of any configuration system(s) used by the
-    module, including the names and locations of any configuration
-    files, and the meaning of any environment variables or properties
-    that can be set. These descriptions must also include details of any
-    configuration language used.
-  
-Data::ICal requires no configuration files or environment variables.
+L<Data::ICal> requires no configuration files or environment variables.
 
 
 =head1 DEPENDENCIES
 
-=for author to fill in:
-    A list of all the other modules that this module relies upon,
-    including any restrictions on versions, and an indication whether
-    the module is part of the standard Perl distribution, part of the
-    module's distribution, or must be installed separately. ]
-
-None.
+L<Data::ICal> requires L<Class::Accessor>.
 
 
 =head1 INCOMPATIBILITIES
-
-=for author to fill in:
-    A list of any modules that this module cannot be used in conjunction
-    with. This may be due to name conflicts in the interface, or
-    competition for system or program resources, or due to internal
-    limitations of Perl (for example, many modules that use source code
-    filters are mutually incompatible).
 
 None reported.
 
 
 =head1 BUGS AND LIMITATIONS
 
-=for author to fill in:
-    A list of known problems with the module, together with some
-    indication Whether they are likely to be fixed in an upcoming
-    release. Also a list of restrictions on the features the module
-    does provide: data types that cannot be handled, performance issues
-    and the circumstances in which they may arise, practical
-    limitations on the size of data sets, special cases that are not
-    (yet) handled, etc.
+L<Data::ICal> does not support time zone daylight or standard entries, so time zone
+components are basically useless.
+
+While L<Data::ICal> tries to check which properties are required and repeatable, this
+only works in simple cases; it does not check for properties that must either both exist
+or both not exist, or for mutually exclusive properties.
+
+L<Data::ICal> does not check to see if property parameter names are known in
+general or allowed on the particular property.
+
+L<Data::ICal> does not check to see if nested entries are nested properly (alarms in
+todos and events only, everything else in calendars only).
+
+L<Data::ICal> has no automatic support for converting binary data to the appropriate
+encoding and setting the corresponding parameters.
+
+There is no L<Data::ICal::Entry::Alarm> base class.
 
 No bugs have been reported.
 
@@ -226,3 +192,7 @@ RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
 FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
 SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGES.
+
+=cut
+
+1;

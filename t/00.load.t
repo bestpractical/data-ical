@@ -4,4 +4,4 @@ BEGIN {
 use_ok( 'Data::ICal' );
 }
 
-diag( "Testing Data::ICal $Data::ICal::Generator::VERSION" );
+diag( "Testing Data::ICal $Data::ICal::VERSION" );
