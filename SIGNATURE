@@ -14,11 +14,11 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 6ff06ae5e04b95ae4039e618dd2f36928aa6e81e Changes
-SHA1 e997a8672ab91103ff098b3d8c51d77eea2e0cb2 MANIFEST
+SHA1 eb6716d81b5a7237fb6071271affdd2efbf7746c Changes
+SHA1 53db90d6e290a7fa582b1ed26e914d72bc8059f7 MANIFEST
 SHA1 b22e0ef5155ccf2e4db96b583817792f04a066f4 META.yml
-SHA1 eb6cdc4501134c5f78c7ac8245a1545bcbcaf988 Makefile.PL
-SHA1 f3a566f78efd8630655a8f736325f80d4d8e2426 README
+SHA1 bb86023dd15f8416080d5601206f31f0a7a86499 Makefile.PL
+SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
 SHA1 05d89e1fe6d49cd518b5a3e6694cc313e655fb02 inc/Module/Install.pm
 SHA1 2e300b145ee61eea9dfd71624b17b0bc9218aa4f inc/Module/Install/Base.pm
@@ -28,17 +28,19 @@ SHA1 e094fe96aef06c68d7a424818c12e52b11f1ccdd inc/Module/Install/Makefile.pm
 SHA1 e448c6dc5351ef425e3f8bdbeb642409120bc3ca inc/Module/Install/Metadata.pm
 SHA1 134de6ff2f762873b6a1af950dd53f8e0a801d73 inc/Module/Install/Win32.pm
 SHA1 1ec06df292af7f652d33db6129e9e4c7cc8b5095 inc/Module/Install/WriteAll.pm
-SHA1 3c488e2ba828b742aa82e0d2b7e353ffae05c9a6 lib/Data/ICal.pm
-SHA1 5570cf1b64a786a218647594d3514745b5da3ca5 lib/Data/ICal/Entry.pm
-SHA1 d06cf91cae8036fef7511a69ac32a5ef03007c33 lib/Data/ICal/Entry/Alarm/Audio.pm
-SHA1 3f5ecf6a06c16c42b971c43771acf8e97033d541 lib/Data/ICal/Entry/Alarm/Display.pm
-SHA1 5dbec4e44ae37dae567fab30064f6a5238089e55 lib/Data/ICal/Entry/Alarm/Email.pm
-SHA1 67beef4e2a534eb63efb5477345fd33423d9e253 lib/Data/ICal/Entry/Alarm/Procedure.pm
-SHA1 975a6b269dc2b39ee9e915b1cc39351817f7c635 lib/Data/ICal/Entry/Event.pm
-SHA1 5783f7ff5d4d03d50c177280b02cddda82eaee48 lib/Data/ICal/Entry/FreeBusy.pm
-SHA1 f4613c523455024b138ffea371c3290bb59f3dff lib/Data/ICal/Entry/Journal.pm
-SHA1 db2a022eda29f4406de4bfa75727ecba9dc69a24 lib/Data/ICal/Entry/TimeZone.pm
-SHA1 9436e2fefa3ad8387c8504aebd73a88e20e819e2 lib/Data/ICal/Entry/Todo.pm
+SHA1 11f1f01bfef701da60888baa169f7da4c69a824c lib/Data/ICal.pm
+SHA1 6bf22f2b974ab769b7de0f7b8b41660f79905b78 lib/Data/ICal/Entry.pm
+SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
+SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
+SHA1 3003fb0bba35562d27f94498f4487f7ba1810a39 lib/Data/ICal/Entry/Alarm/Email.pm
+SHA1 deba9d6f1f57d9d8910a22297fd9dfe4ef485d37 lib/Data/ICal/Entry/Alarm/Procedure.pm
+SHA1 5faece543b6869f0d12d3180624eac7670994f7b lib/Data/ICal/Entry/Event.pm
+SHA1 b9d7ac15e1c7ef7b1aa8c49f9663e1533ede6b3f lib/Data/ICal/Entry/FreeBusy.pm
+SHA1 8bec9e8cde6196dbad40738c85d55b0ca0171aa2 lib/Data/ICal/Entry/Journal.pm
+SHA1 f8a94d3181e20d6422a1ad0294685852824df982 lib/Data/ICal/Entry/TimeZone.pm
+SHA1 c094381b7739eea4a663acdd4f9af8572a19ad48 lib/Data/ICal/Entry/TimeZone/Daylight.pm
+SHA1 fc807da3b247c7b054e971efe6cd0ffc20c741ca lib/Data/ICal/Entry/TimeZone/Standard.pm
+SHA1 3b6856f5ec5951e0fb3250059aa3f40e75b03427 lib/Data/ICal/Entry/Todo.pm
 SHA1 780ed3d0d11cfa2d7a8af961ada993904fc5dbf5 lib/Data/ICal/Property.pm
 SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
 SHA1 e3996b0dcef037cfa8680e1a06001264cf079584 t/01.simplegen.t
@@ -47,12 +49,15 @@ SHA1 c8f6131fc1aec7936d975ab637f2aa23249a5f7c t/03.unknown-props.t
 SHA1 399e1db517f9bdce14a3980f51299536f6ab7975 t/04.mandatory-props.t
 SHA1 8390a95bb4dae06bf01153f7ecd9f95537538737 t/05.prop-params.t
 SHA1 a30f42bcd7f659ecbd1c8b2b69ca9c51a4568625 t/06.prop-bad-quote.t
+SHA1 9dd905b490319fdf86406082b437d4de2cc844b5 t/08.parse.t
+SHA1 21854f472cd60fd9ce6f88872691f2a744e0af5e t/ics/badlyformed.ics
+SHA1 09a4ae7fe9978bf4ab9e13ac735f7a800f231944 t/ics/test.ics
 SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
 SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.1 (GNU/Linux)
 
-iD8DBQFC563PEi9d9xCOQEYRAh3RAKCI/83TvTGI5Vt8N5NRKNU1G+SvmwCgh2AS
-Ea+K9GUgWoQeHRCJy6f9wJ4=
-=JT3P
+iD8DBQFC8PGEEi9d9xCOQEYRAp8sAJ99IC3WOZVK9Rpv7x9wsDnHyDV5sgCggdQT
+7hyANqi437JzLbdxuuiR7qM=
+=kRLu
 -----END PGP SIGNATURE-----
