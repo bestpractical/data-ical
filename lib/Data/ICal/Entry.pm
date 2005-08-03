@@ -14,7 +14,7 @@ Data::ICal::Entry - Represents an entry in an iCalendar file
 
     my $vtodo = Data::ICal::Entry::Todo->new();
     $vtodo->add_properties(
-	# ... see Data::ICal::Entry::Todo documentation
+    # ... see Data::ICal::Entry::Todo documentation
     );
 
     $calendar->add_entry($vtodo);
@@ -138,6 +138,20 @@ sub properties {
     my $self = shift;
     return $self->{'properties'};
 }
+
+
+=head2 property
+
+Given a property name returns a reference to the array of L<Data::ICal::Property> objects.
+
+=cut
+
+sub property {
+    my $self = shift;
+    my $prop = lc shift;
+	return $self->{'properties'}->{$prop};
+}
+
 
 =head2 add_property $propname => $propval
 
@@ -350,9 +364,136 @@ sub footer {
     return 'END:' . $self->ical_entry_type . "\n";
 }
 
+# mapping of event types to class (under the Data::Ical::Event namespace)
+my %_generic = (
+    vevent    => 'Event',
+    vtodo     => 'Todo',
+    vjournal  => 'Journal',
+    vfreebusy => 'FreeBusy',
+    vtimezone => 'TimeZone',
+    standard  => 'TimeZone::Standard',
+    daylight  => 'TimeZone::Daylight',
+);
+
+
+=head2 parse_object
+
+Translate a L<Text::vFile::asData> sub object into the appropriate 
+L<Data::iCal::Event> subtype.
+
+=cut 
+
+
+# TODO: this is currently recursive which could blow the stack -
+#       it might be worth refactoring to make it sequential
+sub parse_object {
+    my ($self,$object) = @_;
+
+
+    my $type = $object->{type};
+    
+    
+    my $new_self;
+    
+    # First check to see if it's generic long name just in case there 
+    # event turns out to be a VGENERIC entry type
+    if (my $class = $_generic{lc($type)}) {
+        $new_self = $self->_parse_data_ical_generic($class, $object);     
+    # then look for specific overrides
+    } elsif (my $sub = $self->can('_parse_'.lc($type))) {
+        $new_self = $self->$sub($object);
+    # bitch
+    } else {
+        warn "Can't parse type $type yet";
+        return;
+    }
+        
+    # recurse through sub-objects
+    foreach my $sub_object(@{ $object->{objects} }) {
+        $new_self->parse_object($sub_object);
+    }
+
+}
+
+
+
+# special because we want to use ourselves as the parent
+sub _parse_vcalendar {
+    my ($self, $object) = @_;
+    $self->_parse_generic_event($self, $object);
+    return $self;
+}
+
+# mapping of action types to class (under the Data::Ical::Event::Alarm namespace)
+my %_action_map = (
+    AUDIO      => 'Audio',
+    DISPLAY    => 'Display',
+    EMAIL      => 'Email',
+    PROCEDURE  => 'Procedure',
+);
+
+# alarms have actions
+sub _parse_valarm {
+    my ($parent, $object) = @_;
+
+    # ick
+    my $action = $object->{properties}->{ACTION}->[0]->{value};
+    die "Can't parse VALARM with action $action" unless exists $_action_map{$action};
+
+    
+    my $alarm_class = "Data::ICal::Entry::Alarm::".$_action_map{$action};
+    eval "require $alarm_class";
+    die "Failed to require $alarm_class : $@" if $@;
+
+    $alarm_class->import;
+    my $alarm = $alarm_class->new;
+    $parent->_parse_generic_event($alarm, $object);
+    $parent->add_entry($alarm);
+    return $alarm;
+
+    
+}    
+
+# generic event handler
+sub _parse_data_ical_generic {
+    my ($parent, $class, $object) = @_;
+    
+    my $entry_class = "Data::ICal::Entry::$class";
+    eval "require $entry_class";
+    die "Failed to require $entry_class : $@" if $@;
+    
+    $entry_class->import;
+    my $entry = $entry_class->new;
+    $parent->_parse_generic_event($entry, $object);
+    $parent->add_entry($entry);
+    return $entry;
+}
+
+# handle transferring of properties
+sub _parse_generic_event {
+    my ($parent, $entry, $object) = @_;
+
+    my $p = $object->{properties};
+    while (my($key,$val) = each(%$p)) {
+        foreach my $occurence (@$val) {
+            my $prop;
+            # handle optional params and 'normal' key/value pairs
+            # TODO: line wrapping?
+            if ($occurence->{param}) {
+                $prop = [ $occurence->{value}, $occurence->{param} ];
+            } else {
+                $prop = $occurence->{value};
+            }
+            $entry->add_property( lc($key) => $prop );            
+        }
+    }
+    return $entry;
+}
+
+
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >>
+Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
 
 
 =head1 LICENCE AND COPYRIGHT

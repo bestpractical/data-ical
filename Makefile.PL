@@ -8,6 +8,8 @@ license('perl');
 build_requires('Test::More');
 build_requires('Test::Warn');
 build_requires('Test::NoWarnings');
+build_requires('Test::LongString');
 requires('Class::Accessor');
+requires('Text::vFile::asData');
 
 &WriteAll;

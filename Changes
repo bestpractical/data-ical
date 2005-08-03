@@ -1,5 +1,9 @@
 Revision history for Data-ICal
 
+0.02  Wed Aug 03 11:25:00 EDT 2005
+    * Parser support, thanks to Simon Wistow
+    * Full Time Zone support
+
 0.01  Wed Jul 27 11:52:12 EDT 2005
 
     * Initial release

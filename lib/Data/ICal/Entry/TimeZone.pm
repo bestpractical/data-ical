@@ -64,7 +64,7 @@ sub optional_unique_properties {
 =head2 mandatory_unique_properties
 
 According to the iCalendar standard, the C<tzid> property must be specified
-exact one time in a time zone declaration.
+exactly one time in a time zone declaration.
 
 =cut
 
@@ -76,7 +76,7 @@ sub mandatory_unique_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >>
+Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
 
 
 =head1 LICENCE AND COPYRIGHT

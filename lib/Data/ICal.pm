@@ -3,7 +3,10 @@ use strict;
 
 package Data::ICal;
 use base qw/Data::ICal::Entry/;
-our $VERSION = '0.01';
+
+use Text::vFile::asData;
+
+our $VERSION = '0.02';
 
 use Carp;
 
@@ -20,8 +23,13 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
 
     my $vtodo = Data::ICal::Entry::Todo->new();
     $vtodo->add_properties(
-	# ... see Data::ICal::Entry::Todo documentation
+        # ... see Data::ICal::Entry::Todo documentation
     );
+
+    # ... or
+
+    $calendar = Data::ICal->new('foo.ics'); # parse existing file
+
 
     $calendar->add_entry($vtodo);
 
@@ -50,20 +58,54 @@ methods applicable to L<Data::ICal>.
 
 =head2 new
 
-Creates a new L<Data::ICal> object; sets its C<VERSION> and C<PRODID> properties
-to "2.0" and the value of the C<product_id> method respectively.
+Creates a new L<Data::ICal> object. 
+
+If a file name is passed, this parses that file into the object; otherwise it
+just sets its C<VERSION> and C<PRODID> properties to "2.0" and the value of the
+C<product_id> method respectively.
+
+Returns undef upon failure to open file or parse .ics file.
 
 =cut
 
 sub new {
     my $class = shift;
     my $self  = $class->SUPER::new(@_);
-    $self->add_properties(
-        version => '2.0',
-        prodid  => $self->product_id,
-    );
+
+    if (@_) {
+       $self->parse_file(@_) || return undef;
+    } else {
+       $self->add_properties(
+            version => '2.0',
+            prodid  => $self->product_id,
+       );
+    }
     return $self;
 }
+
+=head2 parse_file
+
+Parse a .ics file and populate a L<Data::ICal> object.
+
+=cut
+
+sub parse_file {
+    my ($self, $file) = @_;
+
+ 
+    # open the file (checking as we go, like good little Perl mongers)
+    open my($fh), $file or return undef;
+    my $cal = Text::vFile::asData->new->parse($fh) || return undef;
+    close $fh;
+
+    return undef unless exists $cal->{objects};
+    # loop through all the vcards
+    foreach my $object (@{ $cal->{objects} }) {
+        $self->parse_object($object);
+    }
+	return 1;
+}
+
 
 =head2 ical_entry_type
 
@@ -159,7 +201,7 @@ L<http://rt.cpan.org>.
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >>
+Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
 
 
 =head1 LICENCE AND COPYRIGHT
@@ -194,5 +236,4 @@ SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGES.
 
 =cut
-
 1;

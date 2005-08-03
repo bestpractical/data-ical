@@ -74,7 +74,7 @@ sub optional_repeatable_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >>
+Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
 
 
 =head1 LICENCE AND COPYRIGHT

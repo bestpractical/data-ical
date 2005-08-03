@@ -1,4 +1,4 @@
-Data-ICal version 0.0.1
+Data-ICal
 
 Data::ICal is a straightforward generator for iCalendar (RFC 2445) files, such
 as those used in Apple's iCal.
