@@ -81,8 +81,8 @@ exactly one time in a standard time declaration:
 sub mandatory_unique_properties {
     qw(
         dtstart
-		tzoffsetto 
-		tzoffsetfrom 
+        tzoffsetto
+        tzoffsetfrom
     );
 }
 
@@ -98,9 +98,9 @@ any number of times for a standard time declaration:
 sub optional_repeatable_properties {
     qw(
         comment
-		rdate 
-		rrule 
-		tzname 
+        rdate
+        rrule
+        tzname
     );
 }
 

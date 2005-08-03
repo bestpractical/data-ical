@@ -73,12 +73,12 @@ sub new {
     my $self  = $class->SUPER::new(@_);
 
     if (@_) {
-       $self->parse_file(@_) || return undef;
+        $self->parse_file(@_) || return undef;
     } else {
-       $self->add_properties(
+        $self->add_properties(
             version => '2.0',
             prodid  => $self->product_id,
-       );
+        );
     }
     return $self;
 }
@@ -90,22 +90,21 @@ Parse a .ics file and populate a L<Data::ICal> object.
 =cut
 
 sub parse_file {
-    my ($self, $file) = @_;
+    my ( $self, $file ) = @_;
 
- 
     # open the file (checking as we go, like good little Perl mongers)
-    open my($fh), $file or return undef;
+    open my ($fh), $file or return undef;
     my $cal = Text::vFile::asData->new->parse($fh) || return undef;
     close $fh;
 
     return undef unless exists $cal->{objects};
+
     # loop through all the vcards
-    foreach my $object (@{ $cal->{objects} }) {
+    foreach my $object ( @{ $cal->{objects} } ) {
         $self->parse_object($object);
     }
-	return 1;
+    return 1;
 }
-
 
 =head2 ical_entry_type
 
@@ -236,4 +235,5 @@ SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGES.
 
 =cut
+
 1;
