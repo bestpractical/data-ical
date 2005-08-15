@@ -14,9 +14,9 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 eb6716d81b5a7237fb6071271affdd2efbf7746c Changes
+SHA1 254c3433bb30925445eee11efa8c1dbf8253d5aa Changes
 SHA1 53db90d6e290a7fa582b1ed26e914d72bc8059f7 MANIFEST
-SHA1 b22e0ef5155ccf2e4db96b583817792f04a066f4 META.yml
+SHA1 dd4b3e4ce04f91fc17cbb5b7ef708f4627cbd033 META.yml
 SHA1 bb86023dd15f8416080d5601206f31f0a7a86499 Makefile.PL
 SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
@@ -28,7 +28,7 @@ SHA1 e094fe96aef06c68d7a424818c12e52b11f1ccdd inc/Module/Install/Makefile.pm
 SHA1 e448c6dc5351ef425e3f8bdbeb642409120bc3ca inc/Module/Install/Metadata.pm
 SHA1 134de6ff2f762873b6a1af950dd53f8e0a801d73 inc/Module/Install/Win32.pm
 SHA1 1ec06df292af7f652d33db6129e9e4c7cc8b5095 inc/Module/Install/WriteAll.pm
-SHA1 11f1f01bfef701da60888baa169f7da4c69a824c lib/Data/ICal.pm
+SHA1 f416e8f1fbd34222d693028e56323fc033ff3b83 lib/Data/ICal.pm
 SHA1 6bf22f2b974ab769b7de0f7b8b41660f79905b78 lib/Data/ICal/Entry.pm
 SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
 SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
@@ -49,7 +49,7 @@ SHA1 c8f6131fc1aec7936d975ab637f2aa23249a5f7c t/03.unknown-props.t
 SHA1 399e1db517f9bdce14a3980f51299536f6ab7975 t/04.mandatory-props.t
 SHA1 8390a95bb4dae06bf01153f7ecd9f95537538737 t/05.prop-params.t
 SHA1 a30f42bcd7f659ecbd1c8b2b69ca9c51a4568625 t/06.prop-bad-quote.t
-SHA1 9dd905b490319fdf86406082b437d4de2cc844b5 t/08.parse.t
+SHA1 b452f3c168715e7ac6706a6e0ee9cad662872e06 t/08.parse.t
 SHA1 21854f472cd60fd9ce6f88872691f2a744e0af5e t/ics/badlyformed.ics
 SHA1 09a4ae7fe9978bf4ab9e13ac735f7a800f231944 t/ics/test.ics
 SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
@@ -57,7 +57,7 @@ SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.1 (GNU/Linux)
 
-iD8DBQFC8PGEEi9d9xCOQEYRAp8sAJ99IC3WOZVK9Rpv7x9wsDnHyDV5sgCggdQT
-7hyANqi437JzLbdxuuiR7qM=
-=kRLu
+iD8DBQFDAPqFEi9d9xCOQEYRAmDtAJwK7mEuhDSUFtNZHhrKcW3ammrC6ACguSvM
+cIzrhacPJy40jTCDqV9lFtk=
+=qLxp
 -----END PGP SIGNATURE-----
