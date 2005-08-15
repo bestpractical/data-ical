@@ -15,10 +15,10 @@ BEGIN { use_ok('Data::ICal') }
 my $cal;
 $cal = Data::ICal->new(filename => 't/ics/nonexistent.ics');
 
-ok(not defined $cal, "Caught no file death");
+ok((not defined $cal), "Caught no file death");
 
 $cal = Data::ICal->new(filename => 't/ics/badlyformed.ics'); 
-ok(not defined $cal, "Caught badly formed ics file death"); 
+ok((not defined $cal), "Caught badly formed ics file death"); 
 
 $cal = Data::ICal->new(filename => 't/ics/test.ics');
 
