@@ -28,7 +28,8 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
 
     # ... or
 
-    $calendar = Data::ICal->new('foo.ics'); # parse existing file
+    $calendar = Data::ICal->new(filename => 'foo.ics'); # parse existing file
+    $calendar = Data::ICal->new(data => 'BEGIN:VCALENDAR...'); # parse existing file
 
 
     $calendar->add_entry($vtodo);
@@ -39,8 +40,7 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
 
 A L<Data::ICal> object represents a C<VCALENDAR> object as defined in the
 iCalendar protocol (RFC 2445, MIME type "text/calendar"), as implemented in many
-popular calendaring programs such as Apple's iCal.  L<Data::ICal> only provides
-the ability to generate ICal files, not to parse them.
+popular calendaring programs such as Apple's iCal.
 
 Each L<Data::ICal> object is a collection of "entries", which are objects of a
 subclass of L<Data::ICal::Entry>.  The types of entries defined by iCalendar
@@ -56,15 +56,16 @@ methods applicable to L<Data::ICal>.
 
 =cut
 
-=head2 new
+=head2 new [ data => $data, ] [ filename => $file ]
 
 Creates a new L<Data::ICal> object. 
 
-If a file name is passed, this parses that file into the object; otherwise it
-just sets its C<VERSION> and C<PRODID> properties to "2.0" and the value of the
-C<product_id> method respectively.
+If it is given a filename or data argument is passed, then this parses the
+content of the file or string into the object; otherwise it just sets its
+C<VERSION> and C<PRODID> properties to "2.0" and the value of the C<product_id>
+method respectively.
 
-Returns undef upon failure to open file or parse .ics file.
+Returns undef upon failure to open or parse the file or data.
 
 =cut
 
@@ -73,7 +74,7 @@ sub new {
     my $self  = $class->SUPER::new(@_);
 
     if (@_) {
-        $self->parse_file(@_) || return undef;
+        $self->parse(@_) || return;
     } else {
         $self->add_properties(
             version => '2.0',
@@ -83,21 +84,40 @@ sub new {
     return $self;
 }
 
-=head2 parse_file
+=head2 parse [ data => $data, ] [ filename => $file ]
 
-Parse a .ics file and populate a L<Data::ICal> object.
+Parse a .ics file or string containing one, and populate C<$self> with
+its contents.
+
+Should only be called once on a given object, and will be automatically
+called by C<new> if you provide arguments to C<new>.
 
 =cut
 
-sub parse_file {
-    my ( $self, $file ) = @_;
+sub parse {
+    my $self = shift;
+    my %args = (
+      filename => undef,
+      data => undef,
+      @_);
+
+    return unless defined $args{filename} or defined $args{data};
+
+    my @lines;
+
+    if (defined $args{filename}) {
+	open my $fh, '<', $args{filename} or return;
+	@lines = <$fh>;
+    } else {
+	# This regexp splits after newlines, but keeps them in the string, kind
+	# of like <$fh> does.
+	@lines = split /^/m, $args{data};
+    } 
 
     # open the file (checking as we go, like good little Perl mongers)
-    open my ($fh), $file or return undef;
-    my $cal = Text::vFile::asData->new->parse($fh) || return undef;
-    close $fh;
+    my $cal = Text::vFile::asData->new->parse_lines(@lines);
 
-    return undef unless exists $cal->{objects};
+    return unless $cal and exists $cal->{objects};
 
     # loop through all the vcards
     foreach my $object ( @{ $cal->{objects} } ) {

@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use constant TESTS_IN_TEST_CALENDAR => 15;
-use Test::More tests => 6 + 2 * TESTS_IN_TEST_CALENDAR;
+use Test::More tests => 8 + 3 * TESTS_IN_TEST_CALENDAR;
 use Test::LongString;
 use Test::NoWarnings; # this catches our warnings like setting unknown properties
 
@@ -12,35 +12,44 @@ BEGIN { use_ok('Data::ICal') }
 
 
 
-our $s;
-$s = Data::ICal->new('t/ics/nonexistent.ics');
+my $cal;
+$cal = Data::ICal->new(filename => 't/ics/nonexistent.ics');
 
-is($s, undef, "Caught no file death");
+is($cal, undef, "Caught no file death");
 
-$s = Data::ICal->new('t/ics/badlyformed.ics'); 
-is($s, undef, "Caught badly formed ics file death"); 
+$cal = Data::ICal->new(filename => 't/ics/badlyformed.ics'); 
+is($cal, undef, "Caught badly formed ics file death"); 
 
-$s = Data::ICal->new('t/ics/test.ics');
+$cal = Data::ICal->new(filename => 't/ics/test.ics');
 
-isa_ok($s, 'Data::ICal');
+isa_ok($cal, 'Data::ICal');
 
-test_calendar();
+test_calendar($cal);
+
+my $data = $cal->as_string;
+like($data, qr/^BEGIN:VCALENDAR/, "looks like a calendar");
+
+my $roundtripped_from_data_cal = Data::ICal->new(data => $data);
+isa_ok($roundtripped_from_data_cal, 'Data::ICal');
+
+test_calendar($roundtripped_from_data_cal);
 
 SKIP: {
-    skip "Can't create t/ics/out.ics: $!", 1 + TESTS_IN_TEST_CALENDAR unless open(ICS,">t/ics/out.ics");
-    print ICS $s->as_string;
-    close ICS;
+    my $CAL_FILENAME = "t/ics/out.ics";
+    skip "Can't create $CAL_FILENAME: $!", 1 + TESTS_IN_TEST_CALENDAR unless open my $fh,'>', $CAL_FILENAME;
+    print $fh $cal->as_string;
+    close $fh;
 
-    undef($s); 
-    $s = Data::ICal->new('t/ics/out.ics');
-    isa_ok($s, 'Data::ICal');
+    my $roundtripped_cal = Data::ICal->new(filename => $CAL_FILENAME);
+    isa_ok($roundtripped_cal, 'Data::ICal');
 
-    test_calendar();
+    test_calendar($roundtripped_cal);
 
-    unlink('t/ics/out.ics');
+    unlink $CAL_FILENAME;
 }
 
 sub test_calendar {
+    my $s = shift;
     is($s->ical_entry_type, 'VCALENDAR', "Is a VCALENDAR");
     my $id = $s->property('prodid')->[0]->value;
     my $name = $s->property('x-wr-calname')->[0]->value;
