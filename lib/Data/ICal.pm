@@ -97,22 +97,24 @@ called by C<new> if you provide arguments to C<new>.
 sub parse {
     my $self = shift;
     my %args = (
-      filename => undef,
-      data => undef,
-      @_);
+        filename => undef,
+        data     => undef,
+        @_
+    );
 
     return unless defined $args{filename} or defined $args{data};
 
     my @lines;
 
-    if (defined $args{filename}) {
-	open my $fh, '<', $args{filename} or return;
-	@lines = <$fh>;
+    if ( defined $args{filename} ) {
+        open my $fh, '<', $args{filename} or return;
+        @lines = <$fh>;
     } else {
-	# This regexp splits after newlines, but keeps them in the string, kind
-	# of like <$fh> does.
-	@lines = split /^/m, $args{data};
-    } 
+
+       # This regexp splits after newlines, but keeps them in the string, kind
+       # of like <$fh> does.
+        @lines = split /^/m, $args{data};
+    }
 
     # open the file (checking as we go, like good little Perl mongers)
     my $cal = Text::vFile::asData->new->parse_lines(@lines);
