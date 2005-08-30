@@ -1,5 +1,5 @@
 name: Data-ICal
-version: 0.03
+version: 0.04
 abstract: Generates iCalendar (RFC 2445) calendar files
 author: Jesse Vincent <jesse@bestpractical.com>
 license: perl

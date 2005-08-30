@@ -1,5 +1,8 @@
 Revision history for Data-ICal
 
+0.04  Tue Aug 30 05:30:59 EDT 2005
+    * Better roundtripping to .ics
+
 0.03  Mon Aug 15 16:05:00 EDT 2005
     * Can parse strings, not just files (this is an incompatible API change)
 

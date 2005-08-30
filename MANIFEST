@@ -34,6 +34,7 @@ t/03.unknown-props.t
 t/04.mandatory-props.t
 t/05.prop-params.t
 t/06.prop-bad-quote.t
+t/07.roundtrip.t
 t/08.parse.t
 t/ics/badlyformed.ics
 t/ics/test.ics
