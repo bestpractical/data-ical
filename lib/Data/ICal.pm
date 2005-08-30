@@ -106,17 +106,15 @@ sub parse {
 
     my @lines;
 
+    # open the file (checking as we go, like good little Perl mongers)
     if ( defined $args{filename} ) {
         open my $fh, '<', $args{filename} or return;
-        @lines = <$fh>;
+        @lines = map {chomp; $_} <$fh>;
     } else {
-
-       # This regexp splits after newlines, but keeps them in the string, kind
-       # of like <$fh> does.
-        @lines = split /^/m, $args{data};
+        @lines = split /\n/, $args{data};
     }
 
-    # open the file (checking as we go, like good little Perl mongers)
+    # Parse the lines; Text::vFile doesn't want trailing newlines
     my $cal = Text::vFile::asData->new->parse_lines(@lines);
 
     return unless $cal and exists $cal->{objects};
