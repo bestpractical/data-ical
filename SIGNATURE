@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.41.
+signed via the Module::Signature module, version 0.50.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It would check each file's integrity, as well as the signature's
+It will check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -14,22 +14,22 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 2e3741c0bcf5296bccf0c42da841381195269d9a Changes
+SHA1 a9afec8c46cfce0dd5d2e4fadf4ccf2f543bb8c4 Changes
 SHA1 5045008d1f5def4f41decd1f9846a581b02a5351 MANIFEST
-SHA1 fb53c69de38ef455d141f749681b25b3dd22a93a META.yml
+SHA1 82c665b0d229a30b60f026d477d9e4e3a6667dc7 META.yml
 SHA1 bb86023dd15f8416080d5601206f31f0a7a86499 Makefile.PL
 SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
-SHA1 05d89e1fe6d49cd518b5a3e6694cc313e655fb02 inc/Module/Install.pm
-SHA1 2e300b145ee61eea9dfd71624b17b0bc9218aa4f inc/Module/Install/Base.pm
-SHA1 29ce36027266c1839b496bf660396e0a91ab53cf inc/Module/Install/Can.pm
-SHA1 c0f347c388074beb42aad080661c7e3552110c71 inc/Module/Install/Fetch.pm
-SHA1 e094fe96aef06c68d7a424818c12e52b11f1ccdd inc/Module/Install/Makefile.pm
-SHA1 e448c6dc5351ef425e3f8bdbeb642409120bc3ca inc/Module/Install/Metadata.pm
-SHA1 134de6ff2f762873b6a1af950dd53f8e0a801d73 inc/Module/Install/Win32.pm
-SHA1 1ec06df292af7f652d33db6129e9e4c7cc8b5095 inc/Module/Install/WriteAll.pm
-SHA1 ab0708804e2124ab41fb4d554ad5ba555baaa2cd lib/Data/ICal.pm
-SHA1 6bf22f2b974ab769b7de0f7b8b41660f79905b78 lib/Data/ICal/Entry.pm
+SHA1 9d84ff825e3bf106c85de6d921495556999fcd3d inc/Module/Install.pm
+SHA1 9dbed9ff1790473ec3136a606f062fa050326c43 inc/Module/Install/Base.pm
+SHA1 d37430abee4687a4861b1312e5bea6953e6afe4d inc/Module/Install/Can.pm
+SHA1 a784ba7d2b096084b2ffed3a7d853e2847f4dedb inc/Module/Install/Fetch.pm
+SHA1 044cd2f160364fe36eca2ba35e16e7cf46c79138 inc/Module/Install/Makefile.pm
+SHA1 49e0d839edeb0f3e9af12fd2444b98365393a23e inc/Module/Install/Metadata.pm
+SHA1 2a1b494a7e5adaa3216e86d909dd5bf87d084c80 inc/Module/Install/Win32.pm
+SHA1 4a23fafe534363a99f0d936df9086ad243e692c9 inc/Module/Install/WriteAll.pm
+SHA1 0eb840c6fecefe5e902030f3b8bf1881524022cf lib/Data/ICal.pm
+SHA1 7a467989a9e580f3ed212e022ba17e63ed46b529 lib/Data/ICal/Entry.pm
 SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
 SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
 SHA1 3003fb0bba35562d27f94498f4487f7ba1810a39 lib/Data/ICal/Entry/Alarm/Email.pm
@@ -41,9 +41,9 @@ SHA1 f8a94d3181e20d6422a1ad0294685852824df982 lib/Data/ICal/Entry/TimeZone.pm
 SHA1 c094381b7739eea4a663acdd4f9af8572a19ad48 lib/Data/ICal/Entry/TimeZone/Daylight.pm
 SHA1 fc807da3b247c7b054e971efe6cd0ffc20c741ca lib/Data/ICal/Entry/TimeZone/Standard.pm
 SHA1 3b6856f5ec5951e0fb3250059aa3f40e75b03427 lib/Data/ICal/Entry/Todo.pm
-SHA1 780ed3d0d11cfa2d7a8af961ada993904fc5dbf5 lib/Data/ICal/Property.pm
+SHA1 02d25634e00c6266f750da77e3015e90dc6b76bd lib/Data/ICal/Property.pm
 SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
-SHA1 e3996b0dcef037cfa8680e1a06001264cf079584 t/01.simplegen.t
+SHA1 c3da220214dd88626ba4aa2cef6f5becdb919b37 t/01.simplegen.t
 SHA1 9e038fd9a6877a5050074994eef2c4a8cd40412a t/02.linewrap.t
 SHA1 c8f6131fc1aec7936d975ab637f2aa23249a5f7c t/03.unknown-props.t
 SHA1 399e1db517f9bdce14a3980f51299536f6ab7975 t/04.mandatory-props.t
@@ -58,7 +58,7 @@ SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.1 (GNU/Linux)
 
-iD8DBQFDRcfUEi9d9xCOQEYRAuSmAJoD5It25CEQUFtniZajgJ1uEuQiygCgifHH
-OZijpN6zibiETLzJ/SEUKeY=
-=IKC+
+iD8DBQFD1jwyEi9d9xCOQEYRAtnPAJ40xMp21GFwoZw39EA6tVI365vn1QCfS5d9
+YNDclDEmHbXsH4M5ioIfxNA=
+=JR1V
 -----END PGP SIGNATURE-----
