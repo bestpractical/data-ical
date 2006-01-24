@@ -62,7 +62,7 @@ VERSION:2.0
 BEGIN:VTODO
 COMMENT:a first comment
 COMMENT:a second comment
-SUMMARY:This one trumps number two, even though weird capitalization!
+SUMMARY:This one trumps number two\\, even though weird capitalization!
 URL:http://example.com/todo1
 END:VTODO
 END:VCALENDAR
@@ -80,7 +80,7 @@ can_ok($event, qw/add_property add_properties properties/);
 
 $event->add_properties( 
                         summary => 'Awesome party',
-                        description => 'at my place!',
+                        description => 'at my \ place,\nOn 5th St.;',
                     );
 
 ok($s->add_entry($event));
@@ -93,11 +93,11 @@ VERSION:2.0
 BEGIN:VTODO
 COMMENT:a first comment
 COMMENT:a second comment
-SUMMARY:This one trumps number two, even though weird capitalization!
+SUMMARY:This one trumps number two\\, even though weird capitalization!
 URL:http://example.com/todo1
 END:VTODO
 BEGIN:VEVENT
-DESCRIPTION:at my place!
+DESCRIPTION:at my \\ place\\,\\nOn 5th St.\\;
 SUMMARY:Awesome party
 END:VEVENT
 END:VCALENDAR

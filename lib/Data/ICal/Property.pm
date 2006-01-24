@@ -7,6 +7,8 @@ use base qw/Class::Accessor/;
 
 use Carp;
 
+our $VERSION = '0.06';
+
 =head1 NAME
 
 Data::ICal::Property - Represents a property on an entry in an iCalendar file
@@ -75,11 +77,38 @@ sub as_string {
     my $self   = shift;
     my $string = uc( $self->key )
         . $self->_parameters_as_string . ":"
-        . $self->value . "\n";
+        . $self->_value_as_string . "\n";
 
   # Assumption: the only place in an iCalendar that needs folding are property
   # lines
     return $self->_fold($string);
+}
+
+=begin private
+
+=head2 _value_as_string
+
+Returns the property's value as a string.  
+
+Values are quoted according the ICal spec:
+L<http://www.kanzaki.com/docs/ical/text.html>.
+
+=end private
+
+=cut
+
+sub _value_as_string {
+    my $self = shift;
+    my $value = $self->value();
+
+    $value =~ s/\\/\\/gs;
+    $value =~ s/\Q;/\\;/gs;
+    $value =~ s/,/\\,/gs;
+    $value =~ s/\n/\\n/gs;
+    $value =~ s/\\N/\\N/gs;
+
+    return $value;
+
 }
 
 =begin private
