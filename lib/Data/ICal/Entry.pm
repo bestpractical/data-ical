@@ -167,6 +167,11 @@ The keys of the hash are parameter names; the values should be either strings or
 of strings, depending on whether the parameter should have one or multiple (to be comma-separated)
 values.
 
+Examples of setting parameters:
+
+ # Add a property with a parameter of VALUE set to 'DATE'
+ $event->add_property( rdate => [ $date, { VALUE => 'DATE' } ] );
+
 =cut
 
 sub add_property {
