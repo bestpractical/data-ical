@@ -56,14 +56,18 @@ methods applicable to L<Data::ICal>.
 
 =cut
 
-=head2 new [ data => $data, ] [ filename => $file ]
+=head2 new [ data => $data, ] [ filename => $file ], [ vcal10 => $bool ]
 
 Creates a new L<Data::ICal> object. 
 
 If it is given a filename or data argument is passed, then this parses the
-content of the file or string into the object; otherwise it just sets its
-C<VERSION> and C<PRODID> properties to "2.0" and the value of the C<product_id>
-method respectively.
+content of the file or string into the object.  If the C<vcal10> flag is passed,
+parses it according to vCalendar 1.0, not iCalendar 2.0; this in particular impacts
+the parsing of continuation lines in quoted-printable sections.
+
+If a filename or data argument is not passed, this just sets its C<VERSION> and
+C<PRODID> properties to "2.0" (or "1.0" if the C<vcal10> flag is passed) and
+the value of the C<product_id> method respectively.
 
 Returns undef upon failure to open or parse the file or data.
 
@@ -73,11 +77,20 @@ sub new {
     my $class = shift;
     my $self  = $class->SUPER::new(@_);
 
-    if (@_) {
-        $self->parse(@_) || return;
+    my %args = (
+        filename => undef,
+        data     => undef,
+        vcal10   => 0,
+        @_
+    );
+
+    $self->vcal10($args{vcal10});
+
+    if (defined $args{filename} or defined $args{data}) {
+        $self->parse(%args) || return;
     } else {
         $self->add_properties(
-            version => '2.0',
+            version => ($self->vcal10 ? '1.0' : '2.0'),
             prodid  => $self->product_id,
         );
     }
