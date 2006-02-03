@@ -206,8 +206,7 @@ general or allowed on the particular property.
 L<Data::ICal> does not check to see if nested entries are nested properly (alarms in
 todos and events only, everything else in calendars only).
 
-L<Data::ICal> has no automatic support for converting binary data to the appropriate
-encoding and setting the corresponding parameters.
+The only property encoding supported by L<Data::ICal> is quoted printable.
 
 There is no L<Data::ICal::Entry::Alarm> base class.
 

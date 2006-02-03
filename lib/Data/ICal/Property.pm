@@ -6,6 +6,7 @@ package Data::ICal::Property;
 use base qw/Class::Accessor/;
 
 use Carp;
+use MIME::QuotedPrint ();
 
 our $VERSION = '0.06';
 
@@ -17,10 +18,16 @@ Data::ICal::Property - Represents a property on an entry in an iCalendar file
 =head1 DESCRIPTION
 
 A L<Data::ICal::Property> object represents a single property on an
-entry in an iCalendar file.
+entry in an iCalendar file.  Properties have parameters in addition to their value.
 
-You shouldn't need to access L<Data::ICal::Property> values directly -- just use
+You shouldn't need to create L<Data::ICal::Property> values directly -- just use
 C<add_property> in L<Data::ICal::Entry>.
+
+The C<encoding> parameter value is only interpreted by L<Data::ICal> in the
+C<decoded_value> and C<set_value_with_encoding> methods: all other methods access
+the encoded version directly (if there is an encoding).
+
+Currently, the only supported encoding is C<QUOTED-PRINTABLE>.
 
 =head1 METHODS
 
@@ -62,10 +69,71 @@ Gets or sets the value of this property.
 =head2 parameters [$param_hash]
 
 Gets or sets the parameter hash reference of this property.
+Parameter keys are converted to upper case.
 
 =cut
 
-__PACKAGE__->mk_accessors(qw(key value parameters));
+__PACKAGE__->mk_accessors(qw(key value _parameters));
+
+sub parameters {
+    my $self = shift;
+    
+    if (@_) {
+        my $params = shift;
+        my $new_params = {};
+        while (my ($k, $v) = each %$params) {
+            $new_params->{uc $k} = $v;
+        } 
+        $self->_parameters($new_params);
+    } 
+
+    return $self->_parameters;
+} 
+
+my %ENCODINGS = (
+    'QUOTED-PRINTABLE' => { encode => \&MIME::QuotedPrint::encode, 
+                            decode => \&MIME::QuotedPrint::decode },
+); 
+
+=head2 decoded_value
+
+Gets the value of this property, converted from the encoding specified in 
+its encoding parameter.  (That is, C<value> will return the encoded version;
+this will apply the encoding.)  If the encoding is not specified or recognized, just returns
+the raw value.
+
+=cut
+
+sub decoded_value {
+    my $self = shift;
+    my $value = $self->value;
+    my $encoding = uc $self->parameters->{'ENCODING'};
+
+    if ($ENCODINGS{$encoding}) {
+        return $ENCODINGS{$encoding}{'decode'}->($value);
+    } else {
+        return $value;
+    } 
+} 
+
+=head2 set_value_with_encoding $decoded_value, $encoding
+
+Encodes C<$decoded_value> in the encoding C<$encoding>; sets the value to the encoded
+value and the encoding parameter to C<$encoding>.  Does nothing if the encoding is not
+recognized.
+
+=cut
+
+sub set_value_with_encoding {
+    my $self = shift;
+    my $decoded_value = shift;
+    my $encoding = uc shift;
+
+    if ($ENCODINGS{$encoding}) {
+        $self->value( $ENCODINGS{$encoding}{'encode'}->($decoded_value) );
+        $self->parameters->{'ENCODING'} = $encoding;
+    } 
+} 
 
 =head2 as_string
 
@@ -128,7 +196,7 @@ sub _parameters_as_string {
     for my $name ( sort keys %{ $self->parameters } ) {
         my $value = $self->parameters->{$name};
         $out .= ';'
-            . uc($name) . '='
+            . $name . '='
             . $self->_quoted_parameter_values(
             ref $value ? @$value : $value );
     }
