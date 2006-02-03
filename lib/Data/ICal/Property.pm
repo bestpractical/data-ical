@@ -279,16 +279,22 @@ sub _fold {
     my $self   = shift;
     my $string = shift;
 
-    my $use_equals = $self->vcal10 && 
+    my $quoted_printable = $self->vcal10 && 
         uc $self->parameters->{'ENCODING'} eq 'QUOTED-PRINTABLE';
 
     # We can't just use a s//g, because we need to include the added space/= and
     # first character of the next line in the count for the next line.
 
-    if ($use_equals) {
-        while ( $string =~ /.{75}[^\n=]/ ) {
-            $string =~ s/(.{75})([^\n=])/$1=\n$2/;
-        }
+    if ($quoted_printable) {
+        # In old vcal, quoted-printable properties have different folding rules.
+        # But some interop tests suggest it's wiser just to not fold for vcal 1.0
+        # at all (in quoted-printable).
+
+        # [do nothing]
+
+#        while ( $string =~ /.{75}[^\n=]/ ) {
+#            $string =~ s/(.{75})([^\n=])/$1=\n$2/;
+#        }
     } else {
         while ( $string =~ /(.{76})/ ) {
             $string =~ s/(.{75})(.)/$1\n $2/;
