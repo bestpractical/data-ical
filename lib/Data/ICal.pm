@@ -4,6 +4,8 @@ use strict;
 package Data::ICal;
 use base qw/Data::ICal::Entry/;
 
+use Class::ReturnValue;
+
 use Text::vFile::asData;
 
 our $VERSION = '0.07';
@@ -69,7 +71,9 @@ If a filename or data argument is not passed, this just sets its C<VERSION> and
 C<PRODID> properties to "2.0" (or "1.0" if the C<vcal10> flag is passed) and
 the value of the C<product_id> method respectively.
 
-Returns undef upon failure to open or parse the file or data.
+Returns a false value upon failure to open or parse the file or data; this false
+value is a L<Class::ReturnValue> object and can be queried as to its 
+C<error_message>.
 
 =cut
 
@@ -87,23 +91,29 @@ sub new {
     $self->vcal10($args{vcal10});
 
     if (defined $args{filename} or defined $args{data}) {
-        $self->parse(%args) || return;
+        # might return a Class::ReturnValue if parsing fails
+        return $self->parse(%args);
     } else {
         $self->add_properties(
             version => ($self->vcal10 ? '1.0' : '2.0'),
             prodid  => $self->product_id,
         );
+        return $self;
     }
-    return $self;
 }
 
-=head2 parse [ data => $data, ] [ filename => $file ]
+=head2 parse [ data => $data, ] [ filename => $file, ]
 
 Parse a .ics file or string containing one, and populate C<$self> with
 its contents.
 
 Should only be called once on a given object, and will be automatically
 called by C<new> if you provide arguments to C<new>.
+
+Returns C<$self> on success.
+Returns a false value upon failure to open or parse the file or data; this false
+value is a L<Class::ReturnValue> object and can be queried as to its 
+C<error_message>.
 
 =cut
 
@@ -115,13 +125,16 @@ sub parse {
         @_
     );
 
-    return unless defined $args{filename} or defined $args{data};
+    unless (defined $args{filename} or defined $args{data}) {
+        return $self->_error("parse called with no filename or data specified");
+    } 
 
     my @lines;
 
     # open the file (checking as we go, like good little Perl mongers)
     if ( defined $args{filename} ) {
-        open my $fh, '<', $args{filename} or return;
+        open my $fh, '<', $args{filename} or 
+            return $self->_error("could not open '$args{filename}': $!");
         @lines = map {chomp; $_} <$fh>;
     } else {
         @lines = split /\n/, $args{data};
@@ -130,14 +143,32 @@ sub parse {
     # Parse the lines; Text::vFile doesn't want trailing newlines
     my $cal = Text::vFile::asData->new->parse_lines(@lines);
 
-    return unless $cal and exists $cal->{objects};
+    return $self->_error("parse failure") unless $cal and exists $cal->{objects};
 
     # loop through all the vcards
     foreach my $object ( @{ $cal->{objects} } ) {
         $self->parse_object($object);
     }
-    return 1;
+
+    my $version = $self->property("version")->[0]->value;
+    if ($version eq '1.0' and not $self->vcal10 or
+        $version eq '2.0' and $self->vcal10) {
+        return $self->_error('application claims data is' .
+                    ($self->vcal10 ? '' : ' not') . ' vCal 1.0 but doc contains VERSION:' .
+                    $version);
+    } 
+    
+    return $self;
 }
+
+sub _error {
+    my $self = shift;
+    my $msg  = shift;
+    
+    my $ret = Class::ReturnValue->new;
+    $ret->as_error(errno => 1, message => $msg);
+    return $ret;
+} 
 
 =head2 ical_entry_type
 

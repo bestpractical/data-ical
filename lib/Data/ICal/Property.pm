@@ -71,9 +71,18 @@ Gets or sets the value of this property.
 Gets or sets the parameter hash reference of this property.
 Parameter keys are converted to upper case.
 
+=head2 vcal10 [$bool]
+
+Gets or sets a boolean saying whether this should be interpreted as vCalendar
+1.0 (as opposed to iCalendar 2.0).  Generally, you can just set this on your
+main L<Data::ICal> object when you construct it; C<add_entry> automatically makes
+sure that sub-entries end up with the same value as their parents, and 
+C<add_property> makes sure that properties end up with the same value as
+their entry.
+
 =cut
 
-__PACKAGE__->mk_accessors(qw(key value _parameters));
+__PACKAGE__->mk_accessors(qw(key value _parameters vcal10));
 
 sub parameters {
     my $self = shift;

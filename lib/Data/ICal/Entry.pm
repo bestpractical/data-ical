@@ -188,8 +188,10 @@ sub add_property {
 
     my ( $prop_value, $param_hash ) = @$val;
 
-    push @{ $self->properties->{$prop} },
-        Data::ICal::Property->new( $prop => $prop_value, $param_hash );
+    my $p = Data::ICal::Property->new( $prop => $prop_value, $param_hash );
+    $p->vcal10( $self-> vcal10 );
+    
+    push @{ $self->properties->{$prop} }, $p;
 }
 
 =head2 add_properties $propname1 => $propval1, [$propname2 => $propname2, ...]
