@@ -24,7 +24,7 @@ You shouldn't need to create L<Data::ICal::Property> values directly -- just use
 C<add_property> in L<Data::ICal::Entry>.
 
 The C<encoding> parameter value is only interpreted by L<Data::ICal> in the
-C<decoded_value> and C<set_value_with_encoding> methods: all other methods access
+C<decoded_value> and C<encode> methods: all other methods access
 the encoded version directly (if there is an encoding).
 
 Currently, the only supported encoding is C<QUOTED-PRINTABLE>.
@@ -91,8 +91,17 @@ sub parameters {
 } 
 
 my %ENCODINGS = (
-    'QUOTED-PRINTABLE' => { encode => \&MIME::QuotedPrint::encode, 
-                            decode => \&MIME::QuotedPrint::decode },
+    'QUOTED-PRINTABLE' => { encode => sub { 
+                                my $dec = shift;
+                                $dec =~ s/\n/\r\n/g;
+                                return MIME::QuotedPrint::encode($dec, '');
+                            },
+                            decode => sub {
+                                my $dec = MIME::QuotedPrint::decode(shift);
+                                $dec =~ s/\r\n/\n/g;
+                                return $dec;
+                            }
+                        },
 ); 
 
 =head2 decoded_value
@@ -116,20 +125,27 @@ sub decoded_value {
     } 
 } 
 
-=head2 set_value_with_encoding $decoded_value, $encoding
+=head2 encode $encoding
 
-Encodes C<$decoded_value> in the encoding C<$encoding>; sets the value to the encoded
-value and the encoding parameter to C<$encoding>.  Does nothing if the encoding is not
-recognized.
+Calls C<decoded_value> to get the current decoded value, then encodes it in C<$encoding>,
+sets the value to that, and sets the encoding parameter to C<$encoding>. (C<$encoding> is
+first converted to upper case.)
+
+If C<$encoding> is undef, deletes the encoding parameter and sets the value to the decoded
+value.  Does nothing if the encoding is not recognized.
 
 =cut
 
-sub set_value_with_encoding {
+sub encode {
     my $self = shift;
-    my $decoded_value = shift;
     my $encoding = uc shift;
 
-    if ($ENCODINGS{$encoding}) {
+    my $decoded_value = $self->decoded_value;
+
+    if (not defined $encoding) {
+        $self->value($decoded_value);
+        delete $self->parameters->{'ENCODING'};
+    } elsif ($ENCODINGS{$encoding}) {
         $self->value( $ENCODINGS{$encoding}{'encode'}->($decoded_value) );
         $self->parameters->{'ENCODING'} = $encoding;
     } 

@@ -3,35 +3,54 @@
 use warnings;
 use strict;
 
-use Test::More tests => 4;
+use Test::More tests => 6;
 use Test::LongString;
 use Test::NoWarnings;
 
-BEGIN { use_ok('Data::ICal') }
-
-my $cal = Data::ICal->new(data => <<'END_VCAL');
+my $encoded_vcal = <<'END_VCAL';
 BEGIN:VCALENDAR
+PRODID:Data::ICal 0.07
+VERSION:2.0
 BEGIN:VTODO
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0A
- Yeah!!=3D =63bla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah
+ !!=3D cbla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
 END:VTODO
 END:VCALENDAR
 END_VCAL
 
+my $decoded_desc = <<'END_DESC';
+interesting things         
+Yeah!!= cbla
+
+
+Go team syncml!
+
+
+END_DESC
+
+BEGIN { use_ok('Data::ICal') }
+
+my $cal = Data::ICal->new(data => $encoded_vcal);
+
 isa_ok($cal, 'Data::ICal');
 
-is_string($cal->entries->[0]->property("description")->[0]->decoded_value, <<"END_DESC");
-interesting things         \r
-Yeah!!= cbla\r
-\r
-\r
-Go team syncml!\r
-\r
-\r
-END_DESC
+is_string($cal->entries->[0]->property("description")->[0]->decoded_value, $decoded_desc);
+
+$cal = Data::ICal->new;
+
+BEGIN { use_ok 'Data::ICal::Entry::Todo' }
+
+my $todo = Data::ICal::Entry::Todo->new;
+$cal->add_entry($todo);
+
+$todo->add_property(description => $decoded_desc);
+
+$cal->entries->[0]->property('description')->[0]->encode('QUotED-PRintabLE');
+is_string($cal->as_string, $encoded_vcal);
 
 
 __END__
+possibly useful later
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:interesting thi=
 ngs         =0D=0A=
 Yeah!!=3D =C3=AAtre=0D=0A=
