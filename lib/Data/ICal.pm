@@ -151,6 +151,10 @@ sub parse {
     }
 
     my $version = $self->property("version")->[0]->value;
+    unless (defined $version) {
+        return $self->_error("data does not specify a version property");
+    } 
+
     if ($version eq '1.0' and not $self->vcal10 or
         $version eq '2.0' and $self->vcal10) {
         return $self->_error('application claims data is' .
