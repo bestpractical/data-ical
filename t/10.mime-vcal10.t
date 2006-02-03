@@ -12,15 +12,8 @@ BEGIN:VCALENDAR
 PRODID:Data::ICal 0.07
 VERSION:1.0
 BEGIN:VTODO
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting thi=
-ngs         =0D=0A=
-Yeah!!=3D cbla=0D=0A=
-=0D=0A=
-=0D=0A=
-Go team syncml!=0D=0A=
-=0D=0A=
-=0D=0A=
-
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYea=
+h!!=3D cbla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
 END:VTODO
 END:VCALENDAR
 END_VCAL
