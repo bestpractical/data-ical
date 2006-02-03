@@ -183,8 +183,8 @@ sub as_string {
 
 Returns the property's value as a string.  
 
-Values are quoted according the ICal spec:
-L<http://www.kanzaki.com/docs/ical/text.html>.
+Values are quoted according the iCal spec, unless 
+this is in vCal 1.0 mode.
 
 =end private
 
@@ -193,12 +193,14 @@ L<http://www.kanzaki.com/docs/ical/text.html>.
 sub _value_as_string {
     my $self = shift;
     my $value = $self->value();
-
-    $value =~ s/\\/\\/gs;
-    $value =~ s/\Q;/\\;/gs;
-    $value =~ s/,/\\,/gs;
-    $value =~ s/\n/\\n/gs;
-    $value =~ s/\\N/\\N/gs;
+    
+    unless ($self->vcal10) {
+        $value =~ s/\\/\\/gs;
+        $value =~ s/\Q;/\\;/gs;
+        $value =~ s/,/\\,/gs;
+        $value =~ s/\n/\\n/gs;
+        $value =~ s/\\N/\\N/gs;
+    }
 
     return $value;
 
@@ -280,17 +282,19 @@ sub _fold {
     my $use_equals = $self->vcal10 && 
         uc $self->parameters->{'ENCODING'} eq 'QUOTED-PRINTABLE';
 
-    my $replacement = $use_equals ? "=\n" : "\n ";
-
-    # We can't just use a s//g, because we need to include the added space and
+    # We can't just use a s//g, because we need to include the added space/= and
     # first character of the next line in the count for the next line.
-    #
-    # Note that while it tries to break up lines of 76 chars, it actually inserts
-    # the split after the 74th, not 75th, char, since otherwise it would be replacing
-    # the last char with an = in $use_equals mode which would not decrease its length.
-    while ( $string =~ /(.{76})/ ) {
-        $string =~ s/(.{74})(.)/$1$replacement$2/;
+
+    if ($use_equals) {
+        while ( $string =~ /.{75}[^\n=]/ ) {
+            $string =~ s/(.{75})([^\n=])/$1=\n$2/;
+        }
+    } else {
+        while ( $string =~ /(.{76})/ ) {
+            $string =~ s/(.{75})(.)/$1\n $2/;
+        }
     }
+
     return $string;
 }
 

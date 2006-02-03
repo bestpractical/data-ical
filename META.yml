@@ -13,6 +13,7 @@ requires:
   Class::Accessor: 0
   Text::vFile::asData: 0
   MIME::QuotedPrint: 0
+  Class::ReturnValue: 0
 no_index:
   directory:
     - inc
