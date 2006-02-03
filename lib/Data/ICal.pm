@@ -140,8 +140,11 @@ sub parse {
         @lines = split /\n/, $args{data};
     }
 
+    @lines = $self->_vcal10_input_cleanup(@lines) if $self->vcal10;
+
     # Parse the lines; Text::vFile doesn't want trailing newlines
-    my $cal = Text::vFile::asData->new->parse_lines(@lines);
+    my $cal = eval { Text::vFile::asData->new->parse_lines(@lines) };
+    return $self->_error("parse failure: $@") if $@;
 
     return $self->_error("parse failure") unless $cal and exists $cal->{objects};
 
@@ -223,6 +226,40 @@ sub optional_unique_properties {
         calscale method
     );
 }
+
+
+# In quoted-printable sections, convert from vcal10 "=\n" line endings to
+# ical20 "\n ".
+sub _vcal10_input_cleanup {
+    my $self = shift;
+    my @in_lines = @_;
+
+    my @out_lines;
+
+    my $in_qp = 0;
+    LINE: while (@in_lines) {
+        my $line = shift @in_lines;
+
+        if (not $in_qp and $line =~ /^[^:]+;ENCODING=QUOTED-PRINTABLE/i) {
+            $in_qp = 1;
+        } 
+
+        unless ($in_qp) {
+            push @out_lines, $line;
+            next LINE;
+        } 
+
+        if ($line =~ s/=$//) {
+            push @out_lines, $line;
+            $in_lines[0] = ' ' . $in_lines[0] if @in_lines;
+        } else {
+            push @out_lines, $line;
+            $in_qp = 0;
+        } 
+    }
+
+    return @out_lines;
+} 
 
 =head1 CONFIGURATION AND ENVIRONMENT
 

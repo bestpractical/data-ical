@@ -19,8 +19,8 @@ $todo->add_properties( attendee => [ 'MAILTO:janedoe@host.com',
 
 is_string($todo->as_string, <<'END_VCAL', "Got the right output");
 BEGIN:VTODO
-ATTENDEE;MEMBER="MAILTO:projectA@host.com","MAILTO:projectB@host.com":MAILT
- O:janedoe@host.com
+ATTENDEE;MEMBER="MAILTO:projectA@host.com","MAILTO:projectB@host.com":MAIL
+ TO:janedoe@host.com
 SUMMARY;LANGUAGE=en-US;VALUE=TEXT:Sum it up.
 END:VTODO
 END_VCAL

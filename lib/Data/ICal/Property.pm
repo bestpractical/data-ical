@@ -267,6 +267,8 @@ line is at most 75 characters.
 
 (Note that it folds at 75 characters, not 75 bytes as specified in the standard.)
 
+If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, folds with = instead.
+
 =end private
 
 =cut
@@ -275,10 +277,19 @@ sub _fold {
     my $self   = shift;
     my $string = shift;
 
+    my $use_equals = $self->vcal10 && 
+        uc $self->parameters->{'ENCODING'} eq 'QUOTED-PRINTABLE';
+
+    my $replacement = $use_equals ? "=\n" : "\n ";
+
     # We can't just use a s//g, because we need to include the added space and
     # first character of the next line in the count for the next line.
+    #
+    # Note that while it tries to break up lines of 76 chars, it actually inserts
+    # the split after the 74th, not 75th, char, since otherwise it would be replacing
+    # the last char with an = in $use_equals mode which would not decrease its length.
     while ( $string =~ /(.{76})/ ) {
-        $string =~ s/(.{75})(.)/$1\n $2/;
+        $string =~ s/(.{74})(.)/$1$replacement$2/;
     }
     return $string;
 }
