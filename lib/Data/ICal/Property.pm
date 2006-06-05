@@ -101,12 +101,12 @@ sub parameters {
 
 my %ENCODINGS = (
     'QUOTED-PRINTABLE' => { encode => sub { 
-                                my $dec = shift;
+                                my $dec = shift ||'';
                                 $dec =~ s/\n/\r\n/g;
                                 return MIME::QuotedPrint::encode($dec, '');
                             },
                             decode => sub {
-                                my $dec = MIME::QuotedPrint::decode(shift);
+                                my $dec = MIME::QuotedPrint::decode(shift ||'');
                                 $dec =~ s/\r\n/\n/g;
                                 return $dec;
                             }

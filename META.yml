@@ -1,20 +1,21 @@
-name: Data-ICal
-version: 0.07
 abstract: Generates iCalendar (RFC 2445) calendar files
 author: Jesse Vincent <jesse@bestpractical.com>
-license: perl
-distribution_type: module
-build_requires:
-  Test::More: 0
-  Test::Warn: 0
-  Test::NoWarnings: 0
+build_requires: 
   Test::LongString: 0
-requires:
-  Class::Accessor: 0
-  Text::vFile::asData: 0
-  MIME::QuotedPrint: 0
-  Class::ReturnValue: 0
-no_index:
-  directory:
+  Test::More: 0
+  Test::NoWarnings: 0
+  Test::Warn: 0
+distribution_type: module
+generated_by: Module::Install version 0.62
+license: perl
+name: Data-ICal
+no_index: 
+  directory: 
     - inc
-generated_by: Module::Install version 0.46
+    - t
+requires: 
+  Class::Accessor: 0
+  Class::ReturnValue: 0
+  MIME::QuotedPrint: 0
+  Text::vFile::asData: 0
+version: 0.07
