@@ -13,5 +13,5 @@ requires('Class::Accessor');
 requires('Text::vFile::asData');
 requires('MIME::QuotedPrint');
 requires('Class::ReturnValue');
-
+&auto_install();
 &WriteAll;
