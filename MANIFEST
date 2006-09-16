@@ -1,9 +1,12 @@
 Changes
 doc/rfc2445.txt
+inc/Module/AutoInstall.pm
 inc/Module/Install.pm
+inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
+inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
@@ -36,6 +39,8 @@ t/05.prop-params.t
 t/06.prop-bad-quote.t
 t/07.roundtrip.t
 t/08.parse.t
+t/09.mime.t
+t/10.mime-vcal10.t
 t/ics/badlyformed.ics
 t/ics/test.ics
 t/pod-coverage.t

@@ -15,15 +15,18 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 a21bed113e428ae7947a3d53774362feb701081b Changes
-SHA1 5045008d1f5def4f41decd1f9846a581b02a5351 MANIFEST
+SHA1 f7cd7d92b44ecc860336871d1d9ed3f47327c2a6 MANIFEST
 SHA1 e6947b420c839ac3f7fe02c7b13f1eefedd120a3 META.yml
 SHA1 d9c6af97d586360df8b31d69d4a981eefea06ba6 Makefile.PL
 SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
+SHA1 603bb9de29fb8cba7f13409c546750972eff645d inc/Module/AutoInstall.pm
 SHA1 9b2f9d83bcf77860f53a0c07c90a4a59ad9f5df1 inc/Module/Install.pm
+SHA1 ad955f51ad2c40d4ba35395c27f5ed899a80bf7a inc/Module/Install/AutoInstall.pm
 SHA1 abe32855d75ab13747cf65765af9947b7a8c3057 inc/Module/Install/Base.pm
 SHA1 95b81d1e91bd634467bf633571eff4420e9c04eb inc/Module/Install/Can.pm
 SHA1 1fe98c63cf9d7271c8cb4183ba230f152df69e26 inc/Module/Install/Fetch.pm
+SHA1 0606a8b02a420600bc3e2b65ab82f70266784926 inc/Module/Install/Include.pm
 SHA1 2249171a2b72cd73ff2c0a06597d29f86e5df456 inc/Module/Install/Makefile.pm
 SHA1 381bb98ea3877bba49ae85e7a7ea130645fd3dbf inc/Module/Install/Metadata.pm
 SHA1 0c2118868ef82ac517eb6d9c3bd93e6eb9bbf83e inc/Module/Install/Win32.pm
@@ -51,6 +54,8 @@ SHA1 8390a95bb4dae06bf01153f7ecd9f95537538737 t/05.prop-params.t
 SHA1 a30f42bcd7f659ecbd1c8b2b69ca9c51a4568625 t/06.prop-bad-quote.t
 SHA1 6a3f262179361be328ae6ba4a6c9b0f63b4fa2b9 t/07.roundtrip.t
 SHA1 f639976ca450fa3f55aed53c2508bcd01c00989b t/08.parse.t
+SHA1 78109d00ce3cd20a9f02c0c1c0eb9993dd65f485 t/09.mime.t
+SHA1 64f3036878d3e0ca641ebd8577bcc86281163641 t/10.mime-vcal10.t
 SHA1 21854f472cd60fd9ce6f88872691f2a744e0af5e t/ics/badlyformed.ics
 SHA1 09a4ae7fe9978bf4ab9e13ac735f7a800f231944 t/ics/test.ics
 SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
@@ -58,7 +63,7 @@ SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.3 (Darwin)
 
-iD8DBQFFC/b3Ei9d9xCOQEYRAkxVAJ4/MB9pHScl0g22pxeM7aQOUcfSJwCfea+I
-3eB0BWm//Xk9MMz/otCaeEc=
-=RGQY
+iD8DBQFFC/daEi9d9xCOQEYRAlqVAJ9YK9z+JKgfi6oC4UDgNen/lZHJYACgpr/G
+bRp+eq9VfJgnMKNwWOaQthw=
+=2P4j
 -----END PGP SIGNATURE-----
