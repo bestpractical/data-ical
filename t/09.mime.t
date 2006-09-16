@@ -9,7 +9,7 @@ use Test::NoWarnings;
 
 my $encoded_vcal = <<'END_VCAL';
 BEGIN:VCALENDAR
-PRODID:Data::ICal 0.07
+PRODID:Data::ICal 0.08
 VERSION:2.0
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah

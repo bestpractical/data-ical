@@ -170,7 +170,7 @@ sub as_string {
     my $self   = shift;
     my $string = uc( $self->key )
         . $self->_parameters_as_string . ":"
-        . $self->_value_as_string . "\n";
+        . $self->_value_as_string($self->key) . "\n";
 
   # Assumption: the only place in an iCalendar that needs folding are property
   # lines
@@ -182,6 +182,8 @@ sub as_string {
 =head2 _value_as_string
 
 Returns the property's value as a string.  
+Comma and semicolon are not escaped when the value is recur type (the key is 
+rrule).
 
 Values are quoted according the iCal spec, unless 
 this is in vCal 1.0 mode.
@@ -192,12 +194,13 @@ this is in vCal 1.0 mode.
 
 sub _value_as_string {
     my $self = shift;
+    my $key = shift;
     my $value = $self->value();
     
     unless ($self->vcal10) {
         $value =~ s/\\/\\/gs;
-        $value =~ s/\Q;/\\;/gs;
-        $value =~ s/,/\\,/gs;
+        $value =~ s/\Q;/\\;/gs unless lc($key) eq 'rrule';
+        $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
         $value =~ s/\n/\\n/gs;
         $value =~ s/\\N/\\N/gs;
     }

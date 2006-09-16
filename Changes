@@ -1,4 +1,29 @@
 Revision history for Data-ICal
+
+0.08 Sat Sep 16 14:03:03 BST 2006
+
+    * The recur type is defined in section 4.3.10 in RFC2445.
+
+    This type is separated by comma or semicolon as shown in "description"
+    part of this section;
+
+    | multiple "recur" values are specified by a COMMA character (US-ASCII
+    decimal 44) separated list of values.
+
+    | The rule parts are separated from each other by the SEMICOLON
+    character (US-ASCII decimal 59).
+
+    At the middle of this section, an example is presented;
+
+    | RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1
+
+    See http://www.kanzaki.com/docs/ical/recur.html
+
+        - Takeru Inoue
+
+
+0.07
+
     * Doc patches from MARKSTOS
     * Proper quoting in properties, from MARKSTOS
 
