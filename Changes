@@ -1,5 +1,10 @@
 Revision history for Data-ICal
 
+
+0.10 Sun Oct 15 15:55:28 EDT 2006
+
+    * Fix the test suite to stop assuming version numbers
+
 0.09 Sun Oct 15 15:49:29 EDT 2006
 
     * Quieted down ::Property when you passed in undef strings.

@@ -7,9 +7,9 @@ use Test::More tests => 6;
 use Test::LongString;
 use Test::NoWarnings;
 
-my $encoded_vcal = <<'END_VCAL';
+my $encoded_vcal = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal 0.08
+PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 VERSION:2.0
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah

@@ -7,9 +7,9 @@ use Test::More tests => 7;
 use Test::LongString;
 use Test::NoWarnings;
 
-my $encoded_vcal_in = <<'END_VCAL';
+my $encoded_vcal_in = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal 0.08
+PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 VERSION:1.0
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah=
@@ -18,9 +18,9 @@ END:VTODO
 END:VCALENDAR
 END_VCAL
 
-my $encoded_vcal_out = <<'END_VCAL';
+my $encoded_vcal_out = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal 0.08
+PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 VERSION:1.0
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah!!=3D cbla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
@@ -60,7 +60,7 @@ $cal->add_entry($todo);
 $todo->add_property(description => $decoded_desc);
 
 $cal->entries->[0]->property('description')->[0]->encode('QUotED-PRintabLE');
-is_string($cal->as_string, $encoded_vcal_out);
+is($cal->as_string, $encoded_vcal_out);
 
 
 __END__
