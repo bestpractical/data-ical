@@ -18,4 +18,4 @@ requires:
   Class::ReturnValue: 0
   MIME::QuotedPrint: 0
   Text::vFile::asData: 0
-version: 0.08
+version: 0.09

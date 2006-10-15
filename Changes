@@ -1,5 +1,9 @@
 Revision history for Data-ICal
 
+0.09 Sun Oct 15 15:49:29 EDT 2006
+
+    * Quieted down ::Property when you passed in undef strings.
+
 0.08 Sat Sep 16 14:03:03 BST 2006
 
     * The recur type is defined in section 4.3.10 in RFC2445.
