@@ -70,7 +70,7 @@ If any mandatory property is missing, issues a warning.
 
 sub as_string {
     my $self = shift;
-
+    my %args = (@_);
     my $output = $self->header;
 
     for my $name (
@@ -85,11 +85,11 @@ sub as_string {
 
     for my $name ( sort keys %{ $self->properties } ) {
         $output .= $_
-            for map { $_->as_string } @{ $self->properties->{$name} };
+            for map { $_->as_string(%args) } @{ $self->properties->{$name} };
     }
 
     for my $entry ( @{ $self->entries } ) {
-        $output .= $entry->as_string;
+        $output .= $entry->as_string(%args);
     }
     $output .= $self->footer;
 

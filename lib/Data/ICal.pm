@@ -8,7 +8,7 @@ use Class::ReturnValue;
 
 use Text::vFile::asData;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 use Carp;
 
@@ -37,6 +37,9 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
     $calendar->add_entry($vtodo);
 
     print $calendar->as_string;
+   
+    # Or, if you're printing to something you want google to read:
+    print $calendar->as_string(fold => 0);
   
 =head1 DESCRIPTION
 

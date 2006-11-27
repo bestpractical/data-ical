@@ -1,5 +1,8 @@
 Revision history for Data-ICal
 
+0.11 Mon Nov 27 12:57:03 EST 2006
+
+    * Added the ability to not fold the output, to appease the great Google-monster
 
 0.10 Sun Oct 15 15:55:28 EDT 2006
 

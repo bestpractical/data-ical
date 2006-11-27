@@ -160,21 +160,38 @@ sub encode {
     } 
 } 
 
-=head2 as_string
+=head2 as_string ARGS
 
 Returns the property formatted as a string (including trailing newline).
+
+Takes named arguments:
+
+=over
+
+=item fold
+
+Defaults to true. pass in a false value if you need to generate non-rfc-compliant calendars to 
+entities like Google.
+
+=back
+
 
 =cut
 
 sub as_string {
     my $self   = shift;
+    my %args   = ( fold => 1, @_ );
     my $string = uc( $self->key )
         . $self->_parameters_as_string . ":"
-        . $self->_value_as_string($self->key) . "\n";
+        . $self->_value_as_string( $self->key ) . "\n";
 
   # Assumption: the only place in an iCalendar that needs folding are property
   # lines
-    return $self->_fold($string);
+    if ( $args{'fold'} ) {
+        return $self->_fold($string);
+    } else {
+        return $string;
+    }
 }
 
 =begin private
