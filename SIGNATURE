@@ -14,9 +14,9 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 990995b5fcc67281185f2bcbcedce4009eae3e3d Changes
+SHA1 c95d9a732b724d3086ef69f6640c9c705a4ec4c3 Changes
 SHA1 f7cd7d92b44ecc860336871d1d9ed3f47327c2a6 MANIFEST
-SHA1 9af2c50085ee2d3f0f3b7ea9b1a16c8568262dc7 META.yml
+SHA1 fcdf6e040895f3cac75cb321bd771b132889b283 META.yml
 SHA1 d9c6af97d586360df8b31d69d4a981eefea06ba6 Makefile.PL
 SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
@@ -31,7 +31,7 @@ SHA1 2249171a2b72cd73ff2c0a06597d29f86e5df456 inc/Module/Install/Makefile.pm
 SHA1 381bb98ea3877bba49ae85e7a7ea130645fd3dbf inc/Module/Install/Metadata.pm
 SHA1 0c2118868ef82ac517eb6d9c3bd93e6eb9bbf83e inc/Module/Install/Win32.pm
 SHA1 e827d6d43771032fa3df35c0ad5e5698d0e54cda inc/Module/Install/WriteAll.pm
-SHA1 68743123be0469d8134e5478db3f53982b39a27b lib/Data/ICal.pm
+SHA1 d5488ff20731383bee7c3d3676d74bc5e7696ff8 lib/Data/ICal.pm
 SHA1 8721537a4477422b4541320fbb0f1fc20dcce001 lib/Data/ICal/Entry.pm
 SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
 SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
@@ -44,7 +44,7 @@ SHA1 f8a94d3181e20d6422a1ad0294685852824df982 lib/Data/ICal/Entry/TimeZone.pm
 SHA1 c094381b7739eea4a663acdd4f9af8572a19ad48 lib/Data/ICal/Entry/TimeZone/Daylight.pm
 SHA1 fc807da3b247c7b054e971efe6cd0ffc20c741ca lib/Data/ICal/Entry/TimeZone/Standard.pm
 SHA1 3b6856f5ec5951e0fb3250059aa3f40e75b03427 lib/Data/ICal/Entry/Todo.pm
-SHA1 6739d5ad57fc876db08d163d44d0f4007d3ffa5d lib/Data/ICal/Property.pm
+SHA1 1beff31fc629f8529d2f37ded5e4d76c8b79a3ee lib/Data/ICal/Property.pm
 SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
 SHA1 c3da220214dd88626ba4aa2cef6f5becdb919b37 t/01.simplegen.t
 SHA1 b42254140a1726b34474aaa4b88448710af5f340 t/02.linewrap.t
@@ -63,7 +63,7 @@ SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.3 (Darwin)
 
-iD8DBQFFayb+Ei9d9xCOQEYRAnLqAKCS+PY7aJ8mP7EDje3LH5d6ii4KLACgkofs
-E3LtlioZpuPL3uhPmCgGLDM=
-=Up/q
+iD8DBQFFp9JmEi9d9xCOQEYRAh0WAJ0d0ei0WK19sswN0bBpDX8wy1YPywCfQRiK
+FKqX5N/zAwGqcY43JGrY8ao=
+=WtEo
 -----END PGP SIGNATURE-----
