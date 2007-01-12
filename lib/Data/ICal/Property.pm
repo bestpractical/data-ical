@@ -170,8 +170,7 @@ Takes named arguments:
 
 =item fold
 
-Defaults to true. pass in a false value if you need to generate non-rfc-compliant calendars to 
-entities like Google.
+Defaults to true. pass in a false value if you need to generate non-rfc-compliant calendars.
 
 =back
 
@@ -212,7 +211,7 @@ this is in vCal 1.0 mode.
 sub _value_as_string {
     my $self = shift;
     my $key = shift;
-    my $value = $self->value() || '';
+    my $value = defined($self->value()) ? $self->value() : '';
     
     unless ($self->vcal10) {
         $value =~ s/\\/\\/gs;

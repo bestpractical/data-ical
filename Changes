@@ -1,5 +1,11 @@
 Revision history for Data-ICal
 
+0.12
+
+    * Better handling of properties that should read "0" - Patch from Duncan Forsyth <duncan@wcn.co.uk>
+    * Removed the note about Google and weird folding behaviour
+
+
 0.11 Mon Nov 27 12:57:03 EST 2006
 
     * Added the ability to not fold the output, to appease the great Google-monster

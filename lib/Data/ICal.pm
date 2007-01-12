@@ -8,7 +8,7 @@ use Class::ReturnValue;
 
 use Text::vFile::asData;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use Carp;
 
@@ -38,9 +38,6 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
 
     print $calendar->as_string;
    
-    # Or, if you're printing to something you want google to read:
-    print $calendar->as_string(fold => 0);
-  
 =head1 DESCRIPTION
 
 A L<Data::ICal> object represents a C<VCALENDAR> object as defined in the
