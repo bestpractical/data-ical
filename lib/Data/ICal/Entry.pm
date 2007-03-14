@@ -174,6 +174,9 @@ sub add_property {
     my $prop = lc shift;
     my $val  = shift;
 
+
+    return unless defined $prop;
+    
     unless ( $self->is_property($prop) or $prop =~ /^x-/i ) {
         carp "Unknown property for " . ( ref $self ) . ": $prop";
     }

@@ -1,5 +1,10 @@
 Revision history for Data-ICal
 
+0.13
+
+    * We now ignore blank lines in parsed files (by ignoring null properties when adding them to a data structure)
+    * ical2html example script contributed by Tatsuhiko Miyagawa <miyagawa@bulknews.net>
+
 0.12
 
     * Better handling of properties that should read "0" - Patch from Duncan Forsyth <duncan@wcn.co.uk>

@@ -1,5 +1,6 @@
 Changes
 doc/rfc2445.txt
+examples/ical2html.pl
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
