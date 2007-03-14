@@ -1,5 +1,9 @@
 Revision history for Data-ICal
 
+
+HEAD
+   * No longer explodes if your .ics file lacks a VERSION property
+
 0.13
 
     * We now ignore blank lines in parsed files (by ignoring null properties when adding them to a data structure)

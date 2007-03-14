@@ -44,5 +44,6 @@ t/09.mime.t
 t/10.mime-vcal10.t
 t/ics/badlyformed.ics
 t/ics/test.ics
+t/ics/noversion.ics
 t/pod-coverage.t
 t/pod.t

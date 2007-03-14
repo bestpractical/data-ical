@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use constant TESTS_IN_TEST_CALENDAR => 15;
-use Test::More tests => 8 + 3 * TESTS_IN_TEST_CALENDAR;
+use Test::More tests => 9 + 3 * TESTS_IN_TEST_CALENDAR;
 use Test::LongString;
 use Test::NoWarnings; # this catches our warnings like setting unknown properties
 
@@ -19,6 +19,9 @@ ok((not $cal), "Caught no file death");
 
 $cal = Data::ICal->new(filename => 't/ics/badlyformed.ics'); 
 ok((not $cal), "Caught badly formed ics file death"); 
+
+$cal = Data::ICal->new(filename => 't/ics/noversion.ics');
+ok((not $cal), "rejected calendar without required version property"); 
 
 $cal = Data::ICal->new(filename => 't/ics/test.ics');
 
