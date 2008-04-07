@@ -1,8 +1,9 @@
 Revision history for Data-ICal
 
 
-HEAD
+0.14
    * No longer explodes if your .ics file lacks a VERSION property
+    * Perl 5.11 adds additional strictures. Patch from ANDK to deal [rt.cpan.org #34717] 
 
 0.13
 

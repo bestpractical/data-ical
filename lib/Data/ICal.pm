@@ -8,7 +8,7 @@ use Class::ReturnValue;
 
 use Text::vFile::asData;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 use Carp;
 
