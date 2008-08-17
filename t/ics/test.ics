@@ -47,7 +47,7 @@ DTSTART;TZID=Europe/London:20050802T170000
 DURATION:PT6H
 LOCATION:The Restaurant at the End of the Universe
 SEQUENCE:42
-SUMMARY:Data::ICal release party
+SUMMARY:Data::ICal release party\,other things with slash\\es
 URL;VALUE=URI:http://www.bestpractical.com
 BEGIN:VALARM
 TRIGGER;VALUE=DATE-TIME:19970317T133000Z

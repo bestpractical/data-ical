@@ -487,6 +487,17 @@ sub _parse_generic_event {
         foreach my $occurence (@$val) {
             my $prop;
 
+            # Unescapes, but only in v2, and not if it's explicitly not TEXT
+            if (not $parent->vcal10
+                and (  not $occurence->{param}
+                    or not defined $occurence->{param}{VALUE}
+                    or $occurence->{param}{VALUE} eq "TEXT" )
+                )
+            {
+                $occurence->{value} =~ s/\\([;,\\])/$1/g;
+                $occurence->{value} =~ s/\\n/\n/ig;
+            }
+            
             # handle optional params and 'normal' key/value pairs
             # TODO: line wrapping?
             if ( $occurence->{param} ) {

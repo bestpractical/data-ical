@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 
-use constant TESTS_IN_TEST_CALENDAR => 15;
+use constant TESTS_IN_TEST_CALENDAR => 16;
 use Test::More tests => 9 + 3 * TESTS_IN_TEST_CALENDAR;
 use Test::LongString;
 use Test::NoWarnings; # this catches our warnings like setting unknown properties
@@ -75,6 +75,7 @@ sub test_calendar {
 
     # Event 
     isa_ok($event, 'Data::ICal::Entry::Event');
+    is($event->property('summary')->[0]->value, 'Data::ICal release party,other things with slash\es');
     is($event->property('location')->[0]->value, 'The Restaurant at the End of the Universe', 'Correct location');
     is($event->property('url')->[0]->value, 'http://www.bestpractical.com', 'Correct URL');
     is($event->property('url')->[0]->parameters->{VALUE}, 'URI', 'Got parameter');

@@ -215,7 +215,7 @@ sub _value_as_string {
     
     unless ($self->vcal10) {
         $value =~ s/\\/\\/gs;
-        $value =~ s/\Q;/\\;/gs unless lc($key) eq 'rrule';
+        $value =~ s/;/\\;/gs unless lc($key) eq 'rrule';
         $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
         $value =~ s/\n/\\n/gs;
         $value =~ s/\\N/\\N/gs;
