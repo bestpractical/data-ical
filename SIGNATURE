@@ -14,26 +14,26 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 d77ebc534b9ee15480b9aa9eb57d08fa39e55a94 Changes
+SHA1 a66c0b594a103bdd9ec7d80a54daa1d3e658c473 Changes
 SHA1 57c2097e5e5376a950b176f296b90dce4d86452b MANIFEST
-SHA1 7a90baa4b52d9913e8dbe83c18565df67fd3c866 META.yml
+SHA1 b2fea6a2b585a14743c1f2c7949edf67aa8c5d30 META.yml
 SHA1 d9c6af97d586360df8b31d69d4a981eefea06ba6 Makefile.PL
 SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
 SHA1 1ca8755782cececa8cb19deddbcbe03be8e73cfc examples/ical2html.pl
 SHA1 603bb9de29fb8cba7f13409c546750972eff645d inc/Module/AutoInstall.pm
-SHA1 7e2cfa1b9efe0d502ee57717649c90ba4bd28ba9 inc/Module/Install.pm
-SHA1 182a0df45b65151afdc2be0b7246a2d02d0f0567 inc/Module/Install/AutoInstall.pm
-SHA1 6e1392d80a0f239eecd5664f7f21f922cedb9329 inc/Module/Install/Base.pm
-SHA1 f69417fe831d9cc22a78f00a617afadceade4d81 inc/Module/Install/Can.pm
-SHA1 c61d02895330310048bf388881b5e2e064031561 inc/Module/Install/Fetch.pm
-SHA1 4933b00c3a646da8d223c6957f94552bbd62f8c6 inc/Module/Install/Include.pm
-SHA1 54fcbed19232ec959bb17cfb4410599afc7f0779 inc/Module/Install/Makefile.pm
-SHA1 7d3be9b158e37b2b2c22084740099955623b1d56 inc/Module/Install/Metadata.pm
-SHA1 0a8b66180229ba2f9deaea1fedd0aacf7a7ace6b inc/Module/Install/Win32.pm
-SHA1 d3352eb33fe43a5f3ead513f645224fe34d73bc9 inc/Module/Install/WriteAll.pm
-SHA1 19dce4932d1c00745a77f500fc9ef3367abc7374 lib/Data/ICal.pm
-SHA1 9cb5dbff0f1eeaa60b20f2a15da40810b2c27996 lib/Data/ICal/Entry.pm
+SHA1 ae018c4565c1277089ca8f1b28f888d95430cb7f inc/Module/Install.pm
+SHA1 0a6f29536bedea3bb94744a7d43ffe39da7e4819 inc/Module/Install/AutoInstall.pm
+SHA1 4552acdfca8b78f8015d8449e1325616259095f5 inc/Module/Install/Base.pm
+SHA1 7fb663fff161fb45882b52edd62857bf15359658 inc/Module/Install/Can.pm
+SHA1 8b1d3db746faa6faf2d967a48d3812ec1f44b4c6 inc/Module/Install/Fetch.pm
+SHA1 d7ce736cdd05d5156d379ef39cca93beeeeba828 inc/Module/Install/Include.pm
+SHA1 9f6beaa2f4749ceb5dd0c9b0c647d0f3289c7b46 inc/Module/Install/Makefile.pm
+SHA1 7ad1da4fff7a1e7a634c9d734111c8292be08884 inc/Module/Install/Metadata.pm
+SHA1 e9aa83f3e8b16ccfce544a90a57b63b70a497759 inc/Module/Install/Win32.pm
+SHA1 ade2ac0b0246d4d8e28fa46942e53f6925abda46 inc/Module/Install/WriteAll.pm
+SHA1 4eae39e6513652da3694fe7561d0435107c94907 lib/Data/ICal.pm
+SHA1 69a7d21453bf68dd6edfd73d1fa9bc234ea570a0 lib/Data/ICal/Entry.pm
 SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
 SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
 SHA1 3003fb0bba35562d27f94498f4487f7ba1810a39 lib/Data/ICal/Entry/Alarm/Email.pm
@@ -45,7 +45,7 @@ SHA1 f8a94d3181e20d6422a1ad0294685852824df982 lib/Data/ICal/Entry/TimeZone.pm
 SHA1 c094381b7739eea4a663acdd4f9af8572a19ad48 lib/Data/ICal/Entry/TimeZone/Daylight.pm
 SHA1 fc807da3b247c7b054e971efe6cd0ffc20c741ca lib/Data/ICal/Entry/TimeZone/Standard.pm
 SHA1 3b6856f5ec5951e0fb3250059aa3f40e75b03427 lib/Data/ICal/Entry/Todo.pm
-SHA1 1cec2fcc94e443e2dd86f8f66d78b97b39c4603d lib/Data/ICal/Property.pm
+SHA1 63dd8dc63ce00697d115352f8d05d0acb7e2eca3 lib/Data/ICal/Property.pm
 SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
 SHA1 c3da220214dd88626ba4aa2cef6f5becdb919b37 t/01.simplegen.t
 SHA1 b42254140a1726b34474aaa4b88448710af5f340 t/02.linewrap.t
@@ -54,18 +54,18 @@ SHA1 399e1db517f9bdce14a3980f51299536f6ab7975 t/04.mandatory-props.t
 SHA1 8390a95bb4dae06bf01153f7ecd9f95537538737 t/05.prop-params.t
 SHA1 a30f42bcd7f659ecbd1c8b2b69ca9c51a4568625 t/06.prop-bad-quote.t
 SHA1 6a3f262179361be328ae6ba4a6c9b0f63b4fa2b9 t/07.roundtrip.t
-SHA1 89d38622de23ba4d2b44f12c6047849513469587 t/08.parse.t
+SHA1 1d27dd46b94878b7494701eb143393f0438675c0 t/08.parse.t
 SHA1 749ad308ae2f344515d03590075bae40673b70ed t/09.mime.t
 SHA1 aedd4e9214e3e43e44ccf3f47a77148e94c23032 t/10.mime-vcal10.t
 SHA1 21854f472cd60fd9ce6f88872691f2a744e0af5e t/ics/badlyformed.ics
 SHA1 3157614223f00a48699992314b1d48946fc45af7 t/ics/noversion.ics
-SHA1 09a4ae7fe9978bf4ab9e13ac735f7a800f231944 t/ics/test.ics
+SHA1 7ad07fa3318aec73b0fe97ccbb8caa1d35b63927 t/ics/test.ics
 SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
 SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.8 (Darwin)
+Version: GnuPG v2.0.9 (GNU/Linux)
 
-iD8DBQFH+fmYEi9d9xCOQEYRAkE/AJ9CV/7anL7afoe5wE6G7DoW/VyAkACeMQ2i
-incwb4OgBA4aRVHhQ5VNHUQ=
-=yTuQ
+iEYEARECAAYFAkmsFnEACgkQMflWJZZAbqA/KQCdEfcqKm834H1TeCglyeQc8Vym
+LGEAniOShZbchZAZ7EIpiMmhBvApt3Xe
+=AO3Y
 -----END PGP SIGNATURE-----
