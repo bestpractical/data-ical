@@ -316,7 +316,7 @@ sub _fold {
 #        }
     } else {
         while ( $string =~ /(.{76})/ ) {
-            $string =~ s/(.{75})(.)/$1\n $2/;
+            $string =~ s/(.{64,74}\b)|(.{74})/$1\r\n\t/;
         }
     }
 
