@@ -86,32 +86,33 @@ __PACKAGE__->mk_accessors(qw(key value _parameters vcal10));
 
 sub parameters {
     my $self = shift;
-    
+
     if (@_) {
-        my $params = shift;
+        my $params     = shift;
         my $new_params = {};
-        while (my ($k, $v) = each %$params) {
-            $new_params->{uc $k} = $v;
-        } 
+        while ( my ( $k, $v ) = each %$params ) {
+            $new_params->{ uc $k } = $v;
+        }
         $self->_parameters($new_params);
-    } 
+    }
 
     return $self->_parameters;
-} 
+}
 
 my %ENCODINGS = (
-    'QUOTED-PRINTABLE' => { encode => sub { 
-                                my $dec = shift ||'';
-                                $dec =~ s/\n/\r\n/g;
-                                return MIME::QuotedPrint::encode($dec, '');
-                            },
-                            decode => sub {
-                                my $dec = MIME::QuotedPrint::decode(shift ||'');
-                                $dec =~ s/\r\n/\n/g;
-                                return $dec;
-                            }
-                        },
-); 
+    'QUOTED-PRINTABLE' => {
+        encode => sub {
+            my $dec = shift || '';
+            $dec =~ s/\n/\r\n/g;
+            return MIME::QuotedPrint::encode( $dec, '' );
+        },
+        decode => sub {
+            my $dec = MIME::QuotedPrint::decode( shift || '' );
+            $dec =~ s/\r\n/\n/g;
+            return $dec;
+            }
+    },
+);
 
 =head2 decoded_value
 
@@ -123,16 +124,16 @@ specified or recognized, just returns the raw value.
 =cut
 
 sub decoded_value {
-    my $self = shift;
-    my $value = $self->value;
-    my $encoding = uc($self->parameters->{'ENCODING'}||"");
+    my $self     = shift;
+    my $value    = $self->value;
+    my $encoding = uc( $self->parameters->{'ENCODING'} || "" );
 
-    if ($ENCODINGS{$encoding}) {
+    if ( $ENCODINGS{$encoding} ) {
         return $ENCODINGS{$encoding}{'decode'}->($value);
     } else {
         return $value;
-    } 
-} 
+    }
+}
 
 =head2 encode $encoding
 
@@ -148,19 +149,19 @@ recognized.
 =cut
 
 sub encode {
-    my $self = shift;
+    my $self     = shift;
     my $encoding = uc shift;
 
     my $decoded_value = $self->decoded_value;
 
-    if (not defined $encoding) {
+    if ( not defined $encoding ) {
         $self->value($decoded_value);
         delete $self->parameters->{'ENCODING'};
-    } elsif ($ENCODINGS{$encoding}) {
+    } elsif ( $ENCODINGS{$encoding} ) {
         $self->value( $ENCODINGS{$encoding}{'encode'}->($decoded_value) );
         $self->parameters->{'ENCODING'} = $encoding;
-    } 
-} 
+    }
+}
 
 =head2 as_string ARGS
 
@@ -187,20 +188,22 @@ which used C<\x0a>.
 =cut
 
 sub as_string {
-    my $self   = shift;
-    my %args   = ( 
+    my $self = shift;
+    my %args = (
         fold => 1,
         crlf => Data::ICal::Entry->CRLF,
         @_
     );
-    my $string = uc( $self->key )
+    my $string
+        = uc( $self->key )
         . $self->_parameters_as_string . ":"
-        . $self->_value_as_string( $self->key ) . $args{crlf};
+        . $self->_value_as_string( $self->key )
+        . $args{crlf};
 
   # Assumption: the only place in an iCalendar that needs folding are property
   # lines
     if ( $args{'fold'} ) {
-        return $self->_fold($string, $args{crlf});
+        return $self->_fold( $string, $args{crlf} );
     } else {
         return $string;
     }
@@ -221,11 +224,11 @@ mode.
 =cut
 
 sub _value_as_string {
-    my $self = shift;
-    my $key = shift;
-    my $value = defined($self->value()) ? $self->value() : '';
-    
-    unless ($self->vcal10) {
+    my $self  = shift;
+    my $key   = shift;
+    my $value = defined( $self->value() ) ? $self->value() : '';
+
+    unless ( $self->vcal10 ) {
         $value =~ s/\\/\\\\/gs;
         $value =~ s/;/\\;/gs unless lc($key) eq 'rrule';
         $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
@@ -252,7 +255,8 @@ sub _parameters_as_string {
     my $out  = '';
     for my $name ( sort keys %{ $self->parameters } ) {
         my $value = $self->parameters->{$name};
-        $out .= ';'
+        $out
+            .= ';'
             . $name . '='
             . $self->_quoted_parameter_values(
             ref $value ? @$value : $value );
@@ -313,19 +317,21 @@ sub _fold {
     my $string = shift;
     my $crlf   = shift;
 
-    my $quoted_printable = $self->vcal10 && 
-        uc($self->parameters->{'ENCODING'}||'') eq 'QUOTED-PRINTABLE';
+    my $quoted_printable = $self->vcal10
+        && uc( $self->parameters->{'ENCODING'} || '' ) eq 'QUOTED-PRINTABLE';
 
     if ($quoted_printable) {
-        # In old vcal, quoted-printable properties have different folding rules.
-        # But some interop tests suggest it's wiser just to not fold for vcal 1.0
-        # at all (in quoted-printable).
+
+     # In old vcal, quoted-printable properties have different folding rules.
+     # But some interop tests suggest it's wiser just to not fold for vcal 1.0
+     # at all (in quoted-printable).
     } else {
         my $pos = 0;
+
         # Walk through the value, looking to replace 75 characters at
         # a time.  We assign to pos() to update where to pick up for
         # the next match.
-        while ($string =~ s/\G(.{75})(?=.)/$1$crlf /) {
+        while ( $string =~ s/\G(.{75})(?=.)/$1$crlf / ) {
             $pos += 75 + length($crlf);
             pos($string) = $pos;
         }

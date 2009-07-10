@@ -52,9 +52,9 @@ Creates a new entry object with no properties or sub-entries.
 
 sub new {
     my $class = shift;
-    my $self = $class->SUPER::new;
-    $self->set(properties => {});
-    $self->set(entries => []);
+    my $self  = $class->SUPER::new;
+    $self->set( properties => {} );
+    $self->set( entries    => [] );
     return $self;
 }
 
@@ -91,7 +91,7 @@ sub as_string {
     {
         carp "Mandatory property for " . ( ref $self ) . " missing: $name"
             unless $self->properties->{$name}
-            and @{ $self->properties->{$name} };
+                and @{ $self->properties->{$name} };
     }
 
     for my $name ( sort keys %{ $self->properties } ) {
@@ -190,9 +190,8 @@ sub add_property {
     my $prop = lc shift;
     my $val  = shift;
 
-
     return unless defined $prop;
-    
+
     unless ( $self->is_property($prop) or $prop =~ /^x-/i ) {
         carp "Unknown property for " . ( ref $self ) . ": $prop";
     }
@@ -209,7 +208,7 @@ sub add_property {
 
     my $p = Data::ICal::Property->new( $prop => $prop_value, $param_hash );
     $p->vcal10( $self->vcal10 );
-    
+
     push @{ $self->properties->{$prop} }, $p;
 }
 
@@ -534,7 +533,7 @@ sub _parse_generic_event {
                 $occurence->{value} =~ s/\\([;,\\])/$1/g;
                 $occurence->{value} =~ s/\\n/\n/ig;
             }
-            
+
             # handle optional params and 'normal' key/value pairs
             # TODO: line wrapping?
             if ( $occurence->{param} ) {

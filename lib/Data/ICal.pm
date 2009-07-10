@@ -82,15 +82,16 @@ sub new {
         @_
     );
 
-    $self->vcal10($args{vcal10});
+    $self->vcal10( $args{vcal10} );
 
-    if (defined $args{filename} or defined $args{data}) {
+    if ( defined $args{filename} or defined $args{data} ) {
+
         # might return a Class::ReturnValue if parsing fails
         return $self->parse(%args);
     } else {
         $self->add_properties(
-            version => ($self->vcal10 ? '1.0' : '2.0'),
-            prodid  => $self->product_id,
+            version => ( $self->vcal10 ? '1.0' : '2.0' ),
+            prodid => $self->product_id,
         );
         return $self;
     }
@@ -119,17 +120,18 @@ sub parse {
         @_
     );
 
-    unless (defined $args{filename} or defined $args{data}) {
-        return $self->_error("parse called with no filename or data specified");
-    } 
+    unless ( defined $args{filename} or defined $args{data} ) {
+        return $self->_error(
+            "parse called with no filename or data specified");
+    }
 
     my @lines;
 
     # open the file (checking as we go, like good little Perl mongers)
     if ( defined $args{filename} ) {
-        open my $fh, '<', $args{filename} or 
-            return $self->_error("could not open '$args{filename}': $!");
-        @lines = map {chomp; $_} <$fh>;
+        open my $fh, '<', $args{filename}
+            or return $self->_error("could not open '$args{filename}': $!");
+        @lines = map { chomp; $_ } <$fh>;
     } else {
         @lines = split /\r?\n/, $args{data};
     }
@@ -140,7 +142,8 @@ sub parse {
     my $cal = eval { Text::vFile::asData->new->parse_lines(@lines) };
     return $self->_error("parse failure: $@") if $@;
 
-    return $self->_error("parse failure") unless $cal and exists $cal->{objects};
+    return $self->_error("parse failure")
+        unless $cal and exists $cal->{objects};
 
     # loop through all the vcards
     foreach my $object ( @{ $cal->{objects} } ) {
@@ -149,28 +152,30 @@ sub parse {
 
     my $version_ref = $self->property("version");
     my $version = $version_ref ? $version_ref->[0]->value : undef;
-    unless (defined $version) {
+    unless ( defined $version ) {
         return $self->_error("data does not specify a version property");
-    } 
+    }
 
-    if ($version eq '1.0' and not $self->vcal10 or
-        $version eq '2.0' and $self->vcal10) {
-        return $self->_error('application claims data is' .
-                    ($self->vcal10 ? '' : ' not') . ' vCal 1.0 but doc contains VERSION:' .
-                    $version);
-    } 
-    
+    if (   $version eq '1.0' and not $self->vcal10
+        or $version eq '2.0' and $self->vcal10 )
+    {
+        return $self->_error( 'application claims data is'
+                . ( $self->vcal10 ? '' : ' not' )
+                . ' vCal 1.0 but doc contains VERSION:'
+                . $version );
+    }
+
     return $self;
 }
 
 sub _error {
     my $self = shift;
     my $msg  = shift;
-    
+
     my $ret = Class::ReturnValue->new;
-    $ret->as_error(errno => 1, message => $msg);
+    $ret->as_error( errno => 1, message => $msg );
     return $ret;
-} 
+}
 
 =head2 ical_entry_type
 
@@ -222,39 +227,38 @@ sub optional_unique_properties {
     );
 }
 
-
 # In quoted-printable sections, convert from vcal10 "=\n" line endings to
 # ical20 "\n ".
 sub _vcal10_input_cleanup {
-    my $self = shift;
+    my $self     = shift;
     my @in_lines = @_;
 
     my @out_lines;
 
     my $in_qp = 0;
-    LINE: while (@in_lines) {
+LINE: while (@in_lines) {
         my $line = shift @in_lines;
 
-        if (not $in_qp and $line =~ /^[^:]+;ENCODING=QUOTED-PRINTABLE/i) {
+        if ( not $in_qp and $line =~ /^[^:]+;ENCODING=QUOTED-PRINTABLE/i ) {
             $in_qp = 1;
-        } 
+        }
 
         unless ($in_qp) {
             push @out_lines, $line;
             next LINE;
-        } 
+        }
 
-        if ($line =~ s/=$//) {
+        if ( $line =~ s/=$// ) {
             push @out_lines, $line;
             $in_lines[0] = ' ' . $in_lines[0] if @in_lines;
         } else {
             push @out_lines, $line;
             $in_qp = 0;
-        } 
+        }
     }
 
     return @out_lines;
-} 
+}
 
 =head1 DEPENDENCIES
 
