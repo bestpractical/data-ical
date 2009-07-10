@@ -87,6 +87,19 @@ sub optional_repeatable_properties {
     );
 }
 
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Data::ICal::DateTime>
+
+For date parsing and formatting, including denoting "all day" events,
+considering using this module. Because it's a "mix in", you can still
+use all the methods here as well as the new date handling methods it
+defines.
+
+=back
+
 =head1 AUTHOR
 
 Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
