@@ -223,7 +223,7 @@ sub _value_as_string {
     my $value = defined($self->value()) ? $self->value() : '';
     
     unless ($self->vcal10) {
-        $value =~ s/\\/\\/gs;
+        $value =~ s/\\/\\\\/gs;
         $value =~ s/;/\\;/gs unless lc($key) eq 'rrule';
         $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
         $value =~ s/\x0d?\x0a/\\n/gs;

@@ -79,7 +79,7 @@ can_ok($event, qw/add_property add_properties properties/);
 
 $event->add_properties( 
                         summary => 'Awesome party',
-                        description => 'at my \ place,\nOn 5th St.;',
+                        description => "at my \\ place,\nOn 5th St.;",
                     );
 
 ok($s->add_entry($event));
@@ -96,7 +96,7 @@ SUMMARY:This one trumps number two\\, even though weird capitalization!
 URL:http://example.com/todo1
 END:VTODO
 BEGIN:VEVENT
-DESCRIPTION:at my \\ place\\,\\nOn 5th St.\\;
+DESCRIPTION:at my \\\\ place\\,\\nOn 5th St.\\;
 SUMMARY:Awesome party
 END:VEVENT
 END:VCALENDAR
