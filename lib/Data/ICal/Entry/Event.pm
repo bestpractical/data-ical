@@ -102,12 +102,13 @@ defines.
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2005, Best Practical Solutions, LLC.  All rights reserved.
+Copyright (c) 2005 - 2009, Best Practical Solutions, LLC.  All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself. See L<perlartistic>.
