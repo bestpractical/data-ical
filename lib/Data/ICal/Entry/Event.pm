@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::Event - Represents an event in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $vevent = Data::ICal::Entry::Event->new();
@@ -23,12 +22,13 @@ Data::ICal::Entry::Event - Represents an event in an iCalendar file
     $calendar->add_entry($vevent);
 
     $vevent->add_entry($alarm); 
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::Event> object represents a single event in an iCalendar file.
-(Note that the iCalendar RFC refers to entries as "components".)  It is a subclass
-of L<Data::ICal::Entry> and accepts all of its methods.
+A L<Data::ICal::Entry::Event> object represents a single event in an
+iCalendar file.  (Note that the iCalendar RFC refers to entries as
+"components".)  It is a subclass of L<Data::ICal::Entry> and accepts
+all of its methods.
 
 =head1 METHODS
 
@@ -44,16 +44,17 @@ sub ical_entry_type {'VEVENT'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the following properties may be specified
-at most one time for an event:
+According to the iCalendar standard, the following properties may be
+specified at most one time for an event:
 
 	class  created  description  dtstart  geo 
 	last-modified  location  organizer  priority 
 	dtstamp  sequence  status  summary  transp 
 	uid  url  recurrence-id 
 
-In addition, C<dtend> and C<duration> may be specified at most once each, but not both
-in the same entry (though this restriction is not enforced).
+In addition, C<dtend> and C<duration> may be specified at most once
+each, but not both in the same entry (though this restriction is not
+enforced).
 
 =cut
 
@@ -70,8 +71,8 @@ sub optional_unique_properties {
 
 =head2 optional_repeatable_properties
 
-According to the iCalendar standard, the following properties may be specified
-any number of times for an event:
+According to the iCalendar standard, the following properties may be
+specified any number of times for an event:
 
 	attach  attendee  categories  comment 
 	contact  exdate  exrule  request-status  related-to 
@@ -104,7 +105,6 @@ defines.
 
 Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
 Simon Wistow, and Alex Vandiver
-
 
 =head1 LICENCE AND COPYRIGHT
 

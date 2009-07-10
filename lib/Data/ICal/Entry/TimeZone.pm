@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::TimeZone - Represents a time zone definition in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $vtimezone = Data::ICal::Entry::TimeZone->new();
@@ -23,16 +22,16 @@ Data::ICal::Entry::TimeZone - Represents a time zone definition in an iCalendar 
 
     $calendar->add_entry($vtimezone);
 
-  
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::TimeZone> object represents the declaration of a time
-zone in an iCalendar file.  (Note that the iCalendar RFC refers to entries as
-"components".)  It is a subclass of L<Data::ICal::Entry> and accepts all of its
-methods.
+A L<Data::ICal::Entry::TimeZone> object represents the declaration of
+a time zone in an iCalendar file.  (Note that the iCalendar RFC refers
+to entries as "components".)  It is a subclass of L<Data::ICal::Entry>
+and accepts all of its methods.
 
-This module is not yet useful, because every time zone declaration needs to contain
-at least one C<STANDARD> or C<DAYLIGHT> component, and these have not yet been implemented.
+This module is not yet useful, because every time zone declaration
+needs to contain at least one C<STANDARD> or C<DAYLIGHT> component,
+and these have not yet been implemented.
 
 =head1 METHODS
 
@@ -48,8 +47,8 @@ sub ical_entry_type {'VTIMEZONE'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the following properties may be specified
-at most one time for a time zone declaration:
+According to the iCalendar standard, the following properties may be
+specified at most one time for a time zone declaration:
 
 	last-modified tzurl
 
@@ -63,8 +62,8 @@ sub optional_unique_properties {
 
 =head2 mandatory_unique_properties
 
-According to the iCalendar standard, the C<tzid> property must be specified
-exactly one time in a time zone declaration.
+According to the iCalendar standard, the C<tzid> property must be
+specified exactly one time in a time zone declaration.
 
 =cut
 
@@ -76,8 +75,8 @@ sub mandatory_unique_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 

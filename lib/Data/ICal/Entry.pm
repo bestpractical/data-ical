@@ -12,7 +12,6 @@ use constant CRLF => "\x0d\x0a";
 
 Data::ICal::Entry - Represents an entry in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $vtodo = Data::ICal::Entry::Todo->new();
@@ -23,22 +22,23 @@ Data::ICal::Entry - Represents an entry in an iCalendar file
     $calendar->add_entry($vtodo);
 
     $event->add_entry($alarm); 
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry> object represents a single entry in an iCalendar file.
-(Note that the iCalendar RFC refers to entries as "components".)  iCalendar
-defines several types of entries, such as events and to-do lists; each of
-these corresponds to a subclass of L<Data::ICal::Entry> (though only to-do
-lists and events are currently implemented).  L<Data::ICal::Entry> should be treated
-as an abstract base class -- all objects created should be of its subclasses.
-The entire calendar itself (the L<Data::ICal> object) is also represented
+A L<Data::ICal::Entry> object represents a single entry in an
+iCalendar file.  (Note that the iCalendar RFC refers to entries as
+"components".)  iCalendar defines several types of entries, such as
+events and to-do lists; each of these corresponds to a subclass of
+L<Data::ICal::Entry> (though only to-do lists and events are currently
+implemented).  L<Data::ICal::Entry> should be treated as an abstract
+base class -- all objects created should be of its subclasses.  The
+entire calendar itself (the L<Data::ICal> object) is also represented
 as a L<Data::ICal::Entry> object.
 
-Each entry has an entry type (such as C<VCALENDAR> or C<VEVENT>), a series
-of "properties", and possibly some sub-entries.  (Only the root L<Data::ICal>
-object can have sub-entries, except for alarm entries contained in events and
-to-dos (not yet implemented).)
+Each entry has an entry type (such as C<VCALENDAR> or C<VEVENT>), a
+series of "properties", and possibly some sub-entries.  (Only the root
+L<Data::ICal> object can have sub-entries, except for alarm entries
+contained in events and to-dos (not yet implemented).)
 
 =head1 METHODS
 
@@ -109,12 +109,14 @@ sub as_string {
 
 =head2 add_entry $entry
 
-Adds an entry to this entry.  (According to the standard, this should only be called
-on either a to-do or event entry with an alarm entry, or on a calendar entry (L<Data::ICal>)
-with a to-do, event, journal, timezone, or free/busy entry.)
+Adds an entry to this entry.  (According to the standard, this should
+only be called on either a to-do or event entry with an alarm entry,
+or on a calendar entry (L<Data::ICal>) with a to-do, event, journal,
+timezone, or free/busy entry.)
 
-Returns true if the entry was successfully added, and false otherwise (perhaps because you
-tried to add an entry of an invalid type, but this check hasn't been implemented yet). 
+Returns true if the entry was successfully added, and false otherwise
+(perhaps because you tried to add an entry of an invalid type, but
+this check hasn't been implemented yet).
 
 =cut
 
@@ -138,8 +140,9 @@ __PACKAGE__->mk_ro_accessors('entries');
 
 =head2 properties
 
-Returns a reference to the hash of properties of this entry.  The keys are property names and
-the values are array references containing L<Data::ICal::Property> objects.
+Returns a reference to the hash of properties of this entry.  The keys
+are property names and the values are array references containing
+L<Data::ICal::Property> objects.
 
 =cut
 
@@ -147,7 +150,8 @@ __PACKAGE__->mk_ro_accessors('properties');
 
 =head2 property
 
-Given a property name returns a reference to the array of L<Data::ICal::Property> objects.
+Given a property name returns a reference to the array of
+L<Data::ICal::Property> objects.
 
 =cut
 
@@ -159,19 +163,20 @@ sub property {
 
 =head2 add_property $propname => $propval
 
-Creates a new L<Data::ICal::Property> object with name C<$propname> and value
-C<$propval> and adds it to the event.
+Creates a new L<Data::ICal::Property> object with name C<$propname>
+and value C<$propval> and adds it to the event.
 
-If the property is not known to exist for that object type and does not begin
-with C<X->, issues a warning.
+If the property is not known to exist for that object type and does
+not begin with C<X->, issues a warning.
 
 If the property is known to be unique, replaces the original property.
 
-To specify parameters for the property, let C<$propval> be a two-element array reference
-where the first element is the property value and the second element is a hash reference.
-The keys of the hash are parameter names; the values should be either strings or array references
-of strings, depending on whether the parameter should have one or multiple (to be comma-separated)
-values.
+To specify parameters for the property, let C<$propval> be a
+two-element array reference where the first element is the property
+value and the second element is a hash reference.  The keys of the
+hash are parameter names; the values should be either strings or array
+references of strings, depending on whether the parameter should have
+one or multiple (to be comma-separated) values.
 
 Examples of setting parameters:
 
@@ -210,13 +215,16 @@ sub add_property {
 
 =head2 add_properties $propname1 => $propval1, [$propname2 => $propname2, ...]
 
-Convenience function to call C<add_property> several times with a list of properties.
+Convenience function to call C<add_property> several times with a list
+of properties.
 
-This method is guaranteed to call add C<add_property> on them in the order given, so that
-unique properties given later in the call will take precedence over those given earlier.
-(This is unrelated to the order of properties when the entry is rendered as a string, though.)
+This method is guaranteed to call add C<add_property> on them in the
+order given, so that unique properties given later in the call will
+take precedence over those given earlier.  (This is unrelated to the
+order of properties when the entry is rendered as a string, though.)
 
-Parameters for the properties are specified in the same way as in C<add_property>.
+Parameters for the properties are specified in the same way as in
+C<add_property>.
 
 =cut
 
@@ -237,9 +245,10 @@ sub add_properties {
 
 =head2 mandatory_unique_properties 
 
-Subclasses should override this method (which returns an empty list by default)
-to provide a list of lower case strings identifying the properties which must appear exactly
-once in the subclass's entry type.
+Subclasses should override this method (which returns an empty list by
+default) to provide a list of lower case strings identifying the
+properties which must appear exactly once in the subclass's entry
+type.
 
 =cut
 
@@ -247,9 +256,10 @@ sub mandatory_unique_properties { () }
 
 =head2 mandatory_repeatable_properties 
 
-Subclasses should override this method (which returns an empty list by default)
-to provide a list of lower case strings identifying the properties which must appear at least
-once in the subclass's entry type.
+Subclasses should override this method (which returns an empty list by
+default) to provide a list of lower case strings identifying the
+properties which must appear at least once in the subclass's entry
+type.
 
 =cut
 
@@ -257,9 +267,10 @@ sub mandatory_repeatable_properties { () }
 
 =head2 optional_unique_properties 
 
-Subclasses should override this method (which returns an empty list by default)
-to provide a list of lower case strings identifying the properties which must appear at most
-once in the subclass's entry type.
+Subclasses should override this method (which returns an empty list by
+default) to provide a list of lower case strings identifying the
+properties which must appear at most once in the subclass's entry
+type.
 
 =cut
 
@@ -267,9 +278,10 @@ sub optional_unique_properties { () }
 
 =head2 optional_repeatable_properties
 
-Subclasses should override this method (which returns an empty list by default)
-to provide a list of lower case strings identifying the properties which may appear zero,
-one, or more times in the subclass's entry type.
+Subclasses should override this method (which returns an empty list by
+default) to provide a list of lower case strings identifying the
+properties which may appear zero, one, or more times in the subclass's
+entry type.
 
 =cut
 
@@ -277,8 +289,9 @@ sub optional_repeatable_properties { () }
 
 =head2 is_property $name
 
-Returns a boolean value indicating whether or not the property C<$name> is known to the class
-(that is, if it's listed in C<(mandatory/optional)_(unique/repeatable)_properties>).
+Returns a boolean value indicating whether or not the property
+C<$name> is known to the class (that is, if it's listed in
+C<(mandatory/optional)_(unique/repeatable)_properties>).
 
 =cut
 
@@ -293,8 +306,9 @@ sub is_property {
 
 =head2 is_mandatory $name
 
-Returns a boolean value indicating whether or not the property C<$name> is known to the class as mandatory
-(that is, if it's listed in C<mandatory_(unique/repeatable)_properties>).
+Returns a boolean value indicating whether or not the property
+C<$name> is known to the class as mandatory (that is, if it's listed
+in C<mandatory_(unique/repeatable)_properties>).
 
 =cut
 
@@ -307,8 +321,9 @@ sub is_mandatory {
 
 =head2 is_optional $name
 
-Returns a boolean value indicating whether or not the property C<$name> is known to the class as optional
-(that is, if it's listed in C<optional_(unique/repeatable)_properties>).
+Returns a boolean value indicating whether or not the property
+C<$name> is known to the class as optional (that is, if it's listed in
+C<optional_(unique/repeatable)_properties>).
 
 =cut
 
@@ -321,8 +336,9 @@ sub is_optional {
 
 =head2 is_unique $name
 
-Returns a boolean value indicating whether or not the property C<$name> is known to the class as unique
-(that is, if it's listed in C<(mandatory/optional)_unique_properties>).
+Returns a boolean value indicating whether or not the property
+C<$name> is known to the class as unique (that is, if it's listed in
+C<(mandatory/optional)_unique_properties>).
 
 =cut
 
@@ -335,8 +351,9 @@ sub is_unique {
 
 =head2 is_repeatable $name
 
-Returns a boolean value indicating whether or not the property C<$name> is known to the class as repeatable
-(that is, if it's listed in C<(mandatory/optional)_repeatable_properties>).
+Returns a boolean value indicating whether or not the property
+C<$name> is known to the class as repeatable (that is, if it's listed
+in C<(mandatory/optional)_repeatable_properties>).
 
 =cut
 
@@ -349,8 +366,8 @@ sub is_repeatable {
 
 =head2 ical_entry_type
 
-Subclasses should override this method to provide the identifying type name of the entry
-(such as C<VCALENDAR> or C<VTODO>).
+Subclasses should override this method to provide the identifying type
+name of the entry (such as C<VCALENDAR> or C<VTODO>).
 
 =cut
 
@@ -358,10 +375,11 @@ sub ical_entry_type {'UNDEFINED'}
 
 =head2 vcal10 [$bool]
 
-Gets or sets a boolean saying whether this entry should be interpreted as vCalendar
-1.0 (as opposed to iCalendar 2.0).  Generally, you can just set this on your
-main L<Data::ICal> object when you construct it; C<add_entry> automatically makes
-sure that sub-entries end up with the same value as their parents.
+Gets or sets a boolean saying whether this entry should be interpreted
+as vCalendar 1.0 (as opposed to iCalendar 2.0).  Generally, you can
+just set this on your main L<Data::ICal> object when you construct it;
+C<add_entry> automatically makes sure that sub-entries end up with the
+same value as their parents.
 
 =cut
 
@@ -410,7 +428,7 @@ my %_generic = (
 
 =head2 parse_object
 
-Translate a L<Text::vFile::asData> sub object into the appropriate 
+Translate a L<Text::vFile::asData> sub object into the appropriate
 L<Data::iCal::Event> subtype.
 
 =cut 
@@ -433,7 +451,7 @@ sub parse_object {
     } elsif ( my $sub = $self->can( '_parse_' . lc($type) ) ) {
         $new_self = $self->$sub($object);
 
-        # bitch
+        # complain
     } else {
         warn "Can't parse type $type yet";
         return;
@@ -532,8 +550,8 @@ sub _parse_generic_event {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 

@@ -14,18 +14,18 @@ our $VERSION = '0.06';
 
 Data::ICal::Property - Represents a property on an entry in an iCalendar file
 
-  
 =head1 DESCRIPTION
 
 A L<Data::ICal::Property> object represents a single property on an
-entry in an iCalendar file.  Properties have parameters in addition to their value.
+entry in an iCalendar file.  Properties have parameters in addition to
+their value.
 
-You shouldn't need to create L<Data::ICal::Property> values directly -- just use
-C<add_property> in L<Data::ICal::Entry>.
+You shouldn't need to create L<Data::ICal::Property> values directly
+-- just use C<add_property> in L<Data::ICal::Entry>.
 
-The C<encoding> parameter value is only interpreted by L<Data::ICal> in the
-C<decoded_value> and C<encode> methods: all other methods access
-the encoded version directly (if there is an encoding).
+The C<encoding> parameter value is only interpreted by L<Data::ICal>
+in the C<decoded_value> and C<encode> methods: all other methods
+access the encoded version directly (if there is an encoding).
 
 Currently, the only supported encoding is C<QUOTED-PRINTABLE>.
 
@@ -37,12 +37,12 @@ Currently, the only supported encoding is C<QUOTED-PRINTABLE>.
 
 Creates a new L<Data::ICal::Property> with key C<$key> and value C<$value>.
 
-If C<$parameter_hash> is provided, sets the property's parameters to it.
-The parameter hash should have keys equal to the names of the parameters (case 
-insensitive; parameter hashes should not contain two different keys which are
-the same when converted to upper case); the values should either be a string
-if the parameter has a single value or an array reference of strings if
-the parameter has multiple values.
+If C<$parameter_hash> is provided, sets the property's parameters to
+it.  The parameter hash should have keys equal to the names of the
+parameters (case insensitive; parameter hashes should not contain two
+different keys which are the same when converted to upper case); the
+values should either be a string if the parameter has a single value
+or an array reference of strings if the parameter has multiple values.
 
 =cut
 
@@ -68,17 +68,17 @@ Gets or sets the value of this property.
 
 =head2 parameters [$param_hash]
 
-Gets or sets the parameter hash reference of this property.
-Parameter keys are converted to upper case.
+Gets or sets the parameter hash reference of this property.  Parameter
+keys are converted to upper case.
 
 =head2 vcal10 [$bool]
 
-Gets or sets a boolean saying whether this should be interpreted as vCalendar
-1.0 (as opposed to iCalendar 2.0).  Generally, you can just set this on your
-main L<Data::ICal> object when you construct it; C<add_entry> automatically makes
-sure that sub-entries end up with the same value as their parents, and 
-C<add_property> makes sure that properties end up with the same value as
-their entry.
+Gets or sets a boolean saying whether this should be interpreted as
+vCalendar 1.0 (as opposed to iCalendar 2.0).  Generally, you can just
+set this on your main L<Data::ICal> object when you construct it;
+C<add_entry> automatically makes sure that sub-entries end up with the
+same value as their parents, and C<add_property> makes sure that
+properties end up with the same value as their entry.
 
 =cut
 
@@ -115,10 +115,10 @@ my %ENCODINGS = (
 
 =head2 decoded_value
 
-Gets the value of this property, converted from the encoding specified in 
-its encoding parameter.  (That is, C<value> will return the encoded version;
-this will apply the encoding.)  If the encoding is not specified or recognized, just returns
-the raw value.
+Gets the value of this property, converted from the encoding specified
+in its encoding parameter.  (That is, C<value> will return the encoded
+version; this will apply the encoding.)  If the encoding is not
+specified or recognized, just returns the raw value.
 
 =cut
 
@@ -136,12 +136,14 @@ sub decoded_value {
 
 =head2 encode $encoding
 
-Calls C<decoded_value> to get the current decoded value, then encodes it in C<$encoding>,
-sets the value to that, and sets the encoding parameter to C<$encoding>. (C<$encoding> is
-first converted to upper case.)
+Calls C<decoded_value> to get the current decoded value, then encodes
+it in C<$encoding>, sets the value to that, and sets the encoding
+parameter to C<$encoding>. (C<$encoding> is first converted to upper
+case.)
 
-If C<$encoding> is undef, deletes the encoding parameter and sets the value to the decoded
-value.  Does nothing if the encoding is not recognized.
+If C<$encoding> is undef, deletes the encoding parameter and sets the
+value to the decoded value.  Does nothing if the encoding is not
+recognized.
 
 =cut
 
@@ -162,7 +164,8 @@ sub encode {
 
 =head2 as_string ARGS
 
-Returns the property formatted as a string (including trailing newline).
+Returns the property formatted as a string (including trailing
+newline).
 
 Takes named arguments:
 
@@ -170,7 +173,8 @@ Takes named arguments:
 
 =item fold
 
-Defaults to true. pass in a false value if you need to generate non-rfc-compliant calendars.
+Defaults to true. pass in a false value if you need to generate
+non-rfc-compliant calendars.
 
 =item crlf
 
@@ -206,12 +210,11 @@ sub as_string {
 
 =head2 _value_as_string
 
-Returns the property's value as a string.  
-Comma and semicolon are not escaped when the value is recur type (the key is 
-rrule).
+Returns the property's value as a string.  Comma and semicolon are not
+escaped when the value is recur type (the key is rrule).
 
-Values are quoted according the iCal spec, unless 
-this is in vCal 1.0 mode.
+Values are quoted according the iCal spec, unless this is in vCal 1.0
+mode.
 
 =end private
 
@@ -261,10 +264,11 @@ sub _parameters_as_string {
 
 =head2 _quoted_parameter_values @values
 
-Quotes any of the values in C<@values> that need to be quoted and returns the quoted values
-joined by commas.
+Quotes any of the values in C<@values> that need to be quoted and
+returns the quoted values joined by commas.
 
-If any of the values contains a double-quote, erases it and emits a warning.
+If any of the values contains a double-quote, erases it and emits a
+warning.
 
 =end private
 
@@ -291,12 +295,14 @@ sub _quoted_parameter_values {
 
 =head2 _fold $string $crlf
 
-Returns C<$string> folded with newlines and leading whitespace so that each
-line is at most 75 characters.
+Returns C<$string> folded with newlines and leading whitespace so that
+each line is at most 75 characters.
 
-(Note that it folds at 75 characters, not 75 bytes as specified in the standard.)
+(Note that it folds at 75 characters, not 75 bytes as specified in the
+standard.)
 
-If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, does not fold at all.
+If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, does not
+fold at all.
 
 =end private
 
@@ -327,6 +333,44 @@ sub _fold {
 
     return $string;
 }
+
+=head1 AUTHOR
+
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
+
+=head1 LICENCE AND COPYRIGHT
+
+Copyright (c) 2005 - 2009, Best Practical Solutions, LLC.  All rights reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself. See L<perlartistic>.
+
+
+=head1 DISCLAIMER OF WARRANTY
+
+BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
+OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
+YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+NECESSARY SERVICING, REPAIR, OR CORRECTION.
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE
+LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL,
+OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE
+THE SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
+
+=cut
 
 1;
 

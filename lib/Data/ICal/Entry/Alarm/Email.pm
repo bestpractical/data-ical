@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::Alarm::Email - Represents an emailed alarm in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $valarm = Data::ICal::Entry::Alarm::Audio->new();
@@ -20,16 +19,17 @@ Data::ICal::Entry::Alarm::Email - Represents an emailed alarm in an iCalendar fi
     );
 
     $vevent->add_entry($valarm);
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::Alarm::Email> object represents an emailed alarm attached
-to a todo item or event in an iCalendar file.  (Note that the iCalendar RFC
-refers to entries as "components".)  It is a subclass of L<Data::ICal::Entry>
-and accepts all of its methods.
+A L<Data::ICal::Entry::Alarm::Email> object represents an emailed
+alarm attached to a todo item or event in an iCalendar file.  (Note
+that the iCalendar RFC refers to entries as "components".)  It is a
+subclass of L<Data::ICal::Entry> and accepts all of its methods.
 
-The C<attendee> properties are intended as the recipient list of the email; the C<summary>
-as its subject; the C<description> as its body; and the C<attach>  as its attachments.
+The C<attendee> properties are intended as the recipient list of the
+email; the C<summary> as its subject; the C<description> as its body;
+and the C<attach> as its attachments.
 
 =head1 METHODS
 
@@ -37,8 +37,8 @@ as its subject; the C<description> as its body; and the C<attach>  as its attach
 
 =head2 new
 
-Creates a new L<Data::ICal::Entry::Alarm::Email> object; sets its C<ACTION> property
-to C<EMAIL>.
+Creates a new L<Data::ICal::Entry::Alarm::Email> object; sets its
+C<ACTION> property to C<EMAIL>.
 
 =cut
 
@@ -59,9 +59,10 @@ sub ical_entry_type {'VALARM'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the C<duration> and C<retreat> properties may be specified
-at most one time for an emailed alarm, and if one is specified, the other one must be also,
-though this module does not enforce that restriction.
+According to the iCalendar standard, the C<duration> and C<retreat>
+properties may be specified at most one time for an emailed alarm, and
+if one is specified, the other one must be also, though this module
+does not enforce that restriction.
 
 =cut
 
@@ -73,13 +74,13 @@ sub optional_unique_properties {
 
 =head2 mandatory_unique_properties
 
-According to the iCalendar standard, the following properties must be specified
-exactly once for an emailed alarm:
+According to the iCalendar standard, the following properties must be
+specified exactly once for an emailed alarm:
 
   description summary trigger
 
-In addition, the C<action> property must be specified exactly once, but the
-module automatically sets it for you.
+In addition, the C<action> property must be specified exactly once,
+but the module automatically sets it for you.
 
 =cut
 
@@ -91,8 +92,8 @@ sub mandatory_unique_properties {
 
 =head2 mandatory_repeatable_properties
 
-According to the iCalendar standard, the C<attendee> property must be specified
-at least once for an emailed alarm.
+According to the iCalendar standard, the C<attendee> property must be
+specified at least once for an emailed alarm.
 
 =cut
 
@@ -104,8 +105,8 @@ sub mandatory_repeatable_properties {
 
 =head2 optional_repeatable_properties
 
-According to the iCalendar standard, the C<attach> property may be specified
-any number of times for an emailed alarm.
+According to the iCalendar standard, the C<attach> property may be
+specified any number of times for an emailed alarm.
 
 =cut
 
@@ -117,8 +118,8 @@ sub optional_repeatable_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 

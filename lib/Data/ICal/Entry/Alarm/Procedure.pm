@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::Alarm::Procedure - Represents a procedure-call alarm in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $valarm = Data::ICal::Entry::Alarm::Procedure->new();
@@ -20,14 +19,14 @@ Data::ICal::Entry::Alarm::Procedure - Represents a procedure-call alarm in an iC
     );
 
     $vevent->add_entry($valarm);
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::Alarm::Procedure> object represents an alarm that calls a
-procedure (in some application-defined way), which is attached to a todo item or
-event in an iCalendar file.  (Note that the iCalendar RFC refers to entries as
-"components".)  It is a subclass of L<Data::ICal::Entry> and accepts all of its
-methods.
+A L<Data::ICal::Entry::Alarm::Procedure> object represents an alarm
+that calls a procedure (in some application-defined way), which is
+attached to a todo item or event in an iCalendar file.  (Note that the
+iCalendar RFC refers to entries as "components".)  It is a subclass of
+L<Data::ICal::Entry> and accepts all of its methods.
 
 =head1 METHODS
 
@@ -35,8 +34,8 @@ methods.
 
 =head2 new
 
-Creates a new L<Data::ICal::Entry::Alarm::Procedure> object; sets its C<ACTION> property
-to C<PROCEDURE>.
+Creates a new L<Data::ICal::Entry::Alarm::Procedure> object; sets its
+C<ACTION> property to C<PROCEDURE>.
 
 =cut
 
@@ -57,13 +56,14 @@ sub ical_entry_type {'VALARM'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the following properties may be specified
-at most one time for a procedure-call alarm:
+According to the iCalendar standard, the following properties may be
+specified at most one time for a procedure-call alarm:
 
 	duration repeat description
 
-Note that if one of C<duration> or C<repeat> is specified, the other one must be also,
-though this module does not enforce that restriction.
+Note that if one of C<duration> or C<repeat> is specified, the other
+one must be also, though this module does not enforce that
+restriction.
 
 =cut
 
@@ -75,10 +75,10 @@ sub optional_unique_properties {
 
 =head2 mandatory_unique_properties
 
-According to the iCalendar standard, the C<trigger> and C<attach> properties
-must be specified exactly once for a procedure-call alarm.  (In addition, the C<action>
-property must be specified exactly once, but the module automatically sets it
-for you.)
+According to the iCalendar standard, the C<trigger> and C<attach>
+properties must be specified exactly once for a procedure-call alarm.
+(In addition, the C<action> property must be specified exactly once,
+but the module automatically sets it for you.)
 
 =cut
 
@@ -90,8 +90,8 @@ sub mandatory_unique_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 

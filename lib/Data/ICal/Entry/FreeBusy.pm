@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::FreeBusy - Represents blocks of free and busy time in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $vfreebusy = Data::ICal::Entry::FreeBusy->new();
@@ -20,13 +19,14 @@ Data::ICal::Entry::FreeBusy - Represents blocks of free and busy time in an iCal
     );
 
     $calendar->add_entry($vfreebusy);
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::FreeBusy> object represents a request for information about free and
-busy time or a reponse to such a request, in an iCalendar file.
-(Note that the iCalendar RFC refers to entries as "components".)  It is a subclass
-of L<Data::ICal::Entry> and accepts all of its methods.
+A L<Data::ICal::Entry::FreeBusy> object represents a request for
+information about free and busy time or a reponse to such a request,
+in an iCalendar file.  (Note that the iCalendar RFC refers to entries
+as "components".)  It is a subclass of L<Data::ICal::Entry> and
+accepts all of its methods.
 
 =head1 METHODS
 
@@ -42,8 +42,8 @@ sub ical_entry_type {'VFREEBUSY'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the following properties may be specified
-at most one time for a free/busy entry:
+According to the iCalendar standard, the following properties may be
+specified at most one time for a free/busy entry:
 
 	contact  dtstart  dtend  duration  dtstamp 
 	organizer  uid  url 
@@ -59,8 +59,8 @@ sub optional_unique_properties {
 
 =head2 optional_repeatable_properties
 
-According to the iCalendar standard, the following properties may be specified
-any number of times for free/busy entry:
+According to the iCalendar standard, the following properties may be
+specified any number of times for free/busy entry:
 
         attendee comment freebusy request-status
 
@@ -74,8 +74,8 @@ sub optional_repeatable_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 

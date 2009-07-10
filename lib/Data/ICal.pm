@@ -31,7 +31,7 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
     $calendar = Data::ICal->new(data => 'BEGIN:VCALENDAR...'); # parse from scalar
     $calendar->add_entry($vtodo);
     print $calendar->as_string;
-   
+
 =head1 DESCRIPTION
 
 A L<Data::ICal> object represents a C<VCALENDAR> object as defined in the
@@ -292,7 +292,6 @@ L<http://rt.cpan.org>.
 
 Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
 Simon Wistow, and Alex Vandiver
-
 
 =head1 LICENCE AND COPYRIGHT
 

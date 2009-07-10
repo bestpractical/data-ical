@@ -9,7 +9,6 @@ use base qw/Data::ICal::Entry/;
 
 Data::ICal::Entry::Alarm::Display - Represents a displayed alarm in an iCalendar file
 
-
 =head1 SYNOPSIS
 
     my $valarm = Data::ICal::Entry::Alarm::Display->new();
@@ -20,13 +19,14 @@ Data::ICal::Entry::Alarm::Display - Represents a displayed alarm in an iCalendar
     );
 
     $vevent->add_entry($valarm);
-  
+
 =head1 DESCRIPTION
 
-A L<Data::ICal::Entry::Alarm::Display> object represents a alarm that displays a
-message which is attached to a todo item or event in an iCalendar file.  (Note
-that the iCalendar RFC refers to entries as "components".)  It is a subclass of
-L<Data::ICal::Entry> and accepts all of its methods.
+A L<Data::ICal::Entry::Alarm::Display> object represents a alarm that
+displays a message which is attached to a todo item or event in an
+iCalendar file.  (Note that the iCalendar RFC refers to entries as
+"components".)  It is a subclass of L<Data::ICal::Entry> and accepts
+all of its methods.
 
 =head1 METHODS
 
@@ -34,8 +34,8 @@ L<Data::ICal::Entry> and accepts all of its methods.
 
 =head2 new
 
-Creates a new L<Data::ICal::Entry::Alarm::Display> object; sets its C<ACTION> property
-to C<DISPLAY>.
+Creates a new L<Data::ICal::Entry::Alarm::Display> object; sets its
+C<ACTION> property to C<DISPLAY>.
 
 =cut
 
@@ -56,9 +56,10 @@ sub ical_entry_type {'VALARM'}
 
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the C<duration> and C<retreat> properties may be specified
-at most one time for an displayed alarm, and if one is specified, the other one must be also,
-though this module does not enforce that restriction.
+According to the iCalendar standard, the C<duration> and C<retreat>
+properties may be specified at most one time for an displayed alarm,
+and if one is specified, the other one must be also, though this
+module does not enforce that restriction.
 
 =cut
 
@@ -71,9 +72,9 @@ sub optional_unique_properties {
 =head2 mandatory_unique_properties
 
 According to the iCalendar standard, the C<trigger> and C<description>
-properties must be specified exactly once for an displayed alarm.  (In addition, the
-C<action> property must be specified exactly once, but the module automatically
-sets it for you.)
+properties must be specified exactly once for an displayed alarm.  (In
+addition, the C<action> property must be specified exactly once, but
+the module automatically sets it for you.)
 
 =cut
 
@@ -85,8 +86,8 @@ sub mandatory_unique_properties {
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
-
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 =head1 LICENCE AND COPYRIGHT
 
