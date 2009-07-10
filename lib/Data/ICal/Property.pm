@@ -227,7 +227,6 @@ sub _value_as_string {
         $value =~ s/;/\\;/gs unless lc($key) eq 'rrule';
         $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
         $value =~ s/\x0d?\x0a/\\n/gs;
-        $value =~ s/\\N/\\N/gs;
     }
 
     return $value;
