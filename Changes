@@ -1,7 +1,15 @@
 Revision history for Data-ICal
 
-0.15_01
+0.15_02
     * Use \r\n as the newline character, per RFC 3445
+    * Escaping of \ was being done incorrectly, and tested incorrectly
+    * Remove a useless and incorrect "escape code"
+    * Mention Data::ICal::DateTime
+    * Update copyright
+    * POD cleanup
+    * Update README from POD
+    * POD nits; mostly reflowing and whitespace fixes
+    * Perltidy
 
 0.15
     * Escaping fixes

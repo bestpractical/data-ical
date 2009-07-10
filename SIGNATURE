@@ -14,11 +14,11 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 4d8d3956bfb087e8040b6f7c882eb483fd3be841 Changes
+SHA1 26abceeaca786d8f86da9e43e9799aed0fa4858e Changes
 SHA1 5431e81bc6604fb7a108c0616e0f841c7f790739 MANIFEST
-SHA1 5934ccd98073ccf2eaacb0b9e7ec6708cc322e32 META.yml
+SHA1 6d8ead09247ede26a2d2cfc7f34052da3123b61f META.yml
 SHA1 2e091ae7e52799ba1f315134ce2a2d2bfd703ce0 Makefile.PL
-SHA1 d9f0e46f1abb63475a9d382938debf95ec586612 README
+SHA1 ec8bde7d78141c610ceeb9f8f74d48dfca294406 README
 SHA1 53368d91c157d1932b76db94854288903ae7ec59 doc/rfc2445.txt
 SHA1 1ca8755782cececa8cb19deddbcbe03be8e73cfc examples/ical2html.pl
 SHA1 6cc7c33dbf3e1635f38ac2acc983c410cd0da679 inc/Module/AutoInstall.pm
@@ -32,22 +32,22 @@ SHA1 c45b2672d8ae49d710343f39f68d00c28cba4b43 inc/Module/Install/Makefile.pm
 SHA1 82e172b951d97f74315af04cb7b909afa546fc07 inc/Module/Install/Metadata.pm
 SHA1 1b1de77b3187dfbbd6de905e539ff1393c1aa6a0 inc/Module/Install/Win32.pm
 SHA1 c1c96fa424457d79caaaf9af61037e6f984e71dc inc/Module/Install/WriteAll.pm
-SHA1 10a1c59679fcde45004fa4553e14e26c3ce8c408 lib/Data/ICal.pm
-SHA1 b0c862c2744d0a5bf27d161473f302a0c6cb5a61 lib/Data/ICal/Entry.pm
-SHA1 1aba295f69f55ef58fcf20d4a509222fe4cf02f0 lib/Data/ICal/Entry/Alarm/Audio.pm
-SHA1 edc21a5cd2c17e1892a2ab12dd2c8dc31011bb48 lib/Data/ICal/Entry/Alarm/Display.pm
-SHA1 3003fb0bba35562d27f94498f4487f7ba1810a39 lib/Data/ICal/Entry/Alarm/Email.pm
-SHA1 deba9d6f1f57d9d8910a22297fd9dfe4ef485d37 lib/Data/ICal/Entry/Alarm/Procedure.pm
-SHA1 5faece543b6869f0d12d3180624eac7670994f7b lib/Data/ICal/Entry/Event.pm
-SHA1 b9d7ac15e1c7ef7b1aa8c49f9663e1533ede6b3f lib/Data/ICal/Entry/FreeBusy.pm
-SHA1 8bec9e8cde6196dbad40738c85d55b0ca0171aa2 lib/Data/ICal/Entry/Journal.pm
-SHA1 f8a94d3181e20d6422a1ad0294685852824df982 lib/Data/ICal/Entry/TimeZone.pm
-SHA1 c094381b7739eea4a663acdd4f9af8572a19ad48 lib/Data/ICal/Entry/TimeZone/Daylight.pm
-SHA1 fc807da3b247c7b054e971efe6cd0ffc20c741ca lib/Data/ICal/Entry/TimeZone/Standard.pm
-SHA1 3b6856f5ec5951e0fb3250059aa3f40e75b03427 lib/Data/ICal/Entry/Todo.pm
-SHA1 33bbd7763ed43de307d515ffc8ceec411bfbcfc6 lib/Data/ICal/Property.pm
+SHA1 1c734f8c61191a4202772ccc4356f2fe12353ab5 lib/Data/ICal.pm
+SHA1 79a9c4a645ecfa18da000d0547e3e45d9def0b44 lib/Data/ICal/Entry.pm
+SHA1 f0cc8271b2e60eec93e87bd05dd462943b13f489 lib/Data/ICal/Entry/Alarm/Audio.pm
+SHA1 bff66b1c333f650c9f0547cf22eb37926f47592c lib/Data/ICal/Entry/Alarm/Display.pm
+SHA1 0b7a52987c20ff10eb2d5cd3749b490ccc29b5f8 lib/Data/ICal/Entry/Alarm/Email.pm
+SHA1 2f541e922a7ef4c8c568052384b8d0581f8704cc lib/Data/ICal/Entry/Alarm/Procedure.pm
+SHA1 2f9f1fc543f3790b5658bba21deb22fb50c7151e lib/Data/ICal/Entry/Event.pm
+SHA1 3db110b20d7305b13a88989fb76036bca9558f0b lib/Data/ICal/Entry/FreeBusy.pm
+SHA1 e664c1a273a10b050d45a3a3ef53dd41c33231c6 lib/Data/ICal/Entry/Journal.pm
+SHA1 19e11a8dd9d32eb2d3ba70420ad7ffd641094282 lib/Data/ICal/Entry/TimeZone.pm
+SHA1 46b0edc6769e166efc32caf47c6f63a9b3e5ecd4 lib/Data/ICal/Entry/TimeZone/Daylight.pm
+SHA1 25715bf3c06276c0d846abd43c107c0ef4b39455 lib/Data/ICal/Entry/TimeZone/Standard.pm
+SHA1 1bc5a7853c0c1cc087a2fd49eba3d1339553b931 lib/Data/ICal/Entry/Todo.pm
+SHA1 fff2b51bdec2af95b0a28308fd772c7872dbd10d lib/Data/ICal/Property.pm
 SHA1 371dc48be4670c99ffa5f732e7d7584465e39edc t/00.load.t
-SHA1 6b8f28b38ce0ce159265f288153d94dea7ba97ac t/01.simplegen.t
+SHA1 d2bad4f3a458ac4baeed129ce30a2f0463106eb7 t/01.simplegen.t
 SHA1 0ef26a49106e23a1a99e77f48b18e94a002ca350 t/02.linewrap.t
 SHA1 7aec87bcc3d62d762a2ec4adfaf120016fa1e3e0 t/03.unknown-props.t
 SHA1 1b8e8dde570944000c11b1ac7bdfe44bcdda96ab t/04.mandatory-props.t
@@ -66,7 +66,7 @@ SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.11 (GNU/Linux)
 
-iEYEARECAAYFAkpWpysACgkQMflWJZZAbqDWDwCfSCcYDKqpc1H+VLMbegjq+MeX
-GSQAoLx8LnoVLzzD0rrgwMc8WwlXY95a
-=6yRD
+iEYEARECAAYFAkpWvCsACgkQMflWJZZAbqBZMgCdGBi4KgZn1mC4pZRce/8QIVuk
+gCEAoJNv6NQaMGoW6EZjA2BmHop4+6Pi
+=fcsn
 -----END PGP SIGNATURE-----
