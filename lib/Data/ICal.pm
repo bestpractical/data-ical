@@ -5,7 +5,6 @@ package Data::ICal;
 use base qw/Data::ICal::Entry/;
 
 use Class::ReturnValue;
-
 use Text::vFile::asData;
 
 our $VERSION = '0.15_01';
@@ -15,7 +14,6 @@ use Carp;
 =head1 NAME
 
 Data::ICal - Generates iCalendar (RFC 2445) calendar files
-
 
 =head1 SYNOPSIS
 
@@ -29,13 +27,9 @@ Data::ICal - Generates iCalendar (RFC 2445) calendar files
     );
 
     # ... or
-
     $calendar = Data::ICal->new(filename => 'foo.ics'); # parse existing file
-    $calendar = Data::ICal->new(data => 'BEGIN:VCALENDAR...'); # parse existing file
-
-
+    $calendar = Data::ICal->new(data => 'BEGIN:VCALENDAR...'); # parse from scalar
     $calendar->add_entry($vtodo);
-
     print $calendar->as_string;
    
 =head1 DESCRIPTION
@@ -104,15 +98,15 @@ sub new {
 
 =head2 parse [ data => $data, ] [ filename => $file, ]
 
-Parse a .ics file or string containing one, and populate C<$self> with
-its contents.
+Parse a C<.ics> file or string containing one, and populate C<$self>
+with its contents.
 
 Should only be called once on a given object, and will be automatically
 called by C<new> if you provide arguments to C<new>.
 
-Returns C<$self> on success.
-Returns a false value upon failure to open or parse the file or data; this false
-value is a L<Class::ReturnValue> object and can be queried as to its 
+Returns C<$self> on success.  Returns a false value upon failure to
+open or parse the file or data; this false value is a
+L<Class::ReturnValue> object and can be queried as to its
 C<error_message>.
 
 =cut
@@ -262,50 +256,42 @@ sub _vcal10_input_cleanup {
     return @out_lines;
 } 
 
-=head1 CONFIGURATION AND ENVIRONMENT
-
-L<Data::ICal> requires no configuration files or environment variables.
-
-
 =head1 DEPENDENCIES
 
-L<Data::ICal> requires L<Class::Accessor>.
-
-
-=head1 INCOMPATIBILITIES
-
-None reported.
-
+L<Data::ICal> requires L<Class::Accessor>, L<Text::vFile::asData>,
+L<MIME::QuotedPrint>, and L<Class::ReturnValue>.
 
 =head1 BUGS AND LIMITATIONS
 
-L<Data::ICal> does not support time zone daylight or standard entries, so time zone
-components are basically useless.
+L<Data::ICal> does not support time zone daylight or standard entries,
+so time zone components are basically useless.
 
-While L<Data::ICal> tries to check which properties are required and repeatable, this
-only works in simple cases; it does not check for properties that must either both exist
-or both not exist, or for mutually exclusive properties.
+While L<Data::ICal> tries to check which properties are required and
+repeatable, this only works in simple cases; it does not check for
+properties that must either both exist or both not exist, or for
+mutually exclusive properties.
 
-L<Data::ICal> does not check to see if property parameter names are known in
-general or allowed on the particular property.
+L<Data::ICal> does not check to see if property parameter names are
+known in general or allowed on the particular property.
 
-L<Data::ICal> does not check to see if nested entries are nested properly (alarms in
-todos and events only, everything else in calendars only).
+L<Data::ICal> does not check to see if nested entries are nested
+properly (alarms in todos and events only, everything else in
+calendars only).
 
-The only property encoding supported by L<Data::ICal> is quoted printable.
+The only property encoding supported by L<Data::ICal> is quoted
+printable.
 
 There is no L<Data::ICal::Entry::Alarm> base class.
 
-No bugs have been reported.
-
 Please report any bugs or feature requests to
-C<bug-data-ical-generator@rt.cpan.org>, or through the web interface at
+C<bug-data-ical@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.
 
 
 =head1 AUTHOR
 
-Jesse Vincent  C<< <jesse@bestpractical.com> >> with David Glasser and Simon Wistow
+Jesse Vincent C<< <jesse@bestpractical.com> >> with David Glasser,
+Simon Wistow, and Alex Vandiver
 
 
 =head1 LICENCE AND COPYRIGHT
