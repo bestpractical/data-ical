@@ -137,7 +137,7 @@ sub parse {
             return $self->_error("could not open '$args{filename}': $!");
         @lines = map {chomp; $_} <$fh>;
     } else {
-        @lines = split /\n/, $args{data};
+        @lines = split /\r?\n/, $args{data};
     }
 
     @lines = $self->_vcal10_input_cleanup(@lines) if $self->vcal10;

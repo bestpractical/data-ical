@@ -46,4 +46,4 @@ $cal->add_entry($todo);
 $todo->add_property(description => $decoded_desc);
 
 $cal->entries->[0]->property('description')->[0]->encode('QUotED-PRintabLE');
-is_string($cal->as_string, $encoded_vcal);
+is_string($cal->as_string( crlf => "\n" ), $encoded_vcal);

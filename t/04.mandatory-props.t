@@ -23,7 +23,7 @@ $cal->properties->{'prodid'} = [];
 
 my $str;
 
-warning_is { $str = $cal->as_string }
+warning_is { $str = $cal->as_string( crlf => "\n") }
     {carped => "Mandatory property for Data::ICal missing: prodid"}, 
     "Got a warning for missing mandatory property";
 

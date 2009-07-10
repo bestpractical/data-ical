@@ -17,7 +17,7 @@ $todo->add_property( summary => [ 'Sum it up.', { language => "en-US", value => 
 $todo->add_properties( attendee => [ 'MAILTO:janedoe@host.com', 
     { member => [ 'MAILTO:projectA@host.com', 'MAILTO:projectB@host.com' ] } ]);
 
-is_string($todo->as_string, <<'END_VCAL', "Got the right output");
+is_string($todo->as_string( crlf => "\n"), <<'END_VCAL', "Got the right output");
 BEGIN:VTODO
 ATTENDEE;MEMBER="MAILTO:projectA@host.com","MAILTO:projectB@host.com":MAILT
  O:janedoe@host.com

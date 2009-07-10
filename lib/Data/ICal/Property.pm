@@ -172,22 +172,31 @@ Takes named arguments:
 
 Defaults to true. pass in a false value if you need to generate non-rfc-compliant calendars.
 
-=back
+=item crlf
 
+Defaults to C<\x0d\x0a>, per RFC 2445 spec.  This option is primarily
+for backwards compatability with version of this module prior to 0.16,
+which used C<\x0a>.
+
+=back
 
 =cut
 
 sub as_string {
     my $self   = shift;
-    my %args   = ( fold => 1, @_ );
+    my %args   = ( 
+        fold => 1,
+        crlf => Data::ICal::Entry->CRLF,
+        @_
+    );
     my $string = uc( $self->key )
         . $self->_parameters_as_string . ":"
-        . $self->_value_as_string( $self->key ) . "\n";
+        . $self->_value_as_string( $self->key ) . $args{crlf};
 
   # Assumption: the only place in an iCalendar that needs folding are property
   # lines
     if ( $args{'fold'} ) {
-        return $self->_fold($string);
+        return $self->_fold($string, $args{crlf});
     } else {
         return $string;
     }
@@ -217,7 +226,7 @@ sub _value_as_string {
         $value =~ s/\\/\\/gs;
         $value =~ s/;/\\;/gs unless lc($key) eq 'rrule';
         $value =~ s/,/\\,/gs unless lc($key) eq 'rrule';
-        $value =~ s/\n/\\n/gs;
+        $value =~ s/\x0d?\x0a/\\n/gs;
         $value =~ s/\\N/\\N/gs;
     }
 
@@ -281,14 +290,14 @@ sub _quoted_parameter_values {
 
 =begin private
 
-=head2 _fold $string
+=head2 _fold $string $crlf
 
 Returns C<$string> folded with newlines and leading whitespace so that each
 line is at most 75 characters.
 
 (Note that it folds at 75 characters, not 75 bytes as specified in the standard.)
 
-If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, folds with = instead.
+If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, does not fold at all.
 
 =end private
 
@@ -297,26 +306,23 @@ If this is vCalendar 1.0 and encoded with QUOTED-PRINTABLE, folds with = instead
 sub _fold {
     my $self   = shift;
     my $string = shift;
+    my $crlf   = shift;
 
     my $quoted_printable = $self->vcal10 && 
         uc($self->parameters->{'ENCODING'}||'') eq 'QUOTED-PRINTABLE';
-
-    # We can't just use a s//g, because we need to include the added space/= and
-    # first character of the next line in the count for the next line.
 
     if ($quoted_printable) {
         # In old vcal, quoted-printable properties have different folding rules.
         # But some interop tests suggest it's wiser just to not fold for vcal 1.0
         # at all (in quoted-printable).
-
-        # [do nothing]
-
-#        while ( $string =~ /.{75}[^\n=]/ ) {
-#            $string =~ s/(.{75})([^\n=])/$1=\n$2/;
-#        }
     } else {
-        while ( $string =~ /(.{76})/ ) {
-            $string =~ s/(.{75})(.)/$1\n $2/;
+        my $pos = 0;
+        # Walk through the value, looking to replace 75 characters at
+        # a time.  We assign to pos() to update where to pick up for
+        # the next match.
+        while ($string =~ s/\G(.{75})(?=.)/$1$crlf /) {
+            $pos += 75 + length($crlf);
+            pos($string) = $pos;
         }
     }
 

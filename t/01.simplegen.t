@@ -39,8 +39,7 @@ ok($s->add_entry($todo));
 is(scalar @{ $s->entries},1);
 
 
-
-is_string($s->as_string, <<END_VCAL, "Got the right output");
+is_string($s->as_string(crlf => "\n"), <<END_VCAL, "Got the right output");
 BEGIN:VCALENDAR
 PRODID:Data::ICal $Data::ICal::VERSION
 VERSION:2.0
@@ -55,7 +54,7 @@ END_VCAL
 
 $todo->add_property( suMMaRy => "This one trumps number two, even though weird capitalization!");
 
-is_string($s->as_string, <<END_VCAL, "add_property is case insensitive");
+is_string($s->as_string(crlf => "\n"), <<END_VCAL, "add_property is case insensitive");
 BEGIN:VCALENDAR
 PRODID:Data::ICal $Data::ICal::VERSION
 VERSION:2.0
@@ -86,7 +85,7 @@ $event->add_properties(
 ok($s->add_entry($event));
 is(scalar @{ $s->entries},2);
 
-is_string($s->as_string, <<END_VCAL, "got the right output");
+is_string($s->as_string(crlf => "\n"), <<END_VCAL, "got the right output");
 BEGIN:VCALENDAR
 PRODID:Data::ICal $Data::ICal::VERSION
 VERSION:2.0

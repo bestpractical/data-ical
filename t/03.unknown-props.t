@@ -22,7 +22,7 @@ warning_is { $todo->add_property( summmmary => 'Summmm it up.' ) }
     {carped => "Unknown property for Data::ICal::Entry::Todo: summmmary"}, 
     "Got a warning for fake property set";
 
-is_string($todo->as_string, <<END_VCAL, "Got the right output");
+is_string($todo->as_string( crlf => "\n"), <<END_VCAL, "Got the right output");
 BEGIN:VTODO
 SUMMARY:Sum it up.
 SUMMMMARY:Summmm it up.

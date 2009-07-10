@@ -16,7 +16,7 @@ $todo->add_property( summary => [ 'Sum it up.', { language => 'bla"bla'} ] );
 
 my $str;
 
-warning_like { $str = $todo->as_string }
+warning_like { $str = $todo->as_string( crlf => "\n") }
     {carped => qr(Invalid parameter value)}, 
     "Got a warning for fake property set";
 

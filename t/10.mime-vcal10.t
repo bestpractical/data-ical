@@ -60,7 +60,7 @@ $cal->add_entry($todo);
 $todo->add_property(description => $decoded_desc);
 
 $cal->entries->[0]->property('description')->[0]->encode('QUotED-PRintabLE');
-is($cal->as_string, $encoded_vcal_out);
+is($cal->as_string( crlf => "\n"), $encoded_vcal_out);
 
 
 __END__

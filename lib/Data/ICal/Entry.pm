@@ -6,6 +6,8 @@ use base qw/Class::Accessor/;
 use Data::ICal::Property;
 use Carp;
 
+use constant CRLF => "\x0d\x0a";
+
 =head1 NAME
 
 Data::ICal::Entry - Represents an entry in an iCalendar file
@@ -56,22 +58,31 @@ sub new {
     return $self;
 }
 
-=head2 as_string
+=head2 as_string [ crlf => C<CRLF> ]
 
-Returns the entry as an appropriately formatted string (with trailing newline).
+Returns the entry as an appropriately formatted string (with trailing
+newline).
 
-Properties are returned in alphabetical order, with multiple properties of the same name
-returned in the order added.  (Property order is unimportant
-in iCalendar, and this makes testing easier.)
+Properties are returned in alphabetical order, with multiple
+properties of the same name returned in the order added.  (Property
+order is unimportant in iCalendar, and this makes testing easier.)
 
 If any mandatory property is missing, issues a warning.
+
+The string to use as a newline can optionally be specified by giving
+the a C<crlf> argument, which defaults to C<\x0d\x0a>, per RFC 2445
+spec; this option is primarily for backwards compatability with
+versions of this module before 0.16.
 
 =cut
 
 sub as_string {
     my $self = shift;
-    my %args = (@_);
-    my $output = $self->header;
+    my %args = (
+        crlf => CRLF,
+        @_
+    );
+    my $output = $self->header(%args);
 
     for my $name (
         $self->mandatory_unique_properties,
@@ -91,7 +102,7 @@ sub as_string {
     for my $entry ( @{ $self->entries } ) {
         $output .= $entry->as_string(%args);
     }
-    $output .= $self->footer;
+    $output .= $self->footer(%args);
 
     return $output;
 }
@@ -192,7 +203,7 @@ sub add_property {
     my ( $prop_value, $param_hash ) = @$val;
 
     my $p = Data::ICal::Property->new( $prop => $prop_value, $param_hash );
-    $p->vcal10( $self-> vcal10 );
+    $p->vcal10( $self->vcal10 );
     
     push @{ $self->properties->{$prop} }, $p;
 }
@@ -364,7 +375,11 @@ Returns the header line for the entry (including trailing newline).
 
 sub header {
     my $self = shift;
-    return 'BEGIN:' . $self->ical_entry_type . "\n";
+    my %args = (
+        crlf => CRLF,
+        @_
+    );
+    return 'BEGIN:' . $self->ical_entry_type . $args{crlf};
 }
 
 =head2 footer
@@ -375,7 +390,11 @@ Returns the footer line for the entry (including trailing newline).
 
 sub footer {
     my $self = shift;
-    return 'END:' . $self->ical_entry_type . "\n";
+    my %args = (
+        crlf => CRLF,
+        @_
+    );
+    return 'END:' . $self->ical_entry_type . $args{crlf};
 }
 
 # mapping of event types to class (under the Data::Ical::Event namespace)
