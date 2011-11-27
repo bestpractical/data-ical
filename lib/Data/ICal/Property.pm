@@ -161,6 +161,7 @@ sub encode {
         $self->value( $ENCODINGS{$encoding}{'encode'}->($decoded_value) );
         $self->parameters->{'ENCODING'} = $encoding;
     }
+    return $self;
 }
 
 =head2 as_string ARGS
@@ -204,9 +205,9 @@ sub as_string {
   # lines
     if ( $args{'fold'} ) {
         return $self->_fold( $string, $args{crlf} );
-    } else {
-        return $string;
     }
+
+    return $string;
 }
 
 =begin private
@@ -236,7 +237,6 @@ sub _value_as_string {
     }
 
     return $value;
-
 }
 
 =begin private

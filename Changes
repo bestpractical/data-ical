@@ -1,5 +1,9 @@
 Revision history for Data-ICal
 
+0.17
+    * Allow chaining of methods (H.Merijn Brand)
+    * Allow properties and entries in constructor (H.Merijn Brand)
+
 0.16
     * Use \r\n as the newline character, per RFC 3445
     * Escaping of \ was being done incorrectly, and tested incorrectly

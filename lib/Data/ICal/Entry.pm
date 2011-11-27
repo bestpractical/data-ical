@@ -15,13 +15,18 @@ Data::ICal::Entry - Represents an entry in an iCalendar file
 =head1 SYNOPSIS
 
     my $vtodo = Data::ICal::Entry::Todo->new();
-    $vtodo->add_properties(
+    $vtodo->add_property(
     # ... see Data::ICal::Entry::Todo documentation
     );
+    $vtodo->add_properties( ... );
 
     $calendar->add_entry($vtodo);
 
     $event->add_entry($alarm); 
+    $event->add_entries($alarm1, ...); 
+
+    # or all in one go
+    my $vtodo = Data::ICal::Entry::Todo->new( \%props, \@entries );
 
 =head1 DESCRIPTION
 
@@ -52,9 +57,14 @@ Creates a new entry object with no properties or sub-entries.
 
 sub new {
     my $class = shift;
-    my $self  = $class->SUPER::new;
+    my $self  = $class->SUPER::new();
+    # ALLOW passing arguments here!
     $self->set( properties => {} );
     $self->set( entries    => [] );
+    for (@_) {
+	ref $_ eq "HASH"  and $self->add_properties( %$_ );
+	ref $_ eq "ARRAY" and $self->add_entries( @$_ );
+    }
     return $self;
 }
 
@@ -127,7 +137,20 @@ sub add_entry {
 
     $entry->vcal10( $self->vcal10 );
 
-    return 1;
+    return $self;
+}
+
+=head2 add_entries $entry1, [$entry2, ...]
+
+Convenience function to call C<add_entry> several times with a list
+of entries.
+
+=cut
+
+sub add_entries {
+    my $self  = shift;
+    $self->add_entry( $_ ) for @_;
+    return $self;
 }
 
 =head2 entries
@@ -210,6 +233,7 @@ sub add_property {
     $p->vcal10( $self->vcal10 );
 
     push @{ $self->properties->{$prop} }, $p;
+    return $self;
 }
 
 =head2 add_properties $propname1 => $propval1, [$propname2 => $propname2, ...]
@@ -240,6 +264,7 @@ sub add_properties {
         my $val  = shift;
         $self->add_property( $prop => $val );
     }
+    return $self;
 }
 
 =head2 mandatory_unique_properties 
@@ -461,6 +486,7 @@ sub parse_object {
         $new_self->parse_object($sub_object);
     }
 
+    return $self;
 }
 
 # special because we want to use ourselves as the parent
@@ -496,7 +522,6 @@ sub _parse_valarm {
     $parent->_parse_generic_event( $alarm, $object );
     $parent->add_entry($alarm);
     return $alarm;
-
 }
 
 # generic event handler
