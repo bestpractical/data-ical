@@ -81,7 +81,7 @@ If any mandatory property is missing, issues a warning.
 
 The string to use as a newline can optionally be specified by giving
 the a C<crlf> argument, which defaults to C<\x0d\x0a>, per RFC 2445
-spec; this option is primarily for backwards compatability with
+spec; this option is primarily for backwards compatibility with
 versions of this module before 0.16.
 
 =cut

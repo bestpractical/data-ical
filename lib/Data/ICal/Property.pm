@@ -181,7 +181,7 @@ non-rfc-compliant calendars.
 =item crlf
 
 Defaults to C<\x0d\x0a>, per RFC 2445 spec.  This option is primarily
-for backwards compatability with version of this module prior to 0.16,
+for backwards compatibility with version of this module prior to 0.16,
 which used C<\x0a>.
 
 =back
