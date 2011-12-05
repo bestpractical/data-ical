@@ -1,5 +1,8 @@
 Revision history for Data-ICal
 
+0.18
+    * Spelling fixes from Debian (Salvatore Bonaccorso)
+
 0.17
     * Allow chaining of methods (H.Merijn Brand)
     * Allow properties and entries in constructor (H.Merijn Brand)
