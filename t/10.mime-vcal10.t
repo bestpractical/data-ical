@@ -9,8 +9,8 @@ use Test::NoWarnings;
 
 my $encoded_vcal_in = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 VERSION:1.0
+PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah=
 !!=3D =63bla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
@@ -20,8 +20,8 @@ END_VCAL
 
 my $encoded_vcal_out = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 VERSION:1.0
+PRODID:Data::ICal @{[$Data::ICal::VERSION]}
 BEGIN:VTODO
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:interesting things         =0D=0AYeah!!=3D cbla=0D=0A=0D=0A=0D=0AGo team syncml!=0D=0A=0D=0A=0D=0A
 END:VTODO

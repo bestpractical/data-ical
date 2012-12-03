@@ -22,8 +22,8 @@ $s->add_entry($todo);
 
 my $expect = <<END_VCAL;
 BEGIN:VCALENDAR
-PRODID:Data::ICal $Data::ICal::VERSION
 VERSION:2.0
+PRODID:Data::ICal $Data::ICal::VERSION
 BEGIN:VTODO
 COMMENT:a first comment
 COMMENT:a second comment

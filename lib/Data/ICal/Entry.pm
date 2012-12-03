@@ -104,7 +104,16 @@ sub as_string {
                 and @{ $self->properties->{$name} };
     }
 
-    for my $name ( sort keys %{ $self->properties } ) {
+    my @properties = sort {
+        # RFC2445 implies an order (see 4.6 Calendar Components) but does not
+        # require it.  However, some applications break if VERSION is not first
+        # (see http://icalvalid.cloudapp.net/Default.aspx and [rt.cpan.org # #65447]).
+        return -1 if $a eq 'version';
+        return  1 if $b eq 'version';
+        return $a cmp $b;
+    } keys %{ $self->properties };
+
+    for my $name (@properties) {
         $output .= $_
             for map { $_->as_string(%args) } @{ $self->properties->{$name} };
     }
