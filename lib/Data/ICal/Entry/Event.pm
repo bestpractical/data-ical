@@ -56,17 +56,34 @@ In addition, C<dtend> and C<duration> may be specified at most once
 each, but not both in the same entry (though this restriction is not
 enforced).
 
+Or if C<< vcal10 => 1 >>:
+
+        class dcreated completed description dtstart dtend
+        last-modified location rnum priority
+        sequence status summary transp
+        url uid
+
 =cut
 
 sub optional_unique_properties {
-    qw(
-        class  created  description  dtstart  geo
-        last-modified  location  organizer  priority
-        dtstamp  sequence  status  summary  transp
-        uid  url  recurrence-id
+    my $self = shift;
+    if (!defined $self->vcal10 || !$self->vcal10) {
+        qw(
+            class  created  description  dtstart  geo
+            last-modified  location  organizer  priority
+            dtstamp  sequence  status  summary  transp
+            uid  url  recurrence-id
 
-        dtend duration
-    );
+            dtend duration
+        );
+    } else {
+        qw(
+            class dcreated completed description dtstart dtend
+            last-modified location rnum priority
+            sequence status summary transp
+            url uid
+        );
+    }
 }
 
 =head2 optional_repeatable_properties
@@ -78,14 +95,29 @@ specified any number of times for an event:
 	contact  exdate  exrule  request-status  related-to 
 	resources  rdate  rrule  
 
+Or if C<< vcal10 => 1 >>:
+
+        aalarm  attach  attendee  categories
+        dalarm  exdate  exrule  malarm  palarm  related-to
+        resources  rdate  rrule
+
 =cut
 
 sub optional_repeatable_properties {
-    qw(
-        attach  attendee  categories  comment
-        contact  exdate  exrule  request-status  related-to
-        resources  rdate  rrule
-    );
+    my $self = shift;
+    if (!defined $self->vcal10 || !$self->vcal10) {
+        qw(
+            attach  attendee  categories  comment
+            contact  exdate  exrule  request-status  related-to
+            resources  rdate  rrule
+        );
+    } else {
+        qw(
+            aalarm  attach  attendee  categories
+            dalarm  exdate  exrule  malarm  palarm  related-to
+            resources  rdate  rrule
+        );
+    }
 }
 
 =head1 SEE ALSO
