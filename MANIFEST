@@ -43,8 +43,10 @@ t/08.parse.t
 t/09.mime.t
 t/10.mime-vcal10.t
 t/11.crlf.t
+t/12.verson1.t
 t/ics/badlyformed.ics
 t/ics/noversion.ics
 t/ics/test.ics
+t/ics/version1.ics
 t/pod-coverage.t
 t/pod.t
