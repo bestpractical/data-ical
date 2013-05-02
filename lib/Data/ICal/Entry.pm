@@ -543,6 +543,7 @@ sub _parse_data_ical_generic {
 
     $entry_class->import;
     my $entry = $entry_class->new;
+    $entry->vcal10($parent->vcal10);
     $parent->_parse_generic_event( $entry, $object );
     $parent->add_entry($entry);
     return $entry;
