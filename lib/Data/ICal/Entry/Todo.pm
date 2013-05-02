@@ -67,7 +67,7 @@ Or if C<< vcal10 => 1 >>:
 
 sub optional_unique_properties {
     my $self = shift;
-    if (!defined $self->vcal10 || !$self->vcal10) {
+    if (not $self->vcal10) {
         qw(
             class  completed  created  description  dtstamp
             dtstart  geo  last-modified  location  organizer
@@ -105,7 +105,7 @@ Or if C<< vcal10 => 1 >>:
 
 sub optional_repeatable_properties {
     my $self = shift;
-    if (!defined $self->vcal10 || !$self->vcal10) {
+    if (not $self->vcal10) {
         qw(
             attach  attendee  categories  comment  contact
             exdate  exrule  request-status  related-to  resources
