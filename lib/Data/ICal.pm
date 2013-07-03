@@ -7,7 +7,7 @@ use base qw/Data::ICal::Entry/;
 use Class::ReturnValue;
 use Text::vFile::asData;
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 use Carp;
 
