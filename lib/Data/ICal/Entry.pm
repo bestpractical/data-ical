@@ -554,8 +554,8 @@ sub _parse_generic_event {
     my ( $parent, $entry, $object ) = @_;
 
     my $p = $object->{properties};
-    while ( my ( $key, $val ) = each(%$p) ) {
-        foreach my $occurence (@$val) {
+    for my $key ( sort keys %$p ) {
+        foreach my $occurence (@{ $p->{$key} }) {
             my $prop;
 
             # Unescapes, but only in v2, and not if it's explicitly not TEXT

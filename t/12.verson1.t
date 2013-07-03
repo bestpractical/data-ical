@@ -13,8 +13,8 @@ BEGIN { use_ok('Data::ICal') }
 my $cal;
 
 warnings_are { $cal = Data::ICal->new(filename => 't/ics/version1.ics') }
-    [ {carped => "Unknown property for Data::ICal::Entry::Event: malarm"},
-    {carped => "Unknown property for Data::ICal::Entry::Event: dcreated"} ],
+    [ {carped => "Unknown property for Data::ICal::Entry::Event: dcreated"},
+    {carped => "Unknown property for Data::ICal::Entry::Event: malarm"} ],
     "Got a warning for fake property set";
 ok((not $cal), "rejected calendar with version property value 1.0");
 
