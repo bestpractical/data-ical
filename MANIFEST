@@ -1,3 +1,4 @@
+.shipit
 Changes
 doc/rfc2445.txt
 examples/ical2html.pl
@@ -14,10 +15,13 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Data/ICal.pm
 lib/Data/ICal/Entry.pm
+lib/Data/ICal/Entry/Alarm.pm
 lib/Data/ICal/Entry/Alarm/Audio.pm
 lib/Data/ICal/Entry/Alarm/Display.pm
 lib/Data/ICal/Entry/Alarm/Email.pm
+lib/Data/ICal/Entry/Alarm/None.pm
 lib/Data/ICal/Entry/Alarm/Procedure.pm
+lib/Data/ICal/Entry/Alarm/URI.pm
 lib/Data/ICal/Entry/Event.pm
 lib/Data/ICal/Entry/FreeBusy.pm
 lib/Data/ICal/Entry/Journal.pm
