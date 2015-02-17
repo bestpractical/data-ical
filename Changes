@@ -1,5 +1,13 @@
 Revision history for Data-ICal
 
+0.22 2015-02-17
+ - Add URI and NONE alarm types, for compatibility with Apple iCal
+ - Add support for the common X-WR-CalName property
+ - Optionally enforce UID attribute
+ - Optionally auto-generate UID
+ - Run with taint mode enabled
+ - Packaging updates
+
 0.21 2013-07-03
  - Examine properties in consistent order, so tests pass on 5.18 and above
 
