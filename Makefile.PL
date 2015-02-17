@@ -1,7 +1,7 @@
 use inc::Module::Install;
 
 name ('Data-ICal');
-author ('Jesse Vincent <jesse@bestpractical.com>');
+author_from  ('lib/Data/ICal.pm');
 version_from ('lib/Data/ICal.pm');
 abstract_from('lib/Data/ICal.pm');
 license('perl');
