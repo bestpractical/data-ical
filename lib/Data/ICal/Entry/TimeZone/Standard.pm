@@ -70,7 +70,7 @@ sub ical_entry_type {'STANDARD'}
 According to the iCalendar standard, the following properties must be
 specified exactly one time in a standard time declaration:
 
-	dtstart  tzoffsetto  tzoffsetfrom
+        dtstart  tzoffsetto  tzoffsetfrom
 
 =cut
 
@@ -87,7 +87,7 @@ sub mandatory_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified any number of times for a standard time declaration:
 
-	comment  rdate  rrule  tzname 
+        comment  rdate  rrule  tzname
 
 =cut
 

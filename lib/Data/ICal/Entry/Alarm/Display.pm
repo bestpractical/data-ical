@@ -14,7 +14,7 @@ Data::ICal::Entry::Alarm::Display - Represents a displayed alarm in an iCalendar
     my $valarm = Data::ICal::Entry::Alarm::Display->new();
     $valarm->add_properties(
         description => "Wake up!",
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         trigger   => [ Date::ICal->new( epoch => ... )->ical, { value => 'DATE-TIME' } ],
     );
 

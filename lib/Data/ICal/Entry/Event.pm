@@ -15,13 +15,13 @@ Data::ICal::Entry::Event - Represents an event in an iCalendar file
     $vevent->add_properties(
         summary => "my party",
         description => "I'll cry if I want to",
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         dtstart   => Date::ICal->new( epoch => time )->ical,
     );
 
     $calendar->add_entry($vevent);
 
-    $vevent->add_entry($alarm); 
+    $vevent->add_entry($alarm);
 
 =head1 DESCRIPTION
 
@@ -59,10 +59,10 @@ sub mandatory_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified at most one time for an event:
 
-	class  created  description  dtstart  geo 
-	last-modified  location  organizer  priority 
-	dtstamp  sequence  status  summary  transp 
-	uid  url  recurrence-id 
+        class  created  description  dtstart  geo
+        last-modified  location  organizer  priority
+        dtstamp  sequence  status  summary  transp
+        uid  url  recurrence-id
 
 In addition, C<dtend> and C<duration> may be specified at most once
 each, but not both in the same entry (though this restriction is not
@@ -105,9 +105,9 @@ sub optional_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified any number of times for an event:
 
-	attach  attendee  categories  comment 
-	contact  exdate  exrule  request-status  related-to 
-	resources  rdate  rrule  
+        attach  attendee  categories  comment
+        contact  exdate  exrule  request-status  related-to
+        resources  rdate  rrule
 
 Or if C<< vcal10 => 1 >>:
 

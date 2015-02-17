@@ -14,7 +14,7 @@ Data::ICal::Entry::FreeBusy - Represents blocks of free and busy time in an iCal
     my $vfreebusy = Data::ICal::Entry::FreeBusy->new();
     $vfreebusy->add_properties(
         organizer => 'MAILTO:jsmith@host.com',
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         freebusy   => Date::ICal->new( epoch => ... )->ical . '/' . Date::ICal->new( epoch => ... )->ical,
     );
 
@@ -57,8 +57,8 @@ sub mandatory_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified at most one time for a free/busy entry:
 
-	contact  dtstart  dtend  duration  dtstamp 
-	organizer  uid  url 
+        contact  dtstart  dtend  duration  dtstamp
+        organizer  uid  url
 
 =cut
 

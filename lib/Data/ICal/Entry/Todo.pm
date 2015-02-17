@@ -15,13 +15,13 @@ Data::ICal::Entry::Todo - Represents a to-do entry in an iCalendar file
     $vtodo->add_properties(
         summary   => "go to sleep",
         status    => 'INCOMPLETE',
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         dtstart   => Date::ICal->new( epoch => time )->ical,
     );
 
     $calendar->add_entry($vtodo);
 
-    $vtodo->add_entry($alarm); 
+    $vtodo->add_entry($alarm);
 
 =head1 DESCRIPTION
 
@@ -107,7 +107,7 @@ specified any number of times for a to-do item:
 
       attach  attendee  categories  comment  contact
       exdate  exrule  request-status  related-to  resources
-      rdate  rrule  
+      rdate  rrule
 
 Or if C<< vcal10 => 1 >>:
 

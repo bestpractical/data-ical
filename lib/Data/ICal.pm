@@ -54,7 +54,7 @@ methods applicable to L<Data::ICal>.
 
 =head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ], [ rfc_strict => $bool ], [ auto_uid => $bool ]
 
-Creates a new L<Data::ICal> object. 
+Creates a new L<Data::ICal> object.
 
 If it is given a filename or data argument is passed, then this parses the
 content of the file or string into the object.  If the C<vcal10> flag is passed,
@@ -83,7 +83,7 @@ C<vcal10> flag is passed) and the value of the C<product_id> method
 respectively.
 
 Returns a false value upon failure to open or parse the file or data; this false
-value is a L<Class::ReturnValue> object and can be queried as to its 
+value is a L<Class::ReturnValue> object and can be queried as to its
 C<error_message>.
 
 =cut

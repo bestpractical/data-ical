@@ -14,7 +14,7 @@ Data::ICal::Entry::Alarm::Email - Represents an emailed alarm in an iCalendar fi
     my $valarm = Data::ICal::Entry::Alarm::Audio->new();
     $valarm->add_properties(
         attach => [ "basic:ftp://host.com/pub/sounds/bell-01.aud", { fmttype => "audio/basic" } ],
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         trigger   => [ Date::ICal->new( epoch => ... )->ical, { value => 'DATE-TIME' } ],
     );
 

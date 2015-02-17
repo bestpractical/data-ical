@@ -14,7 +14,7 @@ Data::ICal::Entry::TimeZone - Represents a time zone definition in an iCalendar 
     my $vtimezone = Data::ICal::Entry::TimeZone->new();
     $vtimezone->add_properties(
         tzid => "US-Eastern",
-	tzurl => "http://zones.stds_r_us.net/tz/US-Eastern"
+        tzurl => "http://zones.stds_r_us.net/tz/US-Eastern"
     );
 
     $vtimezone->add_entry($daylight); # daylight/ standard not yet implemented
@@ -50,7 +50,7 @@ sub ical_entry_type {'VTIMEZONE'}
 According to the iCalendar standard, the following properties may be
 specified at most one time for a time zone declaration:
 
-	last-modified tzurl
+        last-modified tzurl
 
 =cut
 

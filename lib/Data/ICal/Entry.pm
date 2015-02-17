@@ -23,8 +23,8 @@ Data::ICal::Entry - Represents an entry in an iCalendar file
 
     $calendar->add_entry($vtodo);
 
-    $event->add_entry($alarm); 
-    $event->add_entries($alarm1, ...); 
+    $event->add_entry($alarm);
+    $event->add_entries($alarm1, ...);
 
     # or all in one go
     my $vtodo = Data::ICal::Entry::Todo->new( \%props, \@entries );
@@ -63,8 +63,8 @@ sub new {
     $self->set( properties => {} );
     $self->set( entries    => [] );
     for (@_) {
-	ref $_ eq "HASH"  and $self->add_properties( %$_ );
-	ref $_ eq "ARRAY" and $self->add_entries( @$_ );
+        ref $_ eq "HASH"  and $self->add_properties( %$_ );
+        ref $_ eq "ARRAY" and $self->add_entries( @$_ );
     }
     return $self;
 }
@@ -291,7 +291,7 @@ sub add_properties {
     return $self;
 }
 
-=head2 mandatory_unique_properties 
+=head2 mandatory_unique_properties
 
 Subclasses should override this method (which returns an empty list by
 default) to provide a list of lower case strings identifying the
@@ -302,7 +302,7 @@ type.
 
 sub mandatory_unique_properties { () }
 
-=head2 mandatory_repeatable_properties 
+=head2 mandatory_repeatable_properties
 
 Subclasses should override this method (which returns an empty list by
 default) to provide a list of lower case strings identifying the
@@ -313,7 +313,7 @@ type.
 
 sub mandatory_repeatable_properties { () }
 
-=head2 optional_unique_properties 
+=head2 optional_unique_properties
 
 Subclasses should override this method (which returns an empty list by
 default) to provide a list of lower case strings identifying the
@@ -503,7 +503,7 @@ my %_generic = (
 Translate a L<Text::vFile::asData> sub object into the appropriate
 L<Data::iCal::Event> subtype.
 
-=cut 
+=cut
 
 # TODO: this is currently recursive which could blow the stack -
 #       it might be worth refactoring to make it sequential

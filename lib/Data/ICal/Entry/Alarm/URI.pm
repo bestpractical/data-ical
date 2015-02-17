@@ -14,7 +14,7 @@ Data::ICal::Entry::Alarm::URI - Represents notification via a custom URI
     my $valarm = Data::ICal::Entry::Alarm::URI->new();
     $valarm->add_properties(
         uri => "sms:+15105550101?body=hello%20there",
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         trigger   => [ Date::ICal->new( epoch => ... )->ical, { value => 'DATE-TIME' } ],
     );
 

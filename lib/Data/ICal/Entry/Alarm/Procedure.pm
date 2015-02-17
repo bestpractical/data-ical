@@ -14,7 +14,7 @@ Data::ICal::Entry::Alarm::Procedure - Represents a procedure-call alarm in an iC
     my $valarm = Data::ICal::Entry::Alarm::Procedure->new();
     $valarm->add_properties(
         attach => [ "ftp://host.com/novo-procs/felizano.exe", { fmttype => "application/binary" } ],
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         trigger   => [ Date::ICal->new( epoch => ... )->ical, { value => 'DATE-TIME' } ],
     );
 

@@ -15,7 +15,7 @@ Data::ICal::Entry::Journal - Represents a journal entry in an iCalendar file
     $vjournal->add_properties(
         summary => "Minutes of my party",
         description => "I cried because I wanted to.",
-	# Dat*e*::ICal is not a typo here
+        # Dat*e*::ICal is not a typo here
         dtstart   => Date::ICal->new( epoch => time )->ical,
     );
 
@@ -57,9 +57,9 @@ sub mandatory_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified at most one time for a journal entry:
 
-    class  created  description  dtstart  dtstamp 
-    last-modified  organizer  recurrence-id  sequence  status 
-    summary  uid  url 
+    class  created  description  dtstart  dtstamp
+    last-modified  organizer  recurrence-id  sequence  status
+    summary  uid  url
 
 =cut
 
@@ -79,9 +79,9 @@ sub optional_unique_properties {
 According to the iCalendar standard, the following properties may be
 specified any number of times for a journal entry:
 
-	attach  attendee  categories  comment 
-	contact  exdate  exrule  related-to  rdate 
-	rrule  request-status  
+        attach  attendee  categories  comment
+        contact  exdate  exrule  related-to  rdate
+        rrule  request-status
 
 =cut
 
