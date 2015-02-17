@@ -3,7 +3,7 @@ use strict;
 
 package Data::ICal::Entry::Alarm::Email;
 
-use base qw/Data::ICal::Entry/;
+use base qw/Data::ICal::Entry::Alarm/;
 
 =head1 NAME
 
@@ -25,7 +25,7 @@ Data::ICal::Entry::Alarm::Email - Represents an emailed alarm in an iCalendar fi
 A L<Data::ICal::Entry::Alarm::Email> object represents an emailed
 alarm attached to a todo item or event in an iCalendar file.  (Note
 that the iCalendar RFC refers to entries as "components".)  It is a
-subclass of L<Data::ICal::Entry> and accepts all of its methods.
+subclass of L<Data::ICal::Entry::Alarm> and accepts all of its methods.
 
 The C<attendee> properties are intended as the recipient list of the
 email; the C<summary> as its subject; the C<description> as its body;
@@ -49,44 +49,18 @@ sub new {
     return $self;
 }
 
-=head2 ical_entry_type
-
-Returns C<VALARM>, its iCalendar entry name.
-
-=cut
-
-sub ical_entry_type {'VALARM'}
-
-=head2 optional_unique_properties
-
-According to the iCalendar standard, the C<duration> and C<retreat>
-properties may be specified at most one time for an emailed alarm, and
-if one is specified, the other one must be also, though this module
-does not enforce that restriction.
-
-=cut
-
-sub optional_unique_properties {
-    qw(
-        duration repeat
-    );
-}
-
 =head2 mandatory_unique_properties
 
-According to the iCalendar standard, the following properties must be
-specified exactly once for an emailed alarm:
-
-  description summary trigger
-
-In addition, the C<action> property must be specified exactly once,
-but the module automatically sets it for you.
+In addition to C<action> and C<trigger> (see
+L<Data::ICal::Entry::Alarm/mandatory_unique_properties>), emailed alarms
+must also specify a value for C<description> and C<summary>.
 
 =cut
 
 sub mandatory_unique_properties {
-    qw(
-        action description summary trigger
+    return (
+        shift->SUPER::mandatory_unique_properties,
+        "description", "summary",
     );
 }
 

@@ -285,8 +285,6 @@ calendars only).
 The only property encoding supported by L<Data::ICal> is quoted
 printable.
 
-There is no L<Data::ICal::Entry::Alarm> base class.
-
 Please report any bugs or feature requests to
 C<bug-data-ical@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.

@@ -3,7 +3,7 @@ use strict;
 
 package Data::ICal::Entry::Alarm::Display;
 
-use base qw/Data::ICal::Entry/;
+use base qw/Data::ICal::Entry::Alarm/;
 
 =head1 NAME
 
@@ -25,8 +25,8 @@ Data::ICal::Entry::Alarm::Display - Represents a displayed alarm in an iCalendar
 A L<Data::ICal::Entry::Alarm::Display> object represents a alarm that
 displays a message which is attached to a todo item or event in an
 iCalendar file.  (Note that the iCalendar RFC refers to entries as
-"components".)  It is a subclass of L<Data::ICal::Entry> and accepts
-all of its methods.
+"components".)  It is a subclass of L<Data::ICal::Entry::Alarm> and
+accepts all of its methods.
 
 =head1 METHODS
 
@@ -46,41 +46,18 @@ sub new {
     return $self;
 }
 
-=head2 ical_entry_type
-
-Returns C<VALARM>, its iCalendar entry name.
-
-=cut
-
-sub ical_entry_type {'VALARM'}
-
-=head2 optional_unique_properties
-
-According to the iCalendar standard, the C<duration> and C<retreat>
-properties may be specified at most one time for an displayed alarm,
-and if one is specified, the other one must be also, though this
-module does not enforce that restriction.
-
-=cut
-
-sub optional_unique_properties {
-    qw(
-        duration repeat
-    );
-}
-
 =head2 mandatory_unique_properties
 
-According to the iCalendar standard, the C<trigger> and C<description>
-properties must be specified exactly once for an displayed alarm.  (In
-addition, the C<action> property must be specified exactly once, but
-the module automatically sets it for you.)
+In addition to C<action> and C<trigger> (see
+L<Data::ICal::Entry::Alarm/mandatory_unique_properties>), displayed
+alarms must also specify a value for C<description>.
 
 =cut
 
 sub mandatory_unique_properties {
-    qw(
-        action trigger description
+    return (
+        shift->SUPER::mandatory_unique_properties,
+        "description",
     );
 }
 

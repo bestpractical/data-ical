@@ -3,7 +3,7 @@ use strict;
 
 package Data::ICal::Entry::Alarm::Audio;
 
-use base qw/Data::ICal::Entry/;
+use base qw/Data::ICal::Entry::Alarm/;
 
 =head1 NAME
 
@@ -25,7 +25,7 @@ Data::ICal::Entry::Alarm::Audio - Represents an audio alarm in an iCalendar file
 A L<Data::ICal::Entry::Alarm::Audio> object represents an audio alarm
 attached to a todo item or event in an iCalendar file.  (Note that the
 iCalendar RFC refers to entries as "components".)  It is a subclass of
-L<Data::ICal::Entry> and accepts all of its methods.
+L<Data::ICal::Entry::Alarm> and accepts all of its methods.
 
 =head1 METHODS
 
@@ -45,45 +45,18 @@ sub new {
     return $self;
 }
 
-=head2 ical_entry_type
-
-Returns C<VALARM>, its iCalendar entry name.
-
-=cut
-
-sub ical_entry_type {'VALARM'}
-
 =head2 optional_unique_properties
 
-According to the iCalendar standard, the following properties may be
-specified at most one time for an audio alarm:
-
-	duration repeat attach
-
-Note that if one of C<duration> or C<repeat> is specified, the other
-one must be also, though this module does not enforce that
-restriction.
+In addition to C<duration> and C<repeat> (see
+L<Data::ICal::Entry::Alarm/optional_unique_properties>), audio alarms
+may specify a value for C<attach>.
 
 =cut
 
 sub optional_unique_properties {
-    qw(
-        duration repeat attach
-    );
-}
-
-=head2 mandatory_unique_properties
-
-According to the iCalendar standard, the C<trigger> property must be
-specified exactly once for an audio alarm.  (In addition, the
-C<action> property must be specified exactly once, but the module
-automatically sets it for you.)
-
-=cut
-
-sub mandatory_unique_properties {
-    qw(
-        action trigger
+    return (
+        shift->SUPER::optional_unique_properties,
+        "attach",
     );
 }
 
