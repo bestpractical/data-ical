@@ -52,7 +52,7 @@ methods applicable to L<Data::ICal>.
 
 =cut
 
-=head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ], [ rfc_strict => $bool ]
+=head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ], [ rfc_strict => $bool ], [ auto_uid => $bool ]
 
 Creates a new L<Data::ICal> object. 
 
@@ -71,6 +71,11 @@ include UIDs, as per RFC2445:
     4.8.4.7 Unique Identifier
     ... The property MUST be specified in the "VEVENT", "VTODO",
     "VJOURNAL" or "VFREEBUSY" calendar components"
+
+If the C<auto_uid> flag is set to true, will automatically generate a
+default UID for each type which requires it, based on the RFC-suggested
+algorithm.  Explicitly-set UID attributes will override this
+auto-generated value.
 
 If a filename or data argument is not passed, this just sets the
 object's C<VERSION> and C<PRODID> properties to "2.0" (or "1.0" if the
@@ -93,11 +98,13 @@ sub new {
         data       => undef,
         vcal10     => 0,
         rfc_strict => 0,
+        auto_uid   => 0,
         @_
     );
 
     $self->vcal10( $args{vcal10} );
     $self->rfc_strict( $args{rfc_strict} );
+    $self->auto_uid( $args{auto_uid} );
 
     if ( defined $args{filename} or defined $args{data} ) {
 

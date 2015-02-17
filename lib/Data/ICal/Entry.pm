@@ -4,6 +4,7 @@ use strict;
 package Data::ICal::Entry;
 use base qw/Class::Accessor/;
 use Data::ICal::Property;
+use Sys::Hostname qw();         # For unique UIDs for entries
 use Carp;
 
 use constant CRLF => "\x0d\x0a";
@@ -86,6 +87,7 @@ versions of this module before 0.16.
 
 =cut
 
+my $uid = 0;
 sub as_string {
     my $self = shift;
     my %args = (
@@ -94,11 +96,22 @@ sub as_string {
     );
     my $output = $self->header(%args);
 
-    for my $name (
+    my @mandatory = (
         $self->mandatory_unique_properties,
-        $self->mandatory_repeatable_properties
-        )
-    {
+        $self->mandatory_repeatable_properties,
+    );
+
+    if (grep {$_ eq "uid"} @mandatory and !defined $self->properties->{uid}
+            and $self->auto_uid) {
+      # Per the RFC, create a "persistent, globally unique" UID for this
+      # event; "persistent" in this context does not mean consistent
+      # across time, but rather "unique across all time"
+      $self->add_property(
+          uid => time() . '-' .$$ . '-' . $uid++ . '@' . Sys::Hostname::hostname()
+      );
+    }
+
+    for my $name ( @mandatory ) {
         carp "Mandatory property for " . ( ref $self ) . " missing: $name"
             unless $self->properties->{$name}
                 and @{ $self->properties->{$name} };
@@ -146,6 +159,7 @@ sub add_entry {
 
     $entry->vcal10( $self->vcal10 );
     $entry->rfc_strict( $self->rfc_strict );
+    $entry->auto_uid( $self->auto_uid );
 
     return $self;
 }
@@ -430,6 +444,18 @@ makes sure that sub-entries end up with the same value as their parents.
 =cut
 
 __PACKAGE__->mk_accessors('rfc_strict');
+
+=head2 auto_uid [$bool]
+
+Gets or sets a boolean saying whether this entry should automatically
+generate its own persistently unique UIDs.  Defaults to false.
+Generally, you can just set this on your main L<Data::ICal> object when
+you construct it; C<add_entry> automatically makes sure that sub-entries
+end up with the same value as their parents.
+
+=cut
+
+__PACKAGE__->mk_accessors('auto_uid');
 
 =head2 header
 
