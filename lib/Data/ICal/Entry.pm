@@ -145,6 +145,7 @@ sub add_entry {
     push @{ $self->{entries} }, $entry;
 
     $entry->vcal10( $self->vcal10 );
+    $entry->rfc_strict( $self->rfc_strict );
 
     return $self;
 }
@@ -417,6 +418,18 @@ same value as their parents.
 =cut
 
 __PACKAGE__->mk_accessors('vcal10');
+
+=head2 rfc_strict [$bool]
+
+Gets or sets a boolean saying whether this entry will complain about
+missing UIDs as per RFC2446. Defaults to false, for backwards
+compatibility.  Generally, you can just set this on your main
+L<Data::ICal> object when you construct it; C<add_entry> automatically
+makes sure that sub-entries end up with the same value as their parents.
+
+=cut
+
+__PACKAGE__->mk_accessors('rfc_strict');
 
 =head2 header
 

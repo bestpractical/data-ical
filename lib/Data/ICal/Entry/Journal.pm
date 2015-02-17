@@ -40,6 +40,18 @@ Returns C<VJOURNAL>, its iCalendar entry name.
 
 sub ical_entry_type {'VJOURNAL'}
 
+=head2 mandatory_unique_properties
+
+The C<uid> property is mandatory if C<rfc_strict> was passed to
+L<Data::ICal/new>.
+
+=cut
+
+sub mandatory_unique_properties {
+    my $self = shift;
+    return $self->rfc_strict ? ("uid") : ()
+}
+
 =head2 optional_unique_properties
 
 According to the iCalendar standard, the following properties may be
@@ -52,11 +64,14 @@ specified at most one time for a journal entry:
 =cut
 
 sub optional_unique_properties {
-    qw(
+    my $self = shift;
+    my @ret = qw(
         class  created  description  dtstart  dtstamp
         last-modified  organizer  recurrence-id  sequence  status
-        summary  uid  url
+        summary url
     );
+    push @ret, "uid" unless $self->rfc_strict;
+    return @ret;
 }
 
 =head2 optional_repeatable_properties

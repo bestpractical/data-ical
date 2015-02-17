@@ -42,6 +42,18 @@ Returns C<VTODO>, its iCalendar entry name.
 
 sub ical_entry_type {'VTODO'}
 
+=head2 mandatory_unique_properties
+
+The C<uid> property is mandatory if C<rfc_strict> was passed to
+L<Data::ICal/new>.
+
+=cut
+
+sub mandatory_unique_properties {
+    my $self = shift;
+    return $self->rfc_strict ? ("uid") : ()
+}
+
 =head2 optional_unique_properties
 
 According to the iCalendar standard, the following properties may be
@@ -67,8 +79,9 @@ Or if C<< vcal10 => 1 >>:
 
 sub optional_unique_properties {
     my $self = shift;
+    my @ret = $self->rfc_strict ? () : ("uid");
     if (not $self->vcal10) {
-        qw(
+        push @ret, qw(
             class  completed  created  description  dtstamp
             dtstart  geo  last-modified  location  organizer
             percent-complete  priority  recurrence-id  sequence  status
@@ -77,13 +90,14 @@ sub optional_unique_properties {
             due duration
         );
     } else {
-        qw(
+        push @ret, qw(
             class dcreated completed description dtstart due
             last-modified location rnum priority
             sequence status summary transp
             url uid
         );
     }
+    return @ret;
 }
 
 =head2 optional_repeatable_properties

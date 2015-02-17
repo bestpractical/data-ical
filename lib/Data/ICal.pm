@@ -52,7 +52,7 @@ methods applicable to L<Data::ICal>.
 
 =cut
 
-=head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ]
+=head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ], [ rfc_strict => $bool ]
 
 Creates a new L<Data::ICal> object. 
 
@@ -64,6 +64,13 @@ the parsing of continuation lines in quoted-printable sections.
 If a calname is passed, sets x-wr-calname to the given string.  Although
 not specified in RFC2445, most calendar software respects x-wr-calname
 as the displayed name of the calendar.
+
+If the C<rfc_strict> flag is set to true, will require Data::ICal to
+include UIDs, as per RFC2445:
+
+    4.8.4.7 Unique Identifier
+    ... The property MUST be specified in the "VEVENT", "VTODO",
+    "VJOURNAL" or "VFREEBUSY" calendar components"
 
 If a filename or data argument is not passed, this just sets the
 object's C<VERSION> and C<PRODID> properties to "2.0" (or "1.0" if the
@@ -81,14 +88,16 @@ sub new {
     my $self  = $class->SUPER::new(@_);
 
     my %args = (
-        filename => undef,
-        calname  => undef,
-        data     => undef,
-        vcal10   => 0,
+        filename   => undef,
+        calname    => undef,
+        data       => undef,
+        vcal10     => 0,
+        rfc_strict => 0,
         @_
     );
 
     $self->vcal10( $args{vcal10} );
+    $self->rfc_strict( $args{rfc_strict} );
 
     if ( defined $args{filename} or defined $args{data} ) {
 
