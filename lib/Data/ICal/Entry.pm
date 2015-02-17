@@ -511,6 +511,8 @@ my %_action_map = (
     DISPLAY   => 'Display',
     EMAIL     => 'Email',
     PROCEDURE => 'Procedure',
+    NONE      => 'None',
+    URI       => 'URI',
 );
 
 # alarms have actions
