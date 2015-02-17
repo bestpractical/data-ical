@@ -563,7 +563,8 @@ sub _parse_valarm {
     die "Can't parse VALARM with action $action"
         unless exists $_action_map{$action};
 
-    my $alarm_class = "Data::ICal::Entry::Alarm::" . $_action_map{$action};
+    $action = $_action_map{$action};
+    my $alarm_class = "Data::ICal::Entry::Alarm::$action";
     eval "require $alarm_class";
     die "Failed to require $alarm_class : $@" if $@;
 
