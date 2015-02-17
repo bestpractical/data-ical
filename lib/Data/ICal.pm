@@ -52,7 +52,7 @@ methods applicable to L<Data::ICal>.
 
 =cut
 
-=head2 new [ data => $data, ] [ filename => $file ], [ vcal10 => $bool ]
+=head2 new [ data => $data, ] [ filename => $file ], [ calname => $string ], [ vcal10 => $bool ]
 
 Creates a new L<Data::ICal> object. 
 
@@ -61,9 +61,14 @@ content of the file or string into the object.  If the C<vcal10> flag is passed,
 parses it according to vCalendar 1.0, not iCalendar 2.0; this in particular impacts
 the parsing of continuation lines in quoted-printable sections.
 
-If a filename or data argument is not passed, this just sets its C<VERSION> and
-C<PRODID> properties to "2.0" (or "1.0" if the C<vcal10> flag is passed) and
-the value of the C<product_id> method respectively.
+If a calname is passed, sets x-wr-calname to the given string.  Although
+not specified in RFC2445, most calendar software respects x-wr-calname
+as the displayed name of the calendar.
+
+If a filename or data argument is not passed, this just sets the
+object's C<VERSION> and C<PRODID> properties to "2.0" (or "1.0" if the
+C<vcal10> flag is passed) and the value of the C<product_id> method
+respectively.
 
 Returns a false value upon failure to open or parse the file or data; this false
 value is a L<Class::ReturnValue> object and can be queried as to its 
@@ -77,6 +82,7 @@ sub new {
 
     my %args = (
         filename => undef,
+        calname  => undef,
         data     => undef,
         vcal10   => 0,
         @_
@@ -93,6 +99,9 @@ sub new {
             version => ( $self->vcal10 ? '1.0' : '2.0' ),
             prodid => $self->product_id,
         );
+        $self->add_property('x-wr-calname' => $args{calname})
+            if defined $args{calname};
+
         return $self;
     }
 }
